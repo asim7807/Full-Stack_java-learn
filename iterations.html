@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iteration Statements in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #888; 
+      background-color: #746482; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link active" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link active" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+       <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+       <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+       <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Iteration Statements in Java</h1>
+
+      <h2>Introduction to Iteration Statements</h2>
+      <p>Iteration statements, or loops, in Java allow a block of code to be executed repeatedly based on a condition. They are used to iterate over data or perform repetitive tasks efficiently.</p>
+
+      <h2>Types of Iteration Statements</h2>
+      <p>Java supports the following iteration statements:</p>
+      <ul>
+        <li><code>for</code> – Iterates a fixed number of times, typically used when the number of iterations is known.</li>
+        <li><code>while</code> – Repeats as long as a condition is true, used when the number of iterations is unknown.</li>
+        <li><code>do-while</code> – Similar to <code>while</code>, but guarantees at least one execution.</li>
+        <li><code>for-each</code> – Iterates over arrays or collections, simplifying iteration over elements.</li>
+      </ul>
+
+      <h2>for Loop</h2>
+      <p>The <code>for</code> loop is used when the number of iterations is known. It includes initialization, condition, and update steps.</p>
+      <div class="abc">
+        public class ForLoopExample {<br>
+          public static void main(String[] args) {<br>
+            for (int i = 1; i <= 5; i++) {<br>
+              System.out.println("Count: " + i);<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Count: 1<br>
+        Count: 2<br>
+        Count: 3<br>
+        Count: 4<br>
+        Count: 5
+      </div>
+
+      <h2>while Loop</h2>
+      <p>The <code>while</code> loop executes as long as a condition is true, suitable when the number of iterations is not predetermined.</p>
+      <div class="abc">
+        public class WhileLoopExample {<br>
+          public static void main(String[] args) {<br>
+            int count = 1;<br>
+            while (count <= 5) {<br>
+              System.out.println("Count: " + count);<br>
+              count++;<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Count: 1<br>
+        Count: 2<br>
+        Count: 3<br>
+        Count: 4<br>
+        Count: 5
+      </div>
+
+      <h2>do-while Loop</h2>
+      <p>The <code>do-while</code> loop executes at least once, then continues as long as the condition is true.</p>
+      <div class="abc">
+        public class DoWhileLoopExample {<br>
+          public static void main(String[] args) {<br>
+            int count = 1;<br>
+            do {<br>
+              System.out.println("Count: " + count);<br>
+              count++;<br>
+            } while (count <= 5);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Count: 1<br>
+        Count: 2<br>
+        Count: 3<br>
+        Count: 4<br>
+        Count: 5
+      </div>
+
+      <h2>for-each Loop</h2>
+      <p>The <code>for-each</code> loop (enhanced for loop) simplifies iteration over arrays or collections.</p>
+      <div class="abc">
+        public class ForEachLoopExample {<br>
+          public static void main(String[] args) {<br>
+            int[] numbers = {10, 20, 30, 40, 50};<br>
+            for (int num : numbers) {<br>
+              System.out.println("Number: " + num);<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Number: 10<br>
+        Number: 20<br>
+        Number: 30<br>
+        Number: 40<br>
+        Number: 50
+      </div>
+
+      <h2>Example Program with User Input</h2>
+      <p>This program uses a <code>while</code> loop with user input to sum numbers until the user enters zero.</p>
+      <div class="abc">
+        import java.util.Scanner;<br><br>
+        public class IterationExample {<br>
+          public static void main(String[] args) {<br>
+            Scanner input = new Scanner(System.in);<br>
+            int sum = 0;<br>
+            int number;<br><br>
+            System.out.println("Enter numbers to sum (enter 0 to stop):");<br>
+            do {<br>
+              System.out.print("Enter a number: ");<br>
+              number = input.nextInt();<br>
+              sum += number;<br>
+            } while (number != 0);<br><br>
+            System.out.println("Sum of entered numbers: " + sum);<br>
+            input.close();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Enter numbers to sum (enter 0 to stop):<br>
+        Enter a number: 5<br>
+        Enter a number: 10<br>
+        Enter a number: 15<br>
+        Enter a number: 0<br>
+        Sum of entered numbers: 30
+      </div>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Use <code>break</code> to exit a loop prematurely.</li>
+        <li>Use <code>continue</code> to skip the current iteration and proceed to the next.</li>
+        <li>Avoid infinite loops by ensuring the loop condition will eventually be false.</li>
+        <li>The <code>for-each</code> loop is read-only for the iterated elements; it cannot modify the array or collection directly.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="condition.html" class="btn btn-primary">Previous</a>
+        <a href="methods.html" class="btn btn-primary">Continue to Methods</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

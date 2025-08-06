@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Errors in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP COncepts</a></li>
+      <li class="nav-item"><a class="nav-link" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link" href="package.html">Packages</a></li>
+      <li class="nav-item"><a class="nav-link active" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Errors</h1>
+
+      <h2>Introduction to Errors</h2>
+      <p>An <strong>error</strong> in Java is a serious problem that typically cannot or should not be handled by the application. Errors are represented by the <code>java.lang.Error</code> class, a subclass of <code>Throwable</code>, and are distinct from exceptions. Unlike exceptions, which represent recoverable conditions (e.g., <code>IOException</code>, <code>NullPointerException</code>), errors indicate severe issues, such as system or resource failures, that usually lead to program termination.</p>
+
+      <h2>Key Characteristics of Errors</h2>
+      <ul>
+        <li><strong>Throwable Subclass</strong>: Errors extend <code>java.lang.Throwable</code>, like exceptions, but are used for unrecoverable conditions.</li>
+        <li><strong>Unrecoverable</strong>: Errors typically signal problems that applications cannot handle, such as JVM failures or memory exhaustion.</li>
+        <li><strong>Unchecked</strong>: Errors are unchecked, meaning they do not need to be declared in method signatures or caught in <code>try-catch</code> blocks.</li>
+        <li><strong>Package</strong>: Most errors are defined in the <code>java.lang</code> package, which is automatically imported.</li>
+        <li><strong>Rare Handling</strong>: It is generally not recommended to catch errors, as they indicate critical system issues.</li>
+      </ul>
+
+      <h2>Errors vs. Exceptions</h2>
+      <p>While both errors and exceptions inherit from <code>Throwable</code>, they serve different purposes:</p>
+      <ul>
+        <li><strong>Errors</strong>: Indicate serious, unrecoverable problems (e.g., <code>OutOfMemoryError</code>, <code>StackOverflowError</code>). They are typically caused by the environment or JVM, not the application logic.</li>
+        <li><strong>Exceptions</strong>: Represent recoverable conditions that can be handled (e.g., <code>FileNotFoundException</code>, <code>ArithmeticException</code>). They are often caused by application logic or user input.</li>
+        <li><strong>Handling</strong>: Exceptions should be caught and handled using <code>try-catch</code> blocks, while errors are usually left uncaught, allowing the program to terminate.</li>
+      </ul>
+      <p>Example illustrating the difference:</p>
+      <div class="abc">
+        public class ErrorVsException {<br>
+          public static void main(String[] args) {<br>
+            try {<br>
+              // Exception: recoverable<br>
+              int result = 10 / 0; // ArithmeticException<br>
+            } catch (ArithmeticException e) {<br>
+              System.out.println("Exception caught: " + e.getMessage());<br>
+            }<br><br>
+            // Error: typically unrecoverable<br>
+            try {<br>
+              recursiveMethod(1000); // May cause StackOverflowError<br>
+            } catch (StackOverflowError e) {<br>
+              System.out.println("Error caught (not recommended): " + e.getMessage());<br>
+            }<br>
+          }<br><br>
+          public static void recursiveMethod(int count) {<br>
+            if (count > 0) {<br>
+              recursiveMethod(count - 1); // Infinite recursion<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Exception caught: / by zero<br>
+        Error caught (not recommended): null
+      </div>
+
+      <h2>Common Java Errors</h2>
+      <p>Java’s <code>java.lang</code> package includes several common errors. Below are some frequently encountered errors with examples:</p>
+
+      <h3>OutOfMemoryError</h3>
+      <p><code>OutOfMemoryError</code> occurs when the JVM cannot allocate enough memory to fulfill a request, often due to excessive object creation or insufficient heap space.</p>
+      <div class="abc">
+        public class OutOfMemoryExample {<br>
+          public static void main(String[] args) {<br>
+            try {<br>
+              // Attempt to allocate a massive array<br>
+              long[] hugeArray = new long[Integer.MAX_VALUE];<br>
+            } catch (OutOfMemoryError e) {<br>
+              System.out.println("OutOfMemoryError: " + e.getMessage());<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        OutOfMemoryError: Java heap space
+      </div>
+      <p><strong>Note</strong>: Catching <code>OutOfMemoryError</code> is not recommended in production, as it indicates a severe resource issue. This example is for demonstration only.</p>
+
+      <h3>StackOverflowError</h3>
+      <p><code>StackOverflowError</code> occurs when the call stack overflows due to excessive recursion without a base case.</p>
+      <div class="abc">
+        public class StackOverflowExample {<br>
+          public static void main(String[] args) {<br>
+            try {<br>
+              infiniteRecursion();<br>
+            } catch (StackOverflowError e) {<br>
+              System.out.println("StackOverflowError: " + e.getMessage());<br>
+            }<br>
+          }<br><br>
+          public static void infiniteRecursion() {<br>
+            infiniteRecursion(); // No base case<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        StackOverflowError: null
+      </div>
+      <p><strong>Note</strong>: Catching <code>StackOverflowError</code> is generally discouraged, as it indicates a flaw in the program’s logic.</p>
+
+      <h3>VirtualMachineError</h3>
+      <p><code>VirtualMachineError</code> is the superclass for errors like <code>OutOfMemoryError</code> and <code>StackOverflowError</code>. It indicates problems with the JVM itself.</p>
+      <p>Example (same as <code>OutOfMemoryError</code>, but catching the superclass):</p>
+      <div class="abc">
+        public class VirtualMachineErrorExample {<br>
+          public static void main(String[] args) {<br>
+            try {<br>
+              long[] hugeArray = new long[Integer.MAX_VALUE];<br>
+            } catch (VirtualMachineError e) {<br>
+              System.out.println("VirtualMachineError: " + e.getMessage());<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        VirtualMachineError: Java heap space
+      </div>
+
+      <h2>Types of Errors</h2>
+      <p>Java errors, all defined in the <code>java.lang</code> package, are categorized based on their causes, typically related to JVM or system-level issues. Below is a list of common error types with explanations and examples where applicable:</p>
+      <ul>
+        <li><strong>VirtualMachineError</strong>: The superclass for errors indicating problems with the JVM’s operation. Subclasses include <code>OutOfMemoryError</code> and <code>StackOverflowError</code>.</li>
+        <ul>
+          <li><strong>OutOfMemoryError</strong>: Thrown when the JVM cannot allocate more memory, often due to excessive object creation or insufficient heap space. Example: Attempting to allocate a massive array (as shown above).</li>
+          <li><strong>StackOverflowError</strong>: Thrown when the call stack overflows due to excessive recursion. Example: Infinite recursion without a base case (as shown above).</li>
+        </ul>
+        <li><strong>NoClassDefFoundError</strong>: Thrown when the JVM cannot find a class definition at runtime, often due to missing class files or classpath issues.</li>
+        <p>Example:</p>
+        <div class="abc">
+          public class NoClassDefFoundExample {<br>
+            public static void main(String[] args) {<br>
+              try {<br>
+                // Assume MissingClass is not compiled or available in classpath<br>
+                Class.forName("MissingClass");<br>
+              } catch (ClassNotFoundException e) {<br>
+                System.out.println("ClassNotFoundException: " + e.getMessage());<br>
+                // NoClassDefFoundError may occur if class was available at compile-time but not runtime<br>
+              }<br>
+            }<br>
+          }
+        </div>
+        <h3>Output</h3>
+        <div class="cde">
+          ClassNotFoundException: MissingClass
+        </div>
+        <p><strong>Note</strong>: <code>NoClassDefFoundError</code> typically occurs in scenarios like missing JAR files or incorrect classpath configurations, and catching it is not recommended.</p>
+        <li><strong>LinkageError</strong>: Thrown when there are issues with class loading or linking, such as incompatible class versions or duplicate class definitions.</li>
+        <ul>
+          <li><strong>IncompatibleClassChangeError</strong>: A subtype of <code>LinkageError</code>, thrown when a class has been modified incompatibly (e.g., a method signature changes after compilation).</li>
+          <p>Example (conceptual, as it requires specific classpath manipulation):</p>
+          <div class="abc">
+            // Assume ClassA depends on ClassB, but ClassB's method signature changed<br>
+            public class IncompatibleClassExample {<br>
+              public static void main(String[] args) {<br>
+                try {<br>
+                  // This would throw IncompatibleClassChangeError at runtime if ClassB is incompatible<br>
+                  ClassB obj = new ClassB();<br>
+                  obj.someMethod();<br>
+                } catch (IncompatibleClassChangeError e) {<br>
+                  System.out.println("IncompatibleClassChangeError: " + e.getMessage());<br>
+                }<br>
+              }<br>
+            }
+          </div>
+          <p><strong>Note</strong>: This error is rare and depends on specific class versioning issues, so it’s shown conceptually.</p>
+        </ul>
+        <li><strong>AssertionError</strong>: Thrown when an assertion fails (when using the <code>assert</code> statement). Assertions are typically used for debugging and testing.</li>
+        <p>Example:</p>
+        <div class="abc">
+          public class AssertionErrorExample {<br>
+            public static void main(String[] args) {<br>
+              try {<br>
+                // Run with -ea (enable assertions) flag: java -ea AssertionErrorExample<br>
+                assert false : "Assertion failed";<br>
+              } catch (AssertionError e) {<br>
+                System.out.println("AssertionError: " + e.getMessage());<br>
+              }<br>
+            }<br>
+          }
+        </div>
+        <h3>Output</h3>
+        <div class="cde">
+          AssertionError: Assertion failed
+        </div>
+        <li><strong>ExceptionInInitializerError</strong>: Thrown when an exception occurs during the initialization of a static variable or static block in a class.</li>
+        <p>Example:</p>
+        <div class="abc">
+          public class ExceptionInInitializerExample {<br>
+            static int[] array = new int[Integer.MAX_VALUE]; // Causes OutOfMemoryError in static initialization<br><br>
+            public static void main(String[] args) {<br>
+              try {<br>
+                // Accessing the class triggers static initialization<br>
+                Class.forName("ExceptionInInitializerExample");<br>
+              } catch (ExceptionInInitializerError e) {<br>
+                System.out.println("ExceptionInInitializerError: " + e.getCause());<br>
+              } catch (ClassNotFoundException e) {<br>
+                System.out.println("ClassNotFoundException: " + e.getMessage());<br>
+              }<br>
+            }<br>
+          }
+        </div>
+        <h3>Output</h3>
+        <div class="cde">
+          ExceptionInInitializerError: java.lang.OutOfMemoryError: Java heap space
+        </div>
+      </ul>
+
+      <h2>Best Practices for Handling Errors</h2>
+      <ul>
+        <li><strong>Avoid Catching Errors</strong>: Errors like <code>OutOfMemoryError</code> and <code>StackOverflowError</code> should generally not be caught, as they indicate critical issues that are difficult to recover from.</li>
+        <li><strong>Monitor Resources</strong>: Use profiling tools to monitor memory usage and prevent errors like <code>OutOfMemoryError</code>.</li>
+        <li><strong>Fix Logic Issues</strong>: Address recursive calls or infinite loops to prevent <code>StackOverflowError</code>.</li>
+        <li><strong>Log Errors</strong>: If errors must be caught (e.g., for logging), use a broad <code>catch (Throwable t)</code> or specific error type, but avoid continuing normal execution.</li>
+        <li><strong>Configure JVM</strong>: Adjust JVM parameters (e.g., <code>-Xmx</code> for heap size) to mitigate memory-related errors in production environments.</li>
+      </ul>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Errors are defined in the <code>java.lang</code> package and are automatically available.</li>
+        <li>Unlike exceptions, errors are not meant to be handled by application code.</li>
+        <li>Common errors include <code>OutOfMemoryError</code>, <code>StackOverflowError</code>, and <code>NoClassDefFoundError</code>.</li>
+        <li>Errors indicate system-level or JVM issues, not application logic errors.</li>
+        <li>Use logging frameworks to record errors for debugging, but avoid suppressing them.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="exception.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

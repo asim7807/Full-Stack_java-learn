@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Packages in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP Concepts</a></li>
+      <li class="nav-item"><a class="nav-link" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+      <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Packages in Java</h1>
+
+      <h2>Introduction to Packages</h2>
+      <p>A <strong>package</strong> in Java is a mechanism for organizing related classes and interfaces into a namespace, preventing naming conflicts and improving code maintainability. Packages provide access control and modular structure to Java applications.</p>
+
+      <h2>Why Use a Package?</h2>
+      <p>Packages in Java offer several benefits that enhance code organization and development efficiency:</p>
+      <ul>
+        <li><strong>Namespace Management</strong>: Packages prevent naming conflicts by grouping classes into unique namespaces, allowing multiple developers to use the same class names without interference.</li>
+        <li><strong>Modularity</strong>: Packages promote modular design, making it easier to manage and maintain large projects by grouping related classes and interfaces.</li>
+        <li><strong>Access Control</strong>: Packages work with access specifiers to restrict access to class members, enhancing encapsulation and security.</li>
+        <li><strong>Code Reusability</strong>: Packages allow developers to reuse classes across projects by importing them, reducing redundant code.</li>
+        <li><strong>Improved Readability</strong>: Organized package structures make code easier to understand and navigate, especially in collaborative environments.</li>
+      </ul>
+
+      <h2>Working of Java Packages</h2>
+      <p>Packages in Java function by mapping to the directory structure of the file system. Each package corresponds to a directory, and subpackages correspond to subdirectories. The Java compiler and JVM use this structure to locate classes:</p>
+      <ul>
+        <li>A package declaration like <code>package com.example.utils;</code> requires the class file to be in a directory <code>com/example/utils/</code>.</li>
+        <li>The classpath tells the JVM where to find compiled classes, which must align with the package hierarchy.</li>
+        <li>When a class is imported or referenced by its fully qualified name, the JVM resolves it using the classpath and package structure.</li>
+        <li>Packages enforce access rules, allowing <code>default</code> and <code>protected</code> members to be accessed within the same package.</li>
+      </ul>
+      <p>Example directory structure for <code>com.example.utils.Logger</code>:</p>
+      <div class="abc">
+        com/<br>
+        └── example/<br>
+            └── utils/<br>
+                └── Logger.java
+      </div>
+
+      <h2>Key Characteristics of Packages</h2>
+      <ul>
+        <li>Declared using the <code>package</code> keyword at the top of a Java file.</li>
+        <li>Classes in the same package can access each other’s <code>default</code> (package-private) and <code>protected</code> members.</li>
+        <li>Imported using the <code>import</code> keyword to use classes from other packages.</li>
+        <li>Java’s standard library includes packages like <code>java.util</code>, <code>java.io</code>, and <code>java.lang</code> (automatically imported).</li>
+        <li>Packages follow a hierarchical naming convention, typically using reverse domain names (e.g., <code>com.example.myapp</code>).</li>
+      </ul>
+
+      <h2>Types of Packages</h2>
+      <p>Java packages are categorized into two main types:</p>
+      <ul>
+        <li><strong>Built-in Packages</strong>: Provided by the Java Development Kit (JDK), such as <code>java.lang</code>, <code>java.util</code>, and <code>java.io</code>. These are part of the Java Standard Library and provide core functionality.</li>
+        <li><strong>User-defined Packages</strong>: Created by developers to organize their own classes and interfaces, typically following a reverse domain naming convention (e.g., <code>com.example.myapp</code>).</li>
+      </ul>
+      <p>Example of using both types:</p>
+      <div class="abc">
+        // File: com/example/myapp/MyClass.java<br>
+        package com.example.myapp;<br><br>
+        import java.util.ArrayList; // Built-in package<br><br>
+        public class MyClass {<br>
+          public ArrayList<String> createList() {<br>
+            ArrayList<String> list = new ArrayList<>();<br>
+            list.add("Item from user-defined package");<br>
+            return list;<br>
+          }<br>
+        }
+      </div>
+
+      <h2>Package Naming Conventions</h2>
+      <p>Java packages follow a naming convention to ensure uniqueness and clarity:</p>
+      <ul>
+        <li>Use lowercase letters for package names to avoid conflicts with class names.</li>
+        <li>Follow a reverse domain name structure (e.g., <code>com.company.project</code>) to ensure global uniqueness.</li>
+        <li>Avoid using reserved keywords or special characters.</li>
+        <li>Subpackages can be used to further organize code (e.g., <code>com.example.utils</code>, <code>com.example.model</code>).</li>
+      </ul>
+      <div class="abc">
+        package com.example.myapp.utils;<br><br>
+        public class Logger {<br>
+          public void log(String message) {<br>
+            System.out.println("Log: " + message);<br>
+          }<br>
+        }
+      </div>
+
+      <h2>Built-in Java Packages</h2>
+      <p>Java provides several built-in packages in the Java Standard Library:</p>
+      <ul>
+        <li><code>java.lang</code>: Contains core classes like <code>String</code>, <code>Math</code>, and <code>System</code> (automatically imported).</li>
+        <li><code>java.util</code>: Includes utility classes like <code>ArrayList</code>, <code>HashMap</code>, and <code>Scanner</code>.</li>
+        <li><code>java.io</code>: Provides input/output classes like <code>File</code> and <code>BufferedReader</code>.</li>
+        <li><code>java.net</code>: Supports networking operations like <code>Socket</code> and <code>URL</code>.</li>
+        <li><code>java.sql</code>: Contains classes for database connectivity, like <code>Connection</code> and <code>Statement</code>.</li>
+        <li><code>java.applet</code>: Provides classes for creating applets, such as <code>Applet</code>, for embedding Java programs in web browsers (deprecated in Java 9, removed in Java 11).</li>
+        <li><code>java.awt</code>: Contains classes for building graphical user interfaces, including <code>Frame</code>, <code>Button</code>, and <code>Graphics</code>, used for desktop applications.</li>
+      </ul>
+      <div class="abc">
+        import java.util.ArrayList;<br>
+        import java.awt.Frame;<br>
+        import java.awt.Button;<br><br>
+        public class BuiltInPackageExample {<br>
+          public static void main(String[] args) {<br>
+            ArrayList<String> list = new ArrayList<>();<br>
+            list.add("Java");<br>
+            list.add("Python");<br>
+            System.out.println("List: " + list);<br><br>
+            Frame frame = new Frame("AWT Example");<br>
+            frame.add(new Button("Click Me"));<br>
+            frame.setSize(300, 200);<br>
+            frame.setVisible(true);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        List: [Java, Python]<br>
+        [A window appears with a button labeled "Click Me"]
+      </div>
+
+      <h2>Declaring a Package</h2>
+      <p>A package is declared at the beginning of a Java file using the <code>package</code> keyword, followed by the package name.</p>
+      <div class="abc">
+        package com.example.utils;<br><br>
+        public class Utility {<br>
+          public void sayHello() {<br>
+            System.out.println("Hello from Utility class");<br>
+          }<br>
+        }
+      </div>
+
+      <h2>Importing a Package</h2>
+      <p>Classes from other packages can be accessed using the <code>import</code> statement or by using the fully qualified class name.</p>
+      <div class="abc">
+        import com.example.utils.Utility;<br><br>
+        public class Main {<br>
+          public static void main(String[] args) {<br>
+            Utility util = new Utility();<br>
+            util.sayHello();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Hello from Utility class
+      </div>
+
+      <h2>Accessing Classes</h2>
+      <p>Classes in a package can be accessed in three ways:</p>
+      <ul>
+        <li><strong>Using Fully Qualified Name</strong>: Specify the complete package path (e.g., <code>com.example.utils.Utility</code>) without an import statement.</li>
+        <li><strong>Using Import Statement</strong>: Import the specific class to use its simple name.</li>
+        <li><strong>Using Package-Wide Import</strong>: Import all classes in a package with <code>import package.*;</code>, though this doesn’t include subpackages.</li>
+      </ul>
+      <div class="abc">
+        // Using fully qualified name<br>
+        public class AccessExample {<br>
+          public static void main(String[] args) {<br>
+            com.example.utils.Utility util = new com.example.utils.Utility();<br>
+            util.sayHello();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Hello from Utility class
+      </div>
+
+      <h2>Importing All Classes</h2>
+      <p>The <code>import package.*;</code> syntax imports all classes in a package, but not subpackages. This is useful for accessing multiple classes without individual imports, though it may increase compilation time in large packages.</p>
+      <div class="abc">
+        // File: com/example/utils/Helper.java<br>
+        package com.example.utils;<br><br>
+        public class Helper {<br>
+          public void assist() {<br>
+            System.out.println("Assisting from Helper class");<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        import com.example.utils.*;<br><br>
+        public class AllClassesImportExample {<br>
+          public static void main(String[] args) {<br>
+            Utility util = new Utility();<br>
+            Helper helper = new Helper();<br>
+            util.sayHello();<br>
+            helper.assist();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Hello from Utility class<br>
+        Assisting from Helper class
+      </div>
+
+      <h2>Access Control with Packages</h2>
+      <p>Packages work with access specifiers (<code>public</code>, <code>protected</code>, <code>default</code>, <code>private</code>) to control access to class members.</p>
+      <div class="abc">
+        package com.example.access;<br><br>
+        public class AccessDemo {<br>
+          public int publicVar = 1;<br>
+          protected int protectedVar = 2;<br>
+          int defaultVar = 3; // Package-private<br>
+          private int privateVar = 4;<br><br>
+          public void display() {<br>
+            System.out.println("Public: " + publicVar);<br>
+            System.out.println("Protected: " + protectedVar);<br>
+            System.out.println("Default: " + defaultVar);<br>
+            System.out.println("Private: " + privateVar);<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        package com.example.test;<br><br>
+        import com.example.access.AccessDemo;<br><br>
+        public class TestAccess {<br>
+          public static void main(String[] args) {<br>
+            AccessDemo demo = new AccessDemo();<br>
+            demo.display();<br>
+            System.out.println("Accessing publicVar: " + demo.publicVar);<br>
+            // System.out.println(demo.protectedVar); // Error: not accessible<br>
+            // System.out.println(demo.defaultVar); // Error: not accessible<br>
+            // System.out.println(demo.privateVar); // Error: not accessible<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Public: 1<br>
+        Protected: 2<br>
+        Default: 3<br>
+        Private: 4<br>
+        Accessing publicVar: 1
+      </div>
+
+      <h2>Static Imports</h2>
+      <p>Static imports allow direct access to static members (fields or methods) of a class without qualifying them with the class name, using the <code>import static</code> statement.</p>
+      <div class="abc">
+        import static java.lang.Math.PI;<br>
+        import static java.lang.Math.sqrt;<br><br>
+        public class StaticImportExample {<br>
+          public static void main(String[] args) {<br>
+            double radius = 5.0;<br>
+            double area = PI * sqrt(radius * radius);<br>
+            System.out.printf("Area of circle: %.2f%n", area);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Area of circle: 78.54
+      </div>
+
+      <h2>Package Hierarchies and Subpackages</h2>
+      <p>Packages can be organized in a hierarchical structure using subpackages, which are denoted by dots (e.g., <code>com.example.utils</code>). Subpackages are treated as separate namespaces, and importing a parent package does not include its subpackages.</p>
+      <div class="abc">
+        // File: com/example/utils/math/MathUtil.java<br>
+        package com.example.utils.math;<br><br>
+        public class MathUtil {<br>
+          public double square(double number) {<br>
+            return number * number;<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        // File: com/example/main/SubpackageExample.java<br>
+        package com.example.main;<br><br>
+        import com.example.utils.math.MathUtil;<br><br>
+        public class SubpackageExample {<br>
+          public static void main(String[] args) {<br>
+            MathUtil mathUtil = new MathUtil();<br>
+            double number = 4.0;<br>
+            System.out.println("Square of " + number + ": " + mathUtil.square(number));<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Square of 4.0: 16.0
+      </div>
+
+      <h2>Package Access with Inheritance</h2>
+      <p>When a subclass extends a class from a different package, <code>protected</code> members are accessible in the subclass, but <code>default</code> (package-private) members are not. This demonstrates how packages interact with inheritance.</p>
+      <div class="abc">
+        // File: com/example/base/BaseClass.java<br>
+        package com.example.base;<br><br>
+        public class BaseClass {<br>
+          protected String protectedMessage = "Protected message";<br>
+          String defaultMessage = "Default message"; // Package-private<br><br>
+          public void display() {<br>
+            System.out.println(protectedMessage);<br>
+            System.out.println(defaultMessage);<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        // File: com/example/derived/DerivedClass.java<br>
+        package com.example.derived;<br><br>
+        import com.example.base.BaseClass;<br><br>
+        public class DerivedClass extends BaseClass {<br>
+          public void show() {<br>
+            System.out.println("Accessing protectedMessage: " + protectedMessage);<br>
+            // System.out.println(defaultMessage); // Error: defaultMessage not accessible<br>
+          }<br>
+        }<br><br>
+        // File: com/example/main/InheritanceAccessExample.java<br>
+        package com.example.main;<br><br>
+        import com.example.derived.DerivedClass;<br><br>
+        public class InheritanceAccessExample {<br>
+          public static void main(String[] args) {<br>
+            DerivedClass derived = new DerivedClass();<br>
+            derived.display();<br>
+            derived.show();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Protected message<br>
+        Default message<br>
+        Accessing protectedMessage: Protected message
+      </div>
+
+      <h2>Conditions for Running a Package Program in CMD</h2>
+      <p>To run a Java program that uses packages in the command prompt (CMD), the following conditions must be met:</p>
+      <ul>
+        <li><strong>Java Development Kit (JDK) Installed</strong>: The JDK must be installed, and the <code>javac</code> and <code>java</code> commands must be accessible via the system’s PATH environment variable.</li>
+        <li><strong>Correct Directory Structure</strong>: The source files must be organized in a directory structure matching the package hierarchy (e.g., <code>com/example/utils/Utility.java</code>).</li>
+        <li><strong>Proper Classpath</strong>: The classpath must include the directory containing the package structure or any JAR files with required classes. Use the <code>-cp</code> flag if needed.</li>
+        <li><strong>Compiled Classes</strong>: The source files must be compiled into <code>.class</code> files using <code>javac</code>, preserving the package structure with the <code>-d</code> flag.</li>
+        <li><strong>Fully Qualified Class Name</strong>: The <code>java</code> command must use the fully qualified class name (e.g., <code>com.example.main.Main</code>) to run the program.</li>
+        <li><strong>Access Permissions</strong>: Ensure the class with the <code>main</code> method is <code>public</code> and accessible, and that referenced classes are properly imported or accessible via the classpath.</li>
+      </ul>
+      <p>Example commands to compile and run a package-based program:</p>
+      <div class="abc">
+        // Compile<br>
+        javac -d . com/example/main/Main.java com/example/utils/Utility.java<br>
+        // Run<br>
+        java -cp . com.example.main.Main
+      </div>
+
+      <h2>Steps for Creating a Package</h2>
+      <p>Creating a package in Java involves the following steps:</p>
+      <ol>
+        <li><strong>Choose a Package Name</strong>: Select a unique name, typically using reverse domain notation (e.g., <code>com.example.myapp</code>).</li>
+        <li><strong>Create Directory Structure</strong>: Create a directory hierarchy matching the package name (e.g., <code>com/example/myapp/</code>).</li>
+        <li><strong>Declare the Package</strong>: Add the <code>package</code> statement at the top of the Java file (e.g., <code>package com.example.myapp;</code>).</li>
+        <li><strong>Write the Class</strong>: Define the class or interface within the file, ensuring it’s in the correct directory.</li>
+        <li><strong>Compile the Class</strong>: Use <code>javac</code> with the <code>-d</code> flag to compile the class and place the <code>.class</code> file in the matching directory structure (e.g., <code>javac -d . MyClass.java</code>).</li>
+        <li><strong>Use the Package</strong>: Import the package in other classes using <code>import com.example.myapp.MyClass;</code> or use the fully qualified name.</li>
+        <li><strong>(Optional) Create a JAR File</strong>: Bundle the compiled classes into a JAR file for distribution using the <code>jar</code> command.</li>
+      </ol>
+      <p>Example: Creating and using a package:</p>
+      <div class="abc">
+        // File: com/example/myapp/MyClass.java<br>
+        package com.example.myapp;<br><br>
+        public class MyClass {<br>
+          public void greet() {<br>
+            System.out.println("Hello from MyClass!");<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        // File: com/example/main/TestMyClass.java<br>
+        package com.example.main;<br><br>
+        import com.example.myapp.MyClass;<br><br>
+        public class TestMyClass {<br>
+          public static void main(String[] args) {<br>
+            MyClass myClass = new MyClass();<br>
+            myClass.greet();<br>
+          }<br>
+        }
+      </div>
+      <p>Commands to compile and run:</p>
+      <div class="abc">
+        javac -d . com/example/myapp/MyClass.java com/example/main/TestMyClass.java<br>
+        java -cp . com.example.main.TestMyClass
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Hello from MyClass!
+      </div>
+
+      <h2>Classpath and Package Compilation</h2>
+      <p>The Java classpath specifies where the compiler and JVM look for compiled classes. Packages must be compiled and run with the correct directory structure matching the package hierarchy. Use the <code>-d</code> flag with <code>javac</code> to maintain package structure.</p>
+      <p>Example compilation command:</p>
+      <div class="abc">
+        javac -d . com/example/utils/Utility.java
+      </div>
+      <p>This creates a directory structure like <code>com/example/utils/</code> for the compiled class. To run a program:</p>
+      <div class="abc">
+        java com.example.main.Main
+      </div>
+      <p>Classpath can be set using the <code>-cp</code> flag or the <code>CLASSPATH</code> environment variable if classes are in a custom location.</p>
+
+      <h2>Creating and Using JAR Files</h2>
+      <p>JAR (Java Archive) files bundle classes and resources into a single file for distribution. Packages are preserved in JAR files, and they can be included in the classpath.</p>
+      <p>Example: Create a JAR file for a package.</p>
+      <div class="abc">
+        // File: com/example/utils/StringUtil.java<br>
+        package com.example.utils;<br><br>
+        public class StringUtil {<br>
+          public String reverse(String input) {<br>
+            return new StringBuilder(input).reverse().toString();<br>
+          }<br>
+        }
+      </div>
+      <p>Compile and create a JAR file:</p>
+      <div class="abc">
+        javac -d . com/example/utils/StringUtil.java<br>
+        jar cvf mylib.jar com/example/utils/StringUtil.class
+      </div>
+      <p>Use the JAR file in another program:</p>
+      <div class="abc">
+        // File: com/example/main/JarExample.java<br>
+        package com.example.main;<br><br>
+        import com.example.utils.StringUtil;<br><br>
+        public class JarExample {<br>
+          public static void main(String[] args) {<br>
+            StringUtil util = new StringUtil();<br>
+            String result = util.reverse("Hello");<br>
+            System.out.println("Reversed string: " + result);<br>
+          }<br>
+        }
+      </div>
+      <p>Compile and run with the JAR in the classpath:</p>
+      <div class="abc">
+        javac -cp mylib.jar com/example/main/JarExample.java<br>
+        java -cp .:mylib.jar com.example.main.JarExample
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Reversed string: olleH
+      </div>
+
+      <h2>Example Program: Using Packages for Organization</h2>
+      <p>This program demonstrates organizing classes in packages, with a utility class in one package and a main class in another that uses it to perform a calculation.</p>
+      <div class="abc">
+        // File: com/example/mathutils/Calculator.java<br>
+        package com.example.mathutils;<br><br>
+        public class Calculator {<br>
+          public double calculateArea(double radius) {<br>
+            return Math.PI * radius * radius;<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        // File: com/example/main/AreaCalculator.java<br>
+        package com.example.main;<br><br>
+        import com.example.mathutils.Calculator;<br><br>
+        public class AreaCalculator {<br>
+          public static void main(String[] args) {<br>
+            Calculator calc = new Calculator();<br>
+            double radius = 5.0;<br>
+            double area = calc.calculateArea(radius);<br>
+            System.out.printf("Area of circle with radius %.1f: %.2f%n", radius, area);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Area of circle with radius 5.0: 78.54
+      </div>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Packages prevent naming conflicts by providing unique namespaces.</li>
+        <li>The <code>default</code> access specifier limits access to classes within the same package.</li>
+        <li>Use <code>import static</code> for importing static members (e.g., methods or fields) from a class.</li>
+        <li>Subpackages (e.g., <code>com.example.utils</code>) are not automatically imported with <code>com.example.*</code>.</li>
+        <li>Packages improve code organization, readability, and maintainability in large projects.</li>
+        <li>Always follow naming conventions to avoid conflicts and ensure clarity.</li>
+        <li>Use fully qualified names (e.g., <code>com.example.utils.Utility</code>) when imports are not used to avoid ambiguity.</li>
+        <li>Proper classpath configuration is essential for compiling and running packaged code.</li>
+        <li>JAR files facilitate distribution and reuse of packaged classes.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="interface.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

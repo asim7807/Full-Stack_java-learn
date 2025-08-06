@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Methods in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #888; 
+      background-color: #8e77a2; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+       <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+       <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+       <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Methods in Java</h1>
+
+      <h2>Introduction to Methods</h2>
+      <p>A method in Java is a block of code that performs a specific task and can be called when needed. Methods promote code reusability, modularity, and maintainability.</p>
+
+      <h2>Types of Methods</h2>
+      <p>Java methods can be categorized as:</p>
+      <ul>
+        <li><strong>Void Methods</strong>: Perform an action without returning a value.</li>
+        <li><strong>Return Methods</strong>: Return a value of a specific type after execution.</li>
+        <li><strong>Static Methods</strong>: Belong to the class, not an instance, and can be called without creating an object.</li>
+        <li><strong>Instance Methods</strong>: Belong to an instance of a class and require an object to be called.</li>
+      </ul>
+
+      <h2>Defining a Method</h2>
+      <p>A method is defined with an access modifier, return type, name, parameters (optional), and body.</p>
+      <div class="abc">
+        // Void method<br>
+        void sayHello() {<br>
+          System.out.println("Hello, World!");<br>
+        }<br><br>
+        // Return method<br>
+        int add(int a, int b) {<br>
+          return a + b;<br>
+        }
+      </div>
+
+      <h2>Access Modifiers</h2>
+      <p>Access modifiers control the visibility of a method:</p>
+      <ul>
+        <li><code>public</code>: Accessible from everywhere.</li>
+        <li><code>private</code>: Accessible only within the same class.</li>
+        <li><code>protected</code>: Accessible within the same package and in subclasses.</li>
+        <li><code>default</code> (no modifier): Accessible within the same package.</li>
+      </ul>
+      <div class="abc">
+        public class AccessModifierExample {<br>
+          public static void main(String[] args) {<br>
+            publicMethod();<br>
+            privateMethod();<br>
+          }<br><br>
+          public static void publicMethod() {<br>
+            System.out.println("This is a public method.");<br>
+          }<br><br>
+          private static void privateMethod() {<br>
+            System.out.println("This is a private method.");<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        This is a public method.<br>
+        This is a private method.
+      </div>
+
+      <h2>Void Method Example</h2>
+      <p>A void method performs an action without returning a value.</p>
+      <div class="abc">
+        public class VoidMethodExample {<br>
+          public static void main(String[] args) {<br>
+            printGreeting();<br>
+          }<br><br>
+          static void printGreeting() {<br>
+            System.out.println("Welcome to Java Programming!");<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Welcome to Java Programming!
+      </div>
+
+      <h2>Return Method Example</h2>
+      <p>A return method computes a value and returns it to the caller.</p>
+      <div class="abc">
+        public class ReturnMethodExample {<br>
+          public static void main(String[] args) {<br>
+            int result = multiply(5, 3);<br>
+            System.out.println("Result: " + result);<br>
+          }<br><br>
+          static int multiply(int a, int b) {<br>
+            return a * b;<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Result: 15
+      </div>
+
+      <h2>Method with Parameters</h2>
+      <p>Methods can accept parameters to work with dynamic input.</p>
+      <div class="abc">
+        public class ParameterMethodExample {<br>
+          public static void main(String[] args) {<br>
+            greetUser("Alice");<br>
+          }<br><br>
+          static void greetUser(String name) {<br>
+            System.out.println("Hello, " + name + "!");<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Hello, Alice!
+      </div>
+
+      <h2>Method Overloading</h2>
+      <p>Method overloading allows multiple methods with the same name but different parameter lists (number or types).</p>
+      <div class="abc">
+        public class OverloadingExample {<br>
+          public static void main(String[] args) {<br>
+            System.out.println("Sum (int): " + add(2, 3));<br>
+            System.out.println("Sum (double): " + add(2.5, 3.5));<br>
+          }<br><br>
+          static int add(int a, int b) {<br>
+            return a + b;<br>
+          }<br><br>
+          static double add(double a, double b) {<br>
+            return a + b;<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Sum (int): 5<br>
+        Sum (double): 6.0
+      </div>
+
+      <h2>Method Overriding</h2>
+      <p>Method overriding occurs when a subclass provides a specific implementation of a method already defined in its superclass. The method must have the same name, return type, and parameter list.</p>
+      <ul>
+        <li>Requires inheritance (a subclass extending a superclass).</li>
+        <li>Use the <code>@Override</code> annotation to indicate overriding.</li>
+        <li>The overridden method must have the same signature and compatible return type.</li>
+      </ul>
+      <div class="abc">
+        class Animal {<br>
+          void makeSound() {<br>
+            System.out.println("Generic animal sound");<br>
+          }<br>
+        }<br><br>
+        class Dog extends Animal {<br>
+          @Override<br>
+          void makeSound() {<br>
+            System.out.println("Bark");<br>
+          }<br>
+        }<br><br>
+        public class OverridingExample {<br>
+          public static void main(String[] args) {<br>
+            Animal animal = new Animal();<br>
+            animal.makeSound();<br>
+            Animal dog = new Dog(); // Polymorphism<br>
+            dog.makeSound();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Generic animal sound<br>
+        Bark
+      </div>
+
+      <h2>Static vs. Instance Methods</h2>
+      <p>Static methods belong to the class and can be called without an object. Instance methods require an object of the class.</p>
+      <div class="abc">
+        public class StaticVsInstance {<br>
+          public static void main(String[] args) {<br>
+            staticMethod(); // Call static method directly<br>
+            StaticVsInstance obj = new StaticVsInstance();<br>
+            obj.instanceMethod(); // Call instance method via object<br>
+          }<br><br>
+          static void staticMethod() {<br>
+            System.out.println("This is a static method.");<br>
+          }<br><br>
+          void instanceMethod() {<br>
+            System.out.println("This is an instance method.");<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        This is a static method.<br>
+        This is an instance method.
+      </div>
+
+      <h2>Passing Arrays to Methods</h2>
+      <p>Arrays can be passed to methods to perform operations like summing elements or modifying the array.</p>
+      <div class="abc">
+        public class ArrayMethodExample {<br>
+          public static void main(String[] args) {<br>
+            int[] numbers = {1, 2, 3, 4, 5};<br>
+            int sum = sumArray(numbers);<br>
+            System.out.println("Sum of array: " + sum);<br>
+            modifyArray(numbers);<br>
+            System.out.print("Modified array: ");<br>
+            for (int num : numbers) {<br>
+              System.out.print(num + " ");<br>
+            }<br>
+          }<br><br>
+          static int sumArray(int[] arr) {<br>
+            int sum = 0;<br>
+            for (int num : arr) {<br>
+              sum += num;<br>
+            }<br>
+            return sum;<br>
+          }<br><br>
+          static void modifyArray(int[] arr) {<br>
+            for (int i = 0; i < arr.length; i++) {<br>
+              arr[i] *= 2; // Double each element<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Sum of array: 15<br>
+        Modified array: 2 4 6 8 10
+      </div>
+
+      <h2>Recursion</h2>
+      <p>A recursive method calls itself to solve a problem by breaking it into smaller subproblems.</p>
+      <div class="abc">
+        public class RecursionExample {<br>
+          public static void main(String[] args) {<br>
+            int result = factorial(5);<br>
+            System.out.println("Factorial of 5: " + result);<br>
+          }<br><br>
+          static int factorial(int n) {<br>
+            if (n == 0 || n == 1) {<br>
+              return 1;<br>
+            }<br>
+            return n * factorial(n - 1);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Factorial of 5: 120
+      </div>
+
+      <h2>Method Scope and Lifetime</h2>
+      <p>Variables declared inside a method (local variables) have a scope limited to that method and are destroyed when the method ends. Parameters are also local to the method.</p>
+      <div class="abc">
+        public class ScopeExample {<br>
+          public static void main(String[] args) {<br>
+            int x = 10; // Local to main<br>
+            printValue(x);<br>
+            // System.out.println(localVar); // Error: localVar not accessible<br>
+          }<br><br>
+          static void printValue(int param) {<br>
+            int localVar = param + 5; // Local to printValue<br>
+            System.out.println("Local variable: " + localVar);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Local variable: 15
+      </div>
+
+      <h2>Example Program with User Input</h2>
+      <p>This program uses methods to calculate the square of a number, check if it’s even, and sum an array, with user input.</p>
+      <div class="abc">
+        import java.util.Scanner;<br><br>
+        public class MethodExample {<br>
+          public static void main(String[] args) {<br>
+            Scanner input = new Scanner(System.in);<br>
+            System.out.print("Enter a number: ");<br>
+            int num = input.nextInt();<br><br>
+            int square = calculateSquare(num);<br>
+            System.out.println("Square of " + num + ": " + square);<br><br>
+            boolean isEven = isEven(num);<br>
+            System.out.println(num + " is even: " + isEven);<br><br>
+            System.out.print("Enter size of array: ");<br>
+            int size = input.nextInt();<br>
+            int[] array = new int[size];<br>
+            System.out.println("Enter " + size + " numbers:");<br>
+            for (int i = 0; i < size; i++) {<br>
+              System.out.print("Number " + (i + 1) + ": ");<br>
+              array[i] = input.nextInt();<br>
+            }<br>
+            int sum = sumArray(array);<br>
+            System.out.println("Sum of array: " + sum);<br><br>
+            input.close();<br>
+          }<br><br>
+          static int calculateSquare(int number) {<br>
+            return number * number;<br>
+          }<br><br>
+          static boolean isEven(int number) {<br>
+            return number % 2 == 0;<br>
+          }<br><br>
+          static int sumArray(int[] arr) {<br>
+            int sum = 0;<br>
+            for (int num : arr) {<br>
+              sum += num;<br>
+            }<br>
+            return sum;<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Enter a number: 6<br>
+        Square of 6: 36<br>
+        6 is even: true<br>
+        Enter size of array: 3<br>
+        Enter 3 numbers:<br>
+        Number 1: 2<br>
+        Number 2: 3<br>
+        Number 3: 4<br>
+        Sum of array: 9
+      </div>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Use <code>static</code> for methods called without creating an object, typically for utility methods.</li>
+        <li>Instance methods require an object and can access instance variables.</li>
+        <li>Recursive methods need a base case to prevent infinite recursion.</li>
+        <li>Method overloading is based on parameter differences, not return type.</li>
+        <li>Method overriding requires inheritance and identical method signatures.</li>
+        <li>Variables declared in a method are local and not accessible outside it.</li>
+        <li>Arrays passed to methods are passed by reference, so modifications affect the original array.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="arrays.html" class="btn btn-primary">Previous</a>
+        <a href="classes.html" class="btn btn-primary">Continue to Classes</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

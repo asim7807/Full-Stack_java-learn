@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Installation & Setup - Java Tutorial Point</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f1f1f1;
+    }
+
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: 1px solid white;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .bottom-text {
+      margin-top: 50px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 5px;
+    }
+
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+        .example-box {
+      background-color: #f9f9f9;
+      border-left: 5px solid #04AA6D;
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin: 2rem 0;
+    }
+
+    .example-box pre {
+      background-color: #282A35;
+      color: white;
+      padding: 1rem;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    .example-box pre.output {
+      background-color: #e7e9eb;
+      color: #333;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .btn-success {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #059862;
+    }
+
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .footer {
+      background-color: #282A35;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-left: 250px;
+    }
+
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .footer {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Toggle Button -->
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <br>
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link active" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link active" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link active" href="pack.html">JDK,JRE,JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link active" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link active" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link active" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link active" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+       <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+       <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+       <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+       <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+
+    </ul>
+    <div class="bottom-text">JavaMaster</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Installation & Setup</h1>
+      <p>Follow these steps to install and set up Java on your machine...</p>
+
+      <h2>Step 1: Check if Java is Installed</h2>
+      <p>Open command prompt and type:</p>
+      <div class="example-box">
+        <pre><code>C:\Users\yourName> java -version</code></pre>
+        <p><strong>Output:</strong></p>
+        <pre class="output">
+java version "1.8.0_281"
+Java(TM) SE Runtime Environment
+Java HotSpot(TM) 64-Bit Server VM
+        </pre>
+      </div>
+
+      <h2>Step 2: Download Java</h2>
+      <p>If your system does not have Java installed, download it from the official website: 
+<a href="https://www.oracle.com/java/technologies/downloads/" rel="noopener noreferrer" target="_blank">Download JDK,JVM & JRE</a></p>
+      <h2>Step 3: Install Java</h2>
+      <p>Run the installer and follow the steps.</p>
+
+      <h2>Step 4: Set Up Environment Variables</h2>
+      <ol>
+        <li>Right-click on This PC → Properties</li>
+        <li>Advanced system settings → Environment Variables</li>
+        <li>Edit PATH and add: <code>C:\Program Files\Java\jdk1.8.0_xx\bin</code></li>
+      </ol>
+
+      <h2>Choosing a Code Editor</h2>
+      <p><a href="https://code.visualstudio.com/download" target="_blank" class="btn btn-success">Download Visual Studio Code →</a></p>
+
+      <div class="navigation-buttons">
+        <a href="introduction.html" class="btn btn-primary">Previous</a>
+        <a href="version.html" class="btn btn-primary">Continue to Versions</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar Toggle Script -->
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exception Handling in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP Concepts</a></li>
+      <li class="nav-item"><a class="nav-link" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link" href="package.html">Packages</a></li>
+      <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Exception Handling in Java</h1>
+
+      <h2>Introduction to Exception Handling</h2>
+      <p>An <strong>exception</strong> in Java is an event that disrupts the normal flow of a program’s execution. Exception handling is a mechanism to handle such disruptions gracefully, ensuring the program can recover or fail safely. Exceptions are objects derived from the <code>java.lang.Throwable</code> class, with two main subclasses: <code>Error</code> and <code>Exception</code>.</p>
+
+      <h2>Key Concepts of Exception Handling</h2>
+      <ul>
+        <li><strong>Throwable</strong>: The root class for all exceptions and errors, located in <code>java.lang</code>.</li>
+        <li><strong>Error</strong>: Represents serious issues (e.g., <code>OutOfMemoryError</code>) that are typically not caught.</li>
+        <li><strong>Exception</strong>: Represents recoverable issues, divided into <strong>checked</strong> (e.g., <code>IOException</code>) and <strong>unchecked</strong> (e.g., <code>NullPointerException</code>) exceptions.</li>
+        <li><strong>try-catch</strong>: Used to handle exceptions by enclosing risky code in a <code>try</code> block and handling exceptions in <code>catch</code> blocks.</li>
+        <li><strong>throw</strong>: Explicitly throws an exception.</li>
+        <li><strong>throws</strong>: Declares exceptions a method might throw, used in method signatures.</li>
+        <li><strong>finally</strong>: A block that executes regardless of whether an exception occurs, often used for cleanup.</li>
+      </ul>
+
+      <h2>The Try Block</h2>
+      <p>The <code>try</code> block is used to enclose a section of code that might throw an exception. If an exception occurs within the <code>try</code> block, the program’s normal execution stops, and control is transferred to the corresponding <code>catch</code> block. The <code>try</code> block must be followed by at least one <code>catch</code> block or a <code>finally</code> block.</p>
+      <ul>
+        <li><strong>Execution</strong>: When an exception does not occur, the try block will be executed.</li>
+        <li><strong>Purpose</strong>: Identifies code that could potentially cause an exception.</li>
+        <li><strong>Usage</strong>: Contains statements that might throw checked or unchecked exceptions.</li>
+        <li><strong>Scope</strong>: Only the code within the <code>try</code> block is monitored for exceptions.</li>
+      </ul>
+      <p>Example of a <code>try</code> block:</p>
+      <div class="abc">
+        try {<br>
+          int result = 10 / 0; // Potential ArithmeticException<br>
+          System.out.println("This will not be reached if an exception occurs");<br>
+        }
+      </div>
+
+      <h2>The Catch Block</h2>
+      <p>The <code>catch</code> block follows a <code>try</code> block and is used to handle specific exceptions thrown within the <code>try</code> block. Each <code>catch</code> block specifies the type of exception it can handle, and multiple <code>catch</code> blocks can be used to handle different exception types.</p>
+      <ul>
+        <li><strong>Execution</strong>: When an exception occurs, the catch block will be executed.</li>
+        <li><strong>Purpose</strong>: Captures and processes exceptions to prevent program termination.</li>
+        <li><strong>Usage</strong>: Specifies the exception type (e.g., <code>ArithmeticException</code>, <code>IOException</code>) and contains code to handle the exception.</li>
+        <li><strong>Multi-Catch</strong>: Since Java 7, a single <code>catch</code> block can handle multiple exception types using the <code>|</code> operator (e.g., <code>catch (IOException | SQLException e)</code>).</li>
+      </ul>
+      <p>Example of a <code>catch</code> block:</p>
+      <div class="abc">
+        try {<br>
+          int result = 10 / 0;<br>
+        } catch (ArithmeticException e) {<br>
+          System.out.println("Caught: " + e.getMessage());<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Caught: / by zero
+      </div>
+
+      <h2>The Finally Block</h2>
+      <p>The <code>finally</code> block is optional and executes regardless of whether an exception occurs in the <code>try</code> block or is caught in a <code>catch</code> block. It is typically used for cleanup operations, such as closing resources (e.g., files or database connections).</p>
+      <ul>
+        <li><strong>Execution</strong>: When an exception occurs or does not occur, the finally block will be executed.</li>
+        <li><strong>Purpose</strong>: Ensures that cleanup code runs in all scenarios, even if an exception is thrown or not.</li>
+        <li><strong>Usage</strong>: Common for releasing resources or resetting states.</li>
+        <li><strong>Execution</strong>: Executes after <code>try</code> and <code>catch</code> blocks, unless the program exits abruptly (e.g., via <code>System.exit()</code>).</li>
+      </ul>
+      <p>Example of a <code>finally</code> block:</p>
+      <div class="abc">
+        try {<br>
+          System.out.println("Inside try block");<br>
+        } finally {<br>
+          System.out.println("Finally block executed");<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Inside try block<br>
+        Finally block executed
+      </div>
+
+      <h2>Try-Catch-Finally Block Example</h2>
+      <p>The <code>try-catch-finally</code> block combines all three components to handle exceptions and ensure cleanup. Here’s an example using an unchecked exception:</p>
+      <div class="abc">
+        public class TryCatchFinallyExample {<br>
+          public static void main(String[] args) {<br>
+            try {<br>
+              int[] numbers = {1, 2, 3};<br>
+              System.out.println(numbers[5]); // ArrayIndexOutOfBoundsException<br>
+            } catch (ArrayIndexOutOfBoundsException e) {<br>
+              System.out.println("Error: Invalid array index - " + e.getMessage());<br>
+            } finally {<br>
+              System.out.println("Finally block executed");<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Error: Invalid array index - 5<br>
+        Finally block executed
+      </div>
+
+      <h2>Creating and Using Custom Exceptions</h2>
+      <p>Custom exceptions are defined by extending <code>Exception</code> (for checked exceptions) or <code>RuntimeException</code> (for unchecked exceptions) to handle specific error conditions.</p>
+      <p>Example of a custom exception:</p>
+      <div class="abc">
+        // File: InvalidInputException.java<br>
+        public class InvalidInputException extends Exception {<br>
+          public InvalidInputException(String message) {<br>
+            super(message);<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        // File: Validator.java<br>
+        public class Validator {<br>
+          public void validateAge(int age) throws InvalidInputException {<br>
+            if (age < 0 || age > 120) {<br>
+              throw new InvalidInputException("Age must be between 0 and 120");<br>
+            }<br>
+            System.out.println("Valid age: " + age);<br>
+          }<br>
+        }
+      </div>
+      <div class="abc">
+        // File: ExceptionExample.java<br>
+        public class ExceptionExample {<br>
+          public static void main(String[] args) {<br>
+            Validator validator = new Validator();<br>
+            try {<br>
+              validator.validateAge(150);<br>
+            } catch (InvalidInputException e) {<br>
+              System.out.println("Caught custom exception: " + e.getMessage());<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <p>Commands to compile and run:</p>
+      <div class="abc">
+        javac InvalidInputException.java Validator.java ExceptionExample.java<br>
+        java ExceptionExample
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Caught custom exception: Age must be between 0 and 120
+      </div>
+
+      <h2>Types of Exceptions</h2>
+      <p>Java exceptions are categorized as follows:</p>
+      <ul>
+        <li><strong>Checked Exceptions</strong>: Must be declared or handled (e.g., <code>IOException</code>, <code>SQLException</code>). Found in packages like <code>java.io</code> and <code>java.sql</code>.</li>
+        <li><strong>Unchecked Exceptions</strong>: Do not require explicit handling (e.g., <code>NullPointerException</code>, <code>ArithmeticException</code>). Found in <code>java.lang</code>.</li>
+        <li><strong>Errors</strong>: Serious issues not meant to be caught (e.g., <code>OutOfMemoryError</code>, <code>StackOverflowError</code>), also in <code>java.lang</code>.</li>
+      </ul>
+
+      <h2>Built-in Checked and Unchecked Exceptions</h2>
+      <p>Java’s built-in exceptions are provided in various packages, with checked and unchecked exceptions serving different purposes:</p>
+      <ul>
+        <li><strong>Checked Exceptions</strong>: These are checked at compile-time, requiring explicit handling or declaration using <code>throws</code>. Common examples include:</li>
+        <ul>
+          <li><code>IOException</code> (from <code>java.io</code>): Thrown during input/output operations, such as file reading/writing.</li>
+          <li><code>FileNotFoundException</code> (from <code>java.io</code>): A subtype of <code>IOException</code>, thrown when a file is not found.</li>
+          <li><code>SQLException</code> (from <code>java.sql</code>): Thrown during database operations.</li>
+        </ul>
+        <li><strong>Unchecked Exceptions</strong>: These are runtime exceptions that do not require explicit handling. Common examples include:</li>
+        <ul>
+          <li><code>NullPointerException</code> (from <code>java.lang</code>): Thrown when accessing a null object reference.</li>
+          <li><code>ArithmeticException</code> (from <code>java.lang</code>): Thrown for arithmetic errors, such as division by zero.</li>
+          <li><code>ArrayIndexOutOfBoundsException</code> (from <code>java.lang</code>): Thrown when accessing an invalid array index.</li>
+        </ul>
+      </ul>
+      <p>Example demonstrating both checked and unchecked exceptions:</p>
+      <div class="abc">
+        import java.io.File;<br>
+        import java.io.FileReader;<br><br>
+        public class CheckedUncheckedExample {<br>
+          public static void main(String[] args) {<br>
+            // Checked exception example<br>
+            try {<br>
+              File file = new File("nonexistent.txt");<br>
+              FileReader reader = new FileReader(file); // FileNotFoundException<br>
+              reader.read();<br>
+            } catch (java.io.FileNotFoundException e) {<br>
+              System.out.println("Checked Exception: File not found - " + e.getMessage());<br>
+            } catch (java.io.IOException e) {<br>
+              System.out.println("Checked Exception: IO issue - " + e.getMessage());<br>
+            }<br><br>
+            // Unchecked exception example<br>
+            try {<br>
+              int result = 10 / 0; // ArithmeticException<br>
+            } catch (ArithmeticException e) {<br>
+              System.out.println("Unchecked Exception: Division by zero - " + e.getMessage());<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Checked Exception: File not found - nonexistent.txt (No such file or directory)<br>
+        Unchecked Exception: Division by zero - / by zero
+      </div>
+
+      <h2>Best Practices for Exception Handling</h2>
+      <ul>
+        <li>Use specific exception types in <code>catch</code> blocks to handle errors precisely.</li>
+        <li>Avoid catching <code>Throwable</code> or <code>Exception</code> unless necessary, as it may catch unexpected errors.</li>
+        <li>Use <code>finally</code> for cleanup tasks like closing resources.</li>
+        <li>Create custom exceptions for specific error conditions to improve code clarity.</li>
+        <li>Document exceptions in method signatures using <code>throws</code> and Javadoc.</li>
+      </ul>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Built-in exceptions are provided in packages like <code>java.lang</code> and <code>java.io</code>.</li>
+        <li>Custom exceptions can be defined to handle application-specific errors.</li>
+        <li>Use <code>try-catch</code> to handle exceptions gracefully and prevent program crashes.</li>
+        <li>The <code>finally</code> block is optional but useful for cleanup operations.</li>
+        <li>Checked exceptions must be handled or declared, while unchecked exceptions are optional.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="package.html" class="btn btn-primary">Previous</a>
+        <a href="error.html" class="btn btn-primary">Continue to Errors</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

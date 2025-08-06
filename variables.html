@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Variables - Java Tutorial Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+ .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #04AA6D;
+    color: white;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-header h3 {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.nav {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+}
+
+.nav-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #059862;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    max-width: 1000px;
+}
+
+.content-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-container h1 {
+    font-size: 2.5rem;
+    color: #04AA6D;
+    margin-bottom: 1rem;
+}
+
+.content-container h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 1.5rem 0 1rem;
+}
+
+.content-container h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+}
+
+.content-container h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+}
+
+.content-container p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.content-container ul,
+.content-container ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    color: #333; /* Dark gray for content ul and ol elements */
+}
+
+.content-container ul li,
+.content-container ol li {
+    margin-bottom: 0.5rem;
+}
+
+/* Table */
+.content-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.content-container th,
+.content-container td {
+    border: 1px solid #ccc;
+    padding: 0.8rem;
+    text-align: left;
+}
+
+.content-container th {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.content-container td {
+    background-color: #f9f9f9;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    background-color: #282A35;
+    padding: 1rem;
+    text-align: center;
+}
+
+.nav-title {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Example Box */
+.example-box {
+    background-color: #f9f9f9;
+    border-left: 5px solid #04AA6D;
+    padding: 1.5rem;
+    border-radius: 4px;
+    margin: 2rem 0;
+}
+
+.example-box h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.example-box pre {
+    background-color: #282A35;
+    color: white;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.example-box pre.output {
+    background-color: #e7e9eb;
+    color: #333;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #059862;
+}
+
+.btn-primary {
+    background-color: #282A35;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3a3c4a;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #282A35;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-left: 250px;
+}
+
+/* Responsive Design */
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+
+      .sidebar.sidebar-open {
+        display: block;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .footer {
+        margin-left: 0;
+      }
+
+      .mobile-nav {
+        display: block;
+      }
+    }
+
+
+
+    </style>
+</head>
+<body>
+     <button id="toggleSidebar" class="toggle-btn">☰</button>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Java Topics</h3>
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+           
+            <li class="nav-item">
+                <a class="nav-link" href="introduction.html">Introduction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="setup.html">Installation & Setup</a>
+            </li>
+                 <li class="nav-item">
+                <a class="nav-link active" href="version.html">Versions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="pack.html">JDK,JRE,JVM</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link active" href="variables.html">Variables</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datatypes.html">Datatypes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="typecasting.html">TypeCasting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="operators.html">Operators</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="string.html">String</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="math.html">Spring Boot</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="boolean.html">Boolean</a>
+            </li>
+            <li class="nav-item"><a class="nav-link active" href="io.html">User Input/Output</a></li>
+              <li class="nav-item"><a class="nav-link active" href="condition.html">Conditional Statements</a></li>
+            <li class="nav-item"><a class="nav-link active" href="iterations.html">Looping Statements</a></li>
+            <li class="nav-item"><a class="nav-link active" href="arrays.html">Arrays</a></li>
+            <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+            <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+             <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+             <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+             <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+              <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <span class="nav-title">Java Topics</span>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="content-container">
+            <h1>Java Variables</h1>
+            <p>A variable in Java is a memory location used to store data. It must be declared with a data type before it is used.</p>
+
+            <h2>Syntax</h2>
+            <div class="example-box">
+                <pre>
+                    <code>
+// General syntax for variable declaration
+datatype variableName = value;
+
+// Example:
+int age = 20;
+String name = "Asim";
+                    </code>
+                </pre>
+            </div>
+
+            <h2>Types of Variables in Java</h2>
+            <ul>
+                <li><strong>Local Variable:</strong> Declared inside a method or block. Accessible only within that method or block.</li>
+                <li><strong>Instance Variable:</strong> Declared inside a class but outside any method. Unique to each object.</li>
+                <li><strong>Static Variable:</strong> Declared with the <code>static</code> keyword. Shared among all objects of the class.</li>
+            </ul>
+
+            <h3>Local Variable Example</h3>
+            <div class="example-box">
+                <pre>
+                    <code>
+public class Test {
+  void show() {
+    // 'a' is a local variable declared inside the show() method
+    int a = 10;
+    System.out.println("Local variable a = " + a);
+  }
+
+  public static void main(String[] args) {
+    // Create object of Test
+    Test t = new Test();
+    t.show(); // Call method to print local variable
+  }
+}
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">
+Local variable a = 10
+                </pre>
+            </div>
+
+            <h3>Instance Variable Example</h3>
+            <div class="example-box">
+                <pre>
+                    <code>
+public class Student {
+  // Instance variable (each object gets its own copy)
+  String name;
+
+  // Method to set the name
+  void setName(String n) {
+    name = n; // Assign parameter to instance variable
+  }
+
+  // Method to display the name
+  void display() {
+    System.out.println("Student Name: " + name);
+  }
+
+  public static void main(String[] args) {
+    Student s1 = new Student();  // Create first object
+    Student s2 = new Student();  // Create second object
+
+    s1.setName("Asim");
+    s2.setName("Rahul");
+
+    s1.display(); // Output: Student Name: Asim
+    s2.display(); // Output: Student Name: Rahul
+  }
+}
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">
+Student Name: Asim
+Student Name: Rahul
+                </pre>
+            </div>
+
+            <h3>Static Variable Example</h3>
+            <div class="example-box">
+                <pre>
+                    <code>
+public class College {
+  // Static variable shared by all objects
+  static String collegeName = "SIT Polytechnic";
+
+  // Instance variable (unique to each object)
+  String studentName;
+
+  // Constructor to assign student name
+  College(String name) {
+    studentName = name;
+  }
+
+  void display() {
+    // Accessing both static and instance variables
+    System.out.println(studentName + " studies at " + collegeName);
+  }
+
+  public static void main(String[] args) {
+    College c1 = new College("Asim");
+    College c2 = new College("Rahul");
+
+    c1.display(); // Output: Asim studies at SIT Polytechnic
+    c2.display(); // Output: Rahul studies at SIT Polytechnic
+  }
+}
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">
+Asim studies at SIT Polytechnic
+Rahul studies at SIT Polytechnic
+                </pre>
+            </div>
+
+            <h2>Variable Types Summary Table</h2>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Declared In</th>
+                    <th>Scope</th>
+                    <th>Default Value</th>
+                </tr>
+                <tr>
+                    <td>Local</td>
+                    <td>Method or block</td>
+                    <td>Within method/block only</td>
+                    <td>None (must be initialized)</td>
+                </tr>
+                <tr>
+                    <td>Instance</td>
+                    <td>Inside class (outside methods)</td>
+                    <td>Accessible by object</td>
+                    <td>0, null, false (depends on type)</td>
+                </tr>
+                <tr>
+                    <td>Static</td>
+                    <td>Inside class using <code>static</code></td>
+                    <td>Shared across all objects</td>
+                    <td>0, null, false (depends on type)</td>
+                </tr>
+            </table>
+
+            <h2>Notes</h2>
+            <ul>
+                <li>Variables must begin with a letter, <code>$</code>, or <code>_</code>.</li>
+                <li><code>final</code> keyword can be used to create constants.</li>
+                <li>Static variables can be accessed without creating objects.</li>
+                <li>Local variables do not get default values — must be initialized.</li>
+            </ul>
+
+            <div class="navigation-buttons">
+                <a href="version.html" class="btn btn-primary">Versions</a>
+                <a href="datatypes.html" class="btn btn-primary">Continue to Datatypes</a>
+            </div>
+        </div>
+
+       
+    </div>
+    <script>
+         const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+    </script>
+</body>
+</html>

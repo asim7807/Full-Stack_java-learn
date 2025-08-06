@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multithreading in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .content-container img {
+      max-width: 100%;
+      height: auto;
+      margin: 1rem 0;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP Concepts</a></li>
+      <li class="nav-item"><a class="nav-link" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link" href="package.html">Packages</a></li>
+      <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Multithreading in Java</h1>
+
+      <h2>Introduction to Multithreading</h2>
+      <p>Multithreading in Java allows multiple threads to run concurrently, enabling a program to perform multiple tasks simultaneously. A <strong>thread</strong> is the smallest unit of execution within a process. Multithreading is used to improve performance, responsiveness, and resource utilization in applications, particularly for tasks like I/O operations, computations, or user interfaces. Java provides built-in support for multithreading through the <code>java.lang.Thread</code> class and <code>java.lang.Runnable</code> interface, both part of the <code>java.lang</code> package.</p>
+
+      <h2>Key Concepts of Multithreading</h2>
+      <ul>
+        <li><strong>Thread</strong>: A lightweight process that executes a sequence of instructions concurrently with other threads.</li>
+        <li><strong>Thread Lifecycle</strong>: Includes states like New, Runnable, Blocked/Waiting, and Terminated.</li>
+        <li><strong>Runnable Interface</strong>: Defines a single method, <code>run()</code>, to specify the task a thread performs.</li>
+        <li><strong>Thread Class</strong>: Extends <code>Object</code> and implements <code>Runnable</code>, providing methods to manage threads.</li>
+        <li><strong>Synchronization</strong>: Ensures thread safety by controlling access to shared resources using <code>synchronized</code> blocks or methods.</li>
+        <li><strong>Thread Priority</strong>: Determines the order of thread execution, with values from <code>Thread.MIN_PRIORITY</code> (1) to <code>Thread.MAX_PRIORITY</code> (10).</li>
+      </ul>
+
+      <h2>Creating Threads</h2>
+      <p>Java provides two primary ways to create threads: extending the <code>Thread</code> class or implementing the <code>Runnable</code> interface. The <code>Runnable</code> approach is preferred as it allows for better flexibility (e.g., a class can implement multiple interfaces but extend only one class).</p>
+
+      <h3>Extending Thread Class</h3>
+      <p>Create a class that extends <code>Thread</code> and overrides the <code>run()</code> method. Call <code>start()</code> to begin execution.</p>
+      <div class="abc">
+        public class MyThread extends Thread {<br>
+          public void run() {<br>
+            System.out.println("Thread running: " + Thread.currentThread().getName());<br>
+          }<br>
+          public static void main(String[] args) {<br>
+            MyThread thread = new MyThread();<br>
+            thread.start(); // Starts the thread<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Thread running: Thread-0
+      </div>
+
+      <h3>Implementing Runnable Interface</h3>
+      <p>Implement the <code>Runnable</code> interface, define the <code>run()</code> method, and pass the instance to a <code>Thread</code> object.</p>
+      <div class="abc">
+        public class MyRunnable implements Runnable {<br>
+          public void run() {<br>
+            System.out.println("Runnable running: " + Thread.currentThread().getName());<br>
+          }<br>
+          public static void main(String[] args) {<br>
+            MyRunnable runnable = new MyRunnable();<br>
+            Thread thread = new Thread(runnable);<br>
+            thread.start(); // Starts the thread<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Runnable running: Thread-0
+      </div>
+
+      <h2>Synchronization</h2>
+      <p>When multiple threads access shared resources, synchronization prevents data inconsistencies using the <code>synchronized</code> keyword. This ensures only one thread can execute a synchronized block or method at a time.</p>
+      <p>Example of synchronized method:</p>
+      <div class="abc">
+        public class Counter {<br>
+          private int count = 0;<br><br>
+          public synchronized void increment() {<br>
+            count++;<br>
+            System.out.println(Thread.currentThread().getName() + ": " + count);<br>
+          }<br><br>
+          public static void main(String[] args) {<br>
+            Counter counter = new Counter();<br>
+            Runnable task = () -> {<br>
+              for (int i = 0; i < 5; i++) {<br>
+                counter.increment();<br>
+              }<br>
+            };<br><br>
+            Thread t1 = new Thread(task, "Thread-1");<br>
+            Thread t2 = new Thread(task, "Thread-2");<br>
+            t1.start();<br>
+            t2.start();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Thread-1: 1<br>
+        Thread-1: 2<br>
+        Thread-1: 3<br>
+        Thread-1: 4<br>
+        Thread-1: 5<br>
+        Thread-2: 6<br>
+        Thread-2: 7<br>
+        Thread-2: 8<br>
+        Thread-2: 9<br>
+        Thread-2: 10
+      </div>
+      <p><strong>Note</strong>: Without <code>synchronized</code>, the output may be inconsistent due to race conditions.</p>
+
+      <h2>Common Thread Methods</h2>
+      <p>The <code>Thread</code> class provides several methods to manage threads:</p>
+      <ul>
+        <li><code>start()</code>: Begins thread execution, calling the <code>run()</code> method.</li>
+        <li><code>sleep(long millis)</code>: Pauses the thread for the specified milliseconds.</li>
+        <li><code>join()</code>: Waits for the thread to terminate before continuing.</li>
+        <li><code>setPriority(int priority)</code>: Sets the thread’s priority (1 to 10).</li>
+        <li><code>getName()</code>: Returns the thread’s name.</li>
+      </ul>
+      <p>Example using <code>sleep</code> and <code>join</code>:</p>
+      <div class="abc">
+        public class ThreadMethodsExample {<br>
+          public static void main(String[] args) {<br>
+            Thread t1 = new Thread(() -> {<br>
+              try {<br>
+                for (int i = 1; i <= 3; i++) {<br>
+                  System.out.println("Thread-1: " + i);<br>
+                  Thread.sleep(1000); // Sleep for 1 second<br>
+                }<br>
+              } catch (InterruptedException e) {<br>
+                System.out.println("Thread-1 interrupted");<br>
+              }<br>
+            }, "Thread-1");<br><br>
+            Thread t2 = new Thread(() -> {<br>
+              System.out.println("Thread-2 started");<br>
+            }, "Thread-2");<br><br>
+            t1.start();<br>
+            try {<br>
+              t1.join(); // Wait for t1 to finish<br>
+            } catch (InterruptedException e) {<br>
+              System.out.println("Main thread interrupted");<br>
+            }<br>
+            t2.start();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Thread-1: 1<br>
+        Thread-1: 2<br>
+        Thread-1: 3<br>
+        Thread-2 started
+      </div>
+
+      <h2>Thread Safety and Issues</h2>
+      <p>Multithreading introduces challenges like race conditions, deadlocks, and thread interference. Proper synchronization and careful design are essential.</p>
+      <ul>
+        <li><strong>Race Condition</strong>: Occurs when multiple threads access shared data concurrently, leading to unpredictable results.</li>
+        <li><strong>Deadlock</strong>: Occurs when two or more threads wait indefinitely for each other to release resources.</li>
+        <li><strong>Thread Interference</strong>: Occurs when threads execute non-atomic operations on shared data.</li>
+      </ul>
+      <p>Example of a race condition (without synchronization):</p>
+      <div class="abc">
+        public class UnsafeCounter {<br>
+          private int count = 0;<br><br>
+          public void increment() {<br>
+            count++; // Not thread-safe<br>
+            System.out.println(Thread.currentThread().getName() + ": " + count);<br>
+          }<br><br>
+          public static void main(String[] args) {<br>
+            UnsafeCounter counter = new UnsafeCounter();<br>
+            Runnable task = () -> {<br>
+              for (int i = 0; i < 5; i++) {<br>
+                counter.increment();<br>
+              }<br>
+            };<br><br>
+            Thread t1 = new Thread(task, "Thread-1");<br>
+            Thread t2 = new Thread(task, "Thread-2");<br>
+            t1.start();<br>
+            t2.start();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output (Unpredictable)</h3>
+      <div class="cde">
+        Thread-1: 1<br>
+        Thread-2: 2<br>
+        Thread-1: 3<br>
+        Thread-2: 3<br>
+        Thread-1: 5<br>
+        Thread-2: 4<br>
+        Thread-1: 7<br>
+        Thread-2: 6<br>
+        Thread-1: 8<br>
+        Thread-2: 9
+      </div>
+      <p><strong>Note</strong>: The output varies due to race conditions. Use <code>synchronized</code> to fix this, as shown in the earlier example.</p>
+
+      <h2>Thread Life Cycle in Java (Thread States)</h2>
+      <p>The thread life cycle in Java represents the states a thread transitions through from creation to termination. A thread is managed by the JVM's scheduler and can exist in one of the following states, defined by the <code>java.lang.Thread.State</code> enum:</p>
+      <ul>
+        <li><strong>New</strong>: The thread is created but not started (e.g., after `Thread t = new Thread()`). It transitions to Runnable when `start()` is called.</li>
+        <li><strong>Runnable</strong>: The thread is ready to run or running, awaiting CPU time. It can move to Blocked, Waiting, Timed Waiting, or Terminated based on actions like lock contention or method calls.</li>
+        <li><strong>Blocked</strong>: The thread waits for a monitor lock to enter a synchronized block/method. It returns to Runnable when the lock is acquired.</li>
+        <li><strong>Waiting</strong>: The thread waits indefinitely for another thread (e.g., via `wait()` or `join()`). It resumes to Runnable when notified or joined.</li>
+        <li><strong>Timed Waiting</strong>: The thread waits for a specified time (e.g., `Thread.sleep(1000)`). It resumes when the timeout expires or is interrupted/notified.</li>
+        <li><strong>Terminated</strong>: The thread has completed execution or terminated (e.g., due to an exception). No further transitions are possible.</li>
+      </ul>
+      <img src="life-cycle-of-a-thread.png" alt="Thread Life Cycle Image">
+      <p><strong>Transitions</strong>: The life cycle involves moving from New to Runnable (via `start()`), potentially to Blocked (waiting for a lock), Waiting or Timed Waiting (via synchronization methods), and finally to Terminated (when `run()` finishes).</p>
+      <p><strong>Practical Implications</strong>: Use `Thread.getState()` for debugging, minimize Blocked/Waiting states for performance, manage resources carefully, and handle `InterruptedException` in Timed Waiting states.</p>
+
+      <h2>Explanation of Different Thread States</h2>
+      <p>Threads transition through the following states:</p>
+      <ul>
+        <li><strong>New</strong>: The thread is created but not yet started (i.e., <code>start()</code> has not been called).</li>
+        <li><strong>Runnable</strong>: The thread is ready to run or running. After <code>start()</code> is called, the thread is in the Runnable state, waiting for CPU time.</li>
+        <li><strong>Blocked</strong>: The thread is waiting to acquire a monitor lock to enter a synchronized block or method.</li>
+        <li><strong>Waiting</strong>: The thread is waiting indefinitely for another thread to perform a specific action (e.g., via <code>wait()</code> or <code>join()</code>).</li>
+        <li><strong>Timed Waiting</strong>: The thread is waiting for a specified time (e.g., via <code>Thread.sleep()</code>, <code>wait(long)</code>, or <code>join(long)</code>).</li>
+        <li><strong>Terminated</strong>: The thread has completed execution or been terminated (e.g., via an exception or explicit termination).</li>
+      </ul>
+
+      <h2>Implementation of Thread States</h2>
+      <p>Threads transition between states based on specific actions. Below are examples demonstrating some of these transitions:</p>
+      <div class="abc">
+        public class ThreadStateExample {<br>
+          public static void main(String[] args) throws InterruptedException {<br>
+            Thread thread = new Thread(() -> {<br>
+              try {<br>
+                System.out.println("Thread running: " + Thread.currentThread().getState());<br>
+                Thread.sleep(1000); // Moves to TIMED_WAITING<br>
+                synchronized (ThreadStateExample.class) {<br>
+                  ThreadStateExample.class.wait(); // Moves to WAITING<br>
+                }<br>
+              } catch (InterruptedException e) {<br>
+                System.out.println("Thread interrupted");<br>
+              }<br>
+            });<br><br>
+            System.out.println("New state: " + thread.getState()); // NEW<br>
+            thread.start();<br>
+            System.out.println("After start: " + thread.getState()); // RUNNABLE<br>
+            Thread.sleep(500); // Allow thread to enter TIMED_WAITING<br>
+            System.out.println("During sleep: " + thread.getState()); // TIMED_WAITING<br>
+            synchronized (ThreadStateExample.class) {<br>
+              ThreadStateExample.class.notify(); // Wake up thread<br>
+            }<br>
+            Thread.sleep(500); // Allow thread to terminate<br>
+            System.out.println("After completion: " + thread.getState()); // TERMINATED<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        New state: NEW<br>
+        After start: RUNNABLE<br>
+        Thread running: RUNNABLE<br>
+        During sleep: TIMED_WAITING<br>
+        After completion: TERMINATED
+      </div>
+      <p><strong>Note</strong>: The exact timing of state transitions depends on the JVM and system scheduling.</p>
+
+      <h2>Java Program for Demonstrating Thread States</h2>
+      <p>Below is a complete program that demonstrates all major thread states, including Blocked and Waiting states, using multiple threads:</p>
+      <div class="abc">
+        public class ThreadStatesDemo {<br>
+          public static void main(String[] args) throws InterruptedException {<br>
+            Object lock = new Object();<br><br>
+            // Thread to demonstrate WAITING and BLOCKED states<br>
+            Thread waitingThread = new Thread(() -> {<br>
+              synchronized (lock) {<br>
+                try {<br>
+                  System.out.println("WaitingThread: " + Thread.currentThread().getState());<br>
+                  lock.wait(); // Moves to WAITING<br>
+                } catch (InterruptedException e) {<br>
+                  System.out.println("WaitingThread interrupted");<br>
+                }<br>
+              }<br>
+            }, "WaitingThread");<br><br>
+            // Thread to demonstrate BLOCKED state<br>
+            Thread blockedThread = new Thread(() -> {<br>
+              synchronized (lock) {<br>
+                System.out.println("BlockedThread: " + Thread.currentThread().getState());<br>
+              }<br>
+            }, "BlockedThread");<br><br>
+            // Thread to demonstrate TIMED_WAITING<br>
+            Thread sleepingThread = new Thread(() -> {<br>
+              try {<br>
+                Thread.sleep(1000); // Moves to TIMED_WAITING<br>
+                System.out.println("SleepingThread: " + Thread.currentThread().getState());<br>
+              } catch (InterruptedException e) {<br>
+                System.out.println("SleepingThread interrupted");<br>
+              }<br>
+            }, "SleepingThread");<br><br>
+            // Start threads<br>
+            System.out.println("WaitingThread (New): " + waitingThread.getState());<br>
+            System.out.println("BlockedThread (New): " + blockedThread.getState());<br>
+            System.out.println("SleepingThread (New): " + sleepingThread.getState());<br><br>
+            synchronized (lock) {<br>
+              waitingThread.start();<br>
+              Thread.sleep(100); // Ensure WaitingThread acquires lock<br>
+              System.out.println("WaitingThread (Waiting): " + waitingThread.getState());<br>
+              blockedThread.start();<br>
+              Thread.sleep(100); // Ensure BlockedThread tries to acquire lock<br>
+              System.out.println("BlockedThread (Blocked): " + blockedThread.getState());<br>
+              sleepingThread.start();<br>
+              Thread.sleep(100); // Ensure SleepingThread enters TIMED_WAITING<br>
+              System.out.println("SleepingThread (Timed Waiting): " + sleepingThread.getState());<br>
+              lock.notify(); // Wake WaitingThread<br>
+            }<br><br>
+            Thread.sleep(1500); // Allow threads to complete<br>
+            System.out.println("WaitingThread (Terminated): " + waitingThread.getState());<br>
+            System.out.println("BlockedThread (Terminated): " + blockedThread.getState());<br>
+            System.out.println("SleepingThread (Terminated): " + sleepingThread.getState());<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        WaitingThread (New): NEW<br>
+        BlockedThread (New): NEW<br>
+        SleepingThread (New): NEW<br>
+        WaitingThread: RUNNABLE<br>
+        WaitingThread (Waiting): WAITING<br>
+        BlockedThread (Blocked): BLOCKED<br>
+        SleepingThread (Timed Waiting): TIMED_WAITING<br>
+        BlockedThread: RUNNABLE<br>
+        SleepingThread: RUNNABLE<br>
+        WaitingThread (Terminated): TERMINATED<br>
+        BlockedThread (Terminated): TERMINATED<br>
+        SleepingThread (Terminated): TERMINATED
+      </div>
+      <p><strong>Note</strong>: The output order may vary slightly due to thread scheduling.</p>
+
+      <h2>How to Create a Thread in Java?</h2>
+      <p>Java provides two primary ways to create threads: extending the <code>Thread</code> class or implementing the <code>Runnable</code> interface. The <code>Runnable</code> approach is preferred because it supports multiple inheritance and separates the task logic from thread management.</p>
+      <ul>
+        <li><strong>Extending Thread Class</strong>: Subclass <code>Thread</code>, override <code>run()</code>, and call <code>start()</code>.</li>
+        <li><strong>Implementing Runnable Interface</strong>: Implement <code>Runnable</code>, define <code>run()</code>, and pass the instance to a <code>Thread</code> object’s constructor.</li>
+      </ul>
+      <p>Example combining both approaches:</p>
+      <div class="abc">
+        public class ThreadCreationExample {<br>
+          public static void main(String[] args) {<br>
+            // Extending Thread<br>
+            class MyThread extends Thread {<br>
+              public void run() {<br>
+                System.out.println("MyThread running: " + getName());<br>
+              }<br>
+            }<br><br>
+            // Implementing Runnable<br>
+            class MyRunnable implements Runnable {<br>
+              public void run() {<br>
+                System.out.println("MyRunnable running: " + Thread.currentThread().getName());<br>
+              }<br>
+            }<br><br>
+            MyThread thread1 = new MyThread();<br>
+            Thread thread2 = new Thread(new MyRunnable(), "RunnableThread");<br>
+            thread1.start();<br>
+            thread2.start();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        MyThread running: Thread-0<br>
+        MyRunnable running: RunnableThread
+      </div>
+      <p><strong>Note</strong>: Use <code>Runnable</code> for better flexibility, especially when the class needs to extend another class.</p>
+
+      <h2>Thread.sleep() in Java with Examples</h2>
+      <p>The <code>Thread.sleep(long millis)</code> method pauses the current thread for the specified number of milliseconds, moving it to the Timed Waiting state. It throws an <code>InterruptedException</code> if the thread is interrupted during sleep.</p>
+      <ul>
+        <li><strong>Purpose</strong>: Used to introduce delays, simulate processing time, or control execution timing.</li>
+        <li><strong>Usage</strong>: Commonly used in testing, animations, or scheduling tasks.</li>
+        <li><strong>Exception Handling</strong>: Must be wrapped in a <code>try-catch</code> block due to <code>InterruptedException</code>.</li>
+      </ul>
+      <p>Example using <code>Thread.sleep()</code>:</p>
+      <div class="abc">
+        public class ThreadSleepExample {<br>
+          public static void main(String[] args) {<br>
+            Runnable task = () -> {<br>
+              try {<br>
+                for (int i = 1; i <= 3; i++) {<br>
+                  System.out.println(Thread.currentThread().getName() + ": Count " + i);<br>
+                  Thread.sleep(1000); // Sleep for 1 second<br>
+                }<br>
+              } catch (InterruptedException e) {<br>
+                System.out.println(Thread.currentThread().getName() + " interrupted");<br>
+              }<br>
+            };<br><br>
+            Thread t1 = new Thread(task, "Thread-1");<br>
+            Thread t2 = new Thread(task, "Thread-2");<br>
+            t1.start();<br>
+            t2.start();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Thread-1: Count 1<br>
+        Thread-2: Count 1<br>
+        Thread-1: Count 2<br>
+        Thread-2: Count 2<br>
+        Thread-1: Count 3<br>
+        Thread-2: Count 3
+      </div>
+      <p><strong>Note</strong>: The output may interleave due to concurrent execution. <code>Thread.sleep()</code> does not guarantee exact timing due to system scheduling.</p>
+
+      <h2>Garbage Collection in Java</h2>
+      <p>Garbage collection (GC) in Java automatically manages memory by reclaiming objects that are no longer referenced, preventing memory leaks in multithreaded applications. The JVM’s garbage collector runs in a separate thread, and its behavior can impact multithreading performance.</p>
+      <ul>
+        <li><strong>Purpose</strong>: Frees memory by removing unreferenced objects, reducing the risk of <code>OutOfMemoryError</code>.</li>
+        <li><strong>Process</strong>: Identifies unreachable objects using algorithms like mark-and-sweep, then reclaims their memory.</li>
+        <li><strong>Multithreading Impact</strong>: GC runs concurrently or pauses threads (stop-the-world), affecting performance.</li>
+        <li><strong>System.gc()</code>: Suggests garbage collection but does not guarantee immediate execution.</li>
+      </ul>
+      <p>Example demonstrating garbage collection:</p>
+      <div class="abc">
+        public class GarbageCollectionExample {<br>
+          public static void main(String[] args) {<br>
+            // Create objects and remove references<br>
+            for (int i = 0; i < 1000; i++) {<br>
+              new Object(); // Objects become eligible for GC<br>
+            }<br>
+            System.out.println("Suggesting GC...");<br>
+            System.gc(); // Suggest garbage collection<br>
+            try {<br>
+              Thread.sleep(1000); // Allow time for GC<br>
+            } catch (InterruptedException e) {<br>
+              System.out.println("Main thread interrupted");<br>
+            }<br>
+            System.out.println("GC suggestion completed");<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Suggesting GC...<br>
+        GC suggestion completed
+      </div>
+      <p><strong>Note</strong>: <code>System.gc()</code> is only a suggestion, and actual GC behavior depends on the JVM. In multithreaded applications, minimize object creation to reduce GC overhead.</p>
+
+      <h2>Java Program for Printing Even and Odd Numbers</h2>
+      <p>This program demonstrates how to print even and odd numbers from 1 to 100 in strict alternation (e.g., 1, 2, 3, ..., 100) using two threads: one for odd numbers and one for even numbers. It uses <code>wait()</code> and <code>notify()</code> to ensure precise alternation and <code>Thread.sleep()</code> to add a small delay for readability. Synchronization ensures thread safety, and <code>try-catch</code> blocks handle <code>InterruptedException</code> from <code>Thread.sleep()</code> and <code>wait()</code>.</p>
+      <div class="abc">
+        public class EvenOddPrinter {<br>
+          private int number = 1;<br>
+          private final int MAX = 100;<br>
+          private final Object lock = new Object();<br><br>
+          public void printOdd() {<br>
+            synchronized (lock) {<br>
+              while (number <= MAX) {<br>
+                if (number % 2 != 0) {<br>
+                  try {<br>
+                    System.out.println(Thread.currentThread().getName() + ": " + number);<br>
+                    number++;<br>
+                    Thread.sleep(50); // Small delay for readability<br>
+                    lock.notify(); // Notify the even thread<br>
+                    if (number <= MAX) {<br>
+                      lock.wait(); // Wait for the even thread<br>
+                    }<br>
+                  } catch (InterruptedException e) {<br>
+                    System.out.println(Thread.currentThread().getName() + " interrupted: " + e.getMessage());<br>
+                  }<br>
+                } else {<br>
+                  try {<br>
+                    lock.wait(); // Wait for the even thread<br>
+                  } catch (InterruptedException e) {<br>
+                    System.out.println(Thread.currentThread().getName() + " interrupted: " + e.getMessage());<br>
+                  }<br>
+                }<br>
+              }<br>
+              lock.notify(); // Ensure the other thread can exit<br>
+            }<br>
+          }<br><br>
+          public void printEven() {<br>
+            synchronized (lock) {<br>
+              while (number <= MAX) {<br>
+                if (number % 2 == 0) {<br>
+                  try {<br>
+                    System.out.println(Thread.currentThread().getName() + ": " + number);<br>
+                    number++;<br>
+                    Thread.sleep(50); // Small delay for readability<br>
+                    lock.notify(); // Notify the odd thread<br>
+                    if (number <= MAX) {<br>
+                      lock.wait(); // Wait for the odd thread<br>
+                    }<br>
+                  } catch (InterruptedException e) {<br>
+                    System.out.println(Thread.currentThread().getName() + " interrupted: " + e.getMessage());<br>
+                  }<br>
+                } else {<br>
+                  try {<br>
+                    lock.wait(); // Wait for the odd thread<br>
+                  } catch (InterruptedException e) {<br>
+                    System.out.println(Thread.currentThread().getName() + " interrupted: " + e.getMessage());<br>
+                  }<br>
+                }<br>
+              }<br>
+              lock.notify(); // Ensure the other thread can exit<br>
+            }<br>
+          }<br><br>
+          public static void main(String[] args) {<br>
+            EvenOddPrinter printer = new EvenOddPrinter();<br><br>
+            Thread oddThread = new Thread(() -> printer.printOdd(), "OddThread");<br>
+            Thread evenThread = new Thread(() -> printer.printEven(), "EvenThread");<br><br>
+            oddThread.start();<br>
+            evenThread.start();<br><br>
+            try {<br>
+              oddThread.join();<br>
+              evenThread.join();<br>
+            } catch (InterruptedException e) {<br>
+              System.out.println("Main thread interrupted: " + e.getMessage());<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        OddThread: 1<br>
+        EvenThread: 2<br>
+        OddThread: 3<br>
+        EvenThread: 4<br>
+        OddThread: 5<br>
+        EvenThread: 6<br>
+        ...<br>
+        OddThread: 99<br>
+        EvenThread: 100
+      </div>
+      <p><strong>Note</strong>: The program prints all numbers from 1 to 100 in strict sequence, alternating between odd and even numbers (OddThread prints 1, 3, 5, ..., 99; EvenThread prints 2, 4, 6, ..., 100). The <code>wait()</code> and <code>notify()</code> methods ensure precise alternation, while <code>Thread.sleep(50)</code> adds a small delay to enhance output readability. Synchronization prevents race conditions on the shared <code>number</code> variable. The <code>try-catch</code> blocks handle <code>InterruptedException</code> for <code>sleep()</code>, <code>wait()</code>, and <code>join()</code>. The output is abbreviated for brevity but includes all numbers in order.</p>
+
+      <h2>Best Practices for Multithreading</h2>
+      <ul>
+        <li>Use <code>Runnable</code> over extending <code>Thread</code> for flexibility.</li>
+        <li>Apply <code>synchronized</code> only to critical sections to minimize performance impact.</li>
+        <li>Avoid excessive thread creation; consider thread pools (e.g., <code>ExecutorService</code>) for efficiency.</li>
+        <li>Use <code>volatile</code> for variables shared across threads to ensure visibility.</li>
+        <li>Test thoroughly to detect race conditions and deadlocks.</li>
+      </ul>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Multithreading is supported by the <code>java.lang.Thread</code> and <code>java.lang.Runnable</code> in the <code>java.lang</code> package.</li>
+        <li>Always synchronize shared resources to prevent race conditions.</li>
+        <li>Use thread methods like <code>sleep</code>, <code>join</code>, and <code>yield</code> to control thread execution.</li>
+        <li>Avoid catching <code>InterruptedException</code> without proper handling, as it signals thread interruption.</li>
+        <li>Modern Java applications often use the <code>java.util.concurrent</code> package for advanced concurrency features.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="exception.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

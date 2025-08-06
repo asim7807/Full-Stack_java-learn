@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OOP Concepts in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+       <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+       <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+       <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Object-Oriented Programming Concepts in Java</h1>
+
+      <h2>Introduction to OOP</h2>
+      <p>Object-Oriented Programming (OOP) is a programming paradigm based on the concept of objects, which can contain data (fields) and methods. Java is an OOP language that supports four main principles: encapsulation, inheritance, polymorphism, and abstraction.</p>
+
+      <h2>The Key Concepts in OOP Include:</h2>
+      <p>The following are the core principles of Object-Oriented Programming in Java:</p>
+      <ul>
+        <li><strong>Encapsulation</strong>: Bundling data and methods within a class, controlling access to data using access modifiers (e.g., <code>private</code>, <code>public</code>) to protect the internal state of an object.</li>
+        <li><strong>Inheritance</strong>: Allowing a class to inherit properties and methods from another class, promoting code reuse and establishing a parent-child relationship.</li>
+        <li><strong>Polymorphism</strong>: Enabling objects to be treated as instances of their parent class, with the ability to override or overload methods to perform differently based on the object type.</li>
+        <li><strong>Abstraction</strong>: Hiding complex implementation details and exposing only the essential features of an object, achieved through abstract classes or interfaces.</li>
+      </ul>
+
+      <h2>Access Specifiers</h2>
+      <p>Access specifiers (or modifiers) control the visibility and accessibility of class members (fields, methods, constructors) in Java.</p>
+      <ul>
+        <li><code>public</code>: Accessible from everywhere.</li>
+        <li><code>protected</code>: Accessible within the same package and in subclasses (even if in different packages).</li>
+        <li><code>default</code> (package-private, no modifier): Accessible only within the same package.</li>
+        <li><code>private</code>: Accessible only within the same class.</li>
+      </ul>
+      <div class="abc">
+        public class AccessSpecifierExample {<br>
+          public int publicVar = 1;<br>
+          protected int protectedVar = 2;<br>
+          int defaultVar = 3;<br>
+          private int privateVar = 4;<br><br>
+          public void display() {<br>
+            System.out.println("Public: " + publicVar);<br>
+            System.out.println("Protected: " + protectedVar);<br>
+            System.out.println("Default: " + defaultVar);<br>
+            System.out.println("Private: " + privateVar);<br>
+          }<br>
+        }<br><br>
+        public class TestAccess {<br>
+          public static void main(String[] args) {<br>
+            AccessSpecifierExample obj = new AccessSpecifierExample();<br>
+            obj.display();<br>
+            System.out.println("Accessing publicVar: " + obj.publicVar);<br>
+            System.out.println("Accessing protectedVar: " + obj.protectedVar);<br>
+            System.out.println("Accessing defaultVar: " + obj.defaultVar);<br>
+            // System.out.println(obj.privateVar); // Error: privateVar not accessible<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Public: 1<br>
+        Protected: 2<br>
+        Default: 3<br>
+        Private: 4<br>
+        Accessing publicVar: 1<br>
+        Accessing protectedVar: 2<br>
+        Accessing defaultVar: 3
+      </div>
+
+      <h2>Classes and Objects</h2>
+      <p>A <strong>class</strong> is a blueprint for creating objects, defining properties (fields) and behaviors (methods). An <strong>object</strong> is an instance of a class.</p>
+      <div class="abc">
+        public class Car {<br>
+          String brand;<br>
+          int speed;<br><br>
+          void display() {<br>
+            System.out.println("Brand: " + brand + ", Speed: " + speed);<br>
+          }<br>
+        }<br><br>
+        public class ClassExample {<br>
+          public static void main(String[] args) {<br>
+            Car car = new Car(); // Create object<br>
+            car.brand = "Toyota";<br>
+            car.speed = 120;<br>
+            car.display();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Brand: Toyota, Speed: 120
+      </div>
+
+      <h2>Encapsulation</h2>
+      <p><strong>Encapsulation</strong> involves bundling data (fields) and methods within a class and controlling access using access modifiers (<code>private</code>, <code>public</code>). Getters and setters are used to access private fields.</p>
+      <div class="abc">
+        public class Person {<br>
+          private String name;<br>
+          private int age;<br><br>
+          // Getter<br>
+          public String getName() {<br>
+            return name;<br>
+          }<br><br>
+          // Setter<br>
+          public void setName(String name) {<br>
+            this.name = name;<br>
+          }<br><br>
+          public int getAge() {<br>
+            return age;<br>
+          }<br><br>
+          public void setAge(int age) {<br>
+            if (age > 0) this.age = age;<br>
+          }<br>
+        }<br><br>
+        public class EncapsulationExample {<br>
+          public static void main(String[] args) {<br>
+            Person person = new Person();<br>
+            person.setName("Alice");<br>
+            person.setAge(25);<br>
+            System.out.println("Name: " + person.getName() + ", Age: " + person.getAge());<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Name: Alice, Age: 25
+      </div>
+
+      <h2>Inheritance</h2>
+      <p><strong>Inheritance</strong> allows a class (subclass) to inherit fields and methods from another class (superclass) using the <code>extends</code> keyword.</p>
+      <div class="abc">
+        class Vehicle {<br>
+          String type = "Vehicle";<br>
+          void move() {<br>
+            System.out.println("The vehicle is moving.");<br>
+          }<br>
+        }<br><br>
+        class Bike extends Vehicle {<br>
+          String brand = "Honda";<br>
+        }<br><br>
+        public class InheritanceExample {<br>
+          public static void main(String[] args) {<br>
+            Bike bike = new Bike();<br>
+            System.out.println("Type: " + bike.type + ", Brand: " + bike.brand);<br>
+            bike.move();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Type: Vehicle, Brand: Honda<br>
+        The vehicle is moving.
+      </div>
+
+      <h2>Types of Inheritance</h2>
+      <p>Java supports the following types of inheritance (note: multiple inheritance of classes is not supported, but can be achieved via interfaces):</p>
+      <ul>
+        <li><strong>Single Inheritance</strong>: A subclass inherits from one superclass.</li>
+        <li><strong>Multilevel Inheritance</strong>: A class inherits from a subclass, forming a chain.</li>
+        <li><strong>Hierarchical Inheritance</strong>: Multiple subclasses inherit from a single superclass.</li>
+      </ul>
+
+      <h3>Single Inheritance Example</h3>
+      <p>A subclass inherits from one superclass.</p>
+      <div class="abc">
+        class Animal {<br>
+          void eat() {<br>
+            System.out.println("Animal is eating");<br>
+          }<br>
+        }<br><br>
+        class Dog extends Animal {<br>
+          void bark() {<br>
+            System.out.println("Dog is barking");<br>
+          }<br>
+        }<br><br>
+        public class SingleInheritanceExample {<br>
+          public static void main(String[] args) {<br>
+            Dog dog = new Dog();<br>
+            dog.eat();<br>
+            dog.bark();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Animal is eating<br>
+        Dog is barking
+      </div>
+
+      <h3>Multilevel Inheritance Example</h3>
+      <p>A class inherits from a subclass, forming a chain.</p>
+      <div class="abc">
+        class Animal {<br>
+          void eat() {<br>
+            System.out.println("Animal is eating");<br>
+          }<br>
+        }<br><br>
+        class Dog extends Animal {<br>
+          void bark() {<br>
+            System.out.println("Dog is barking");<br>
+          }<br>
+        }<br><br>
+        class Puppy extends Dog {<br>
+          void play() {<br>
+            System.out.println("Puppy is playing");<br>
+          }<br>
+        }<br><br>
+        public class MultilevelInheritanceExample {<br>
+          public static void main(String[] args) {<br>
+            Puppy puppy = new Puppy();<br>
+            puppy.eat();<br>
+            puppy.bark();<br>
+            puppy.play();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Animal is eating<br>
+        Dog is barking<br>
+        Puppy is playing
+      </div>
+
+      <h3>Hierarchical Inheritance Example</h3>
+      <p>Multiple subclasses inherit from a single superclass.</p>
+      <div class="abc">
+        class Animal {<br>
+          void eat() {<br>
+            System.out.println("Animal is eating");<br>
+          }<br>
+        }<br><br>
+        class Dog extends Animal {<br>
+          void bark() {<br>
+            System.out.println("Dog is barking");<br>
+          }<br>
+        }<br><br>
+        class Cat extends Animal {<br>
+          void meow() {<br>
+            System.out.println("Cat is meowing");<br>
+          }<br>
+        }<br><br>
+        public class HierarchicalInheritanceExample {<br>
+          public static void main(String[] args) {<br>
+            Dog dog = new Dog();<br>
+            dog.eat();<br>
+            dog.bark();<br><br>
+            Cat cat = new Cat();<br>
+            cat.eat();<br>
+            cat.meow();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Animal is eating<br>
+        Dog is barking<br>
+        Animal is eating<br>
+        Cat is meowing
+      </div>
+
+      <h2>Polymorphism</h2>
+      <p><strong>Polymorphism</strong> allows methods to perform differently based on the object calling them, achieved through method overriding or overloading.</p>
+      <div class="abc">
+        class Animal {<br>
+          void makeSound() {<br>
+            System.out.println("Generic animal sound");<br>
+          }<br>
+        }<br><br>
+        class Dog extends Animal {<br>
+          @Override<br>
+          void makeSound() {<br>
+            System.out.println("Bark");<br>
+          }<br>
+        }<br><br>
+        public class PolymorphismExample {<br>
+          public static void main(String[] args) {<br>
+            Animal animal = new Animal();<br>
+            Animal dog = new Dog(); // Polymorphism<br>
+            animal.makeSound();<br>
+            dog.makeSound();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Generic animal sound<br>
+        Bark
+      </div>
+
+      <h2>Types of Polymorphism</h2>
+      <p>Polymorphism in Java is categorized into two types:</p>
+      <ul>
+        <li><strong>Compile-time (Static) Polymorphism</strong>: Achieved through method overloading or operator overloading (limited in Java).</li>
+        <li><strong>Runtime (Dynamic) Polymorphism</strong>: Achieved through method overriding, where the method called is determined at runtime based on the object type.</li>
+      </ul>
+
+      <h3>Compile-time Polymorphism Example</h3>
+      <p>Method overloading allows multiple methods with the same name but different parameters.</p>
+      <div class="abc">
+        class Calculator {<br>
+          int add(int a, int b) {<br>
+            return a + b;<br>
+          }<br><br>
+          double add(double a, double b) {<br>
+            return a + b;<br>
+          }<br>
+        }<br><br>
+        public class CompileTimePolymorphismExample {<br>
+          public static void main(String[] args) {<br>
+            Calculator calc = new Calculator();<br>
+            System.out.println("Int sum: " + calc.add(2, 3));<br>
+            System.out.println("Double sum: " + calc.add(2.5, 3.5));<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Int sum: 5<br>
+        Double sum: 6.0
+      </div>
+
+      <h3>Runtime Polymorphism Example</h3>
+      <p>Method overriding allows a subclass to provide a specific implementation of a superclass method.</p>
+      <div class="abc">
+        class Shape {<br>
+          void draw() {<br>
+            System.out.println("Drawing a shape");<br>
+          }<br>
+        }<br><br>
+        class Circle extends Shape {<br>
+          @Override<br>
+          void draw() {<br>
+            System.out.println("Drawing a circle");<br>
+          }<br>
+        }<br><br>
+        public class RuntimePolymorphismExample {<br>
+          public static void main(String[] args) {<br>
+            Shape shape = new Shape();<br>
+            Shape circle = new Circle();<br>
+            shape.draw();<br>
+            circle.draw();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Drawing a shape<br>
+        Drawing a circle
+      </div>
+
+      <h2>Abstraction</h2>
+      <p><strong>Abstraction</strong> hides implementation details and shows only essential features, achieved using abstract classes or interfaces.</p>
+      <div class="abc">
+        abstract class Shape {<br>
+          abstract double calculateArea();<br>
+        }<br><br>
+        class Circle extends Shape {<br>
+          double radius;<br><br>
+          Circle(double radius) {<br>
+            this.radius = radius;<br>
+          }<br><br>
+          @Override<br>
+          double calculateArea() {<br>
+            return Math.PI * radius * radius;<br>
+          }<br>
+        }<br><br>
+        public class AbstractionExample {<br>
+          public static void main(String[] args) {<br>
+            Shape circle = new Circle(5.0);<br>
+            System.out.printf("Area of circle: %.2f%n", circle.calculateArea());<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Area of circle: 78.54
+      </div>
+
+      <h2>Example Program with User Input</h2>
+      <p>This program demonstrates OOP concepts, including encapsulation and access specifiers, by creating a class for a student and allowing user input to set and display properties.</p>
+      <div class="abc">
+        import java.util.Scanner;<br><br>
+        class Student {<br>
+          private String name;<br>
+          private int rollNumber;<br>
+          private double grade;<br><br>
+          public void setName(String name) {<br>
+            this.name = name;<br>
+          }<br><br>
+          public String getName() {<br>
+            return name;<br>
+          }<br><br>
+          public void setRollNumber(int rollNumber) {<br>
+            if (rollNumber > 0) this.rollNumber = rollNumber;<br>
+          }<br><br>
+          public int getRollNumber() {<br>
+            return rollNumber;<br>
+          }<br><br>
+          public void setGrade(double grade) {<br>
+            if (grade >= 0 && grade <= 100) this.grade = grade;<br>
+          }<br><br>
+          public double getGrade() {<br>
+            return grade;<br>
+          }<br><br>
+          public void displayDetails() {<br>
+            System.out.println("Student: " + name + ", Roll: " + rollNumber + ", Grade: " + grade);<br>
+          }<br>
+        }<br><br>
+        public class StudentExample {<br>
+          public static void main(String[] args) {<br>
+            Scanner input = new Scanner(System.in);<br><br>
+            Student student = new Student();<br><br>
+            System.out.print("Enter student name: ");<br>
+            student.setName(input.nextLine());<br><br>
+            System.out.print("Enter roll number: ");<br>
+            student.setRollNumber(input.nextInt());<br><br>
+            System.out.print("Enter grade (0-100): ");<br>
+            student.setGrade(input.nextDouble());<br><br>
+            student.displayDetails();<br><br>
+            input.close();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Enter student name: Alice<br>
+        Enter roll number: 101<br>
+        Enter grade (0-100): 85.5<br>
+        Student: Alice, Roll: 101, Grade: 85.5
+      </div>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Use <code>private</code> fields with getters and setters for encapsulation.</li>
+        <li>Inheritance promotes code reuse but should not be overused to avoid complex hierarchies.</li>
+        <li>Polymorphism enables flexibility through method overriding (runtime) or overloading (compile-time).</li>
+        <li>Abstract classes cannot be instantiated; they provide a base for subclasses.</li>
+        <li>Interfaces (not shown here) are another way to achieve abstraction, defining methods without implementation.</li>
+        <li>Java does not support multiple inheritance of classes, but interfaces can simulate it.</li>
+        <li>Access specifiers control the visibility of class members, affecting encapsulation and inheritance.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="methods.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Collections in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP Concepts</a></li>
+      <li class="nav-item"><a class="nav-link" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link" href="package.html">Packages</a></li>
+      <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Collections in Java</h1>
+
+      <h2>Introduction to Collections</h2>
+      <p>The Java Collections Framework, part of the <code>java.util</code> package, provides a unified architecture for representing and manipulating groups of objects. Introduced in JDK 1.2, it includes core interfaces like <code>Collection</code>, <code>List</code>, <code>Set</code>, <code>Queue</code>, <code>Deque</code>, and <code>Map</code>, along with implementations such as <code>ArrayList</code>, <code>LinkedList</code>, <code>HashSet</code>, <code>TreeSet</code>, <code>HashMap</code>, and <code>PriorityQueue</code>. This framework enables dynamic data storage, efficient algorithms, and type safety through generics.</p>
+
+      <h2>Detailed Examples of Collections</h2>
+
+      <h3>ArrayList Example: Student Grade Tracker</h3>
+      <p>Manages a list of students with their grades, demonstrating add, remove, update, and iteration operations.</p>
+      <div class="abc">
+        import java.util.ArrayList;<br><br>
+        public class StudentGradeTracker {<br>
+          public static void main(String[] args) {<br>
+            ArrayList<String> students = new ArrayList<>();<br>
+            // Adding students<br>
+            students.add("Alice - 85");<br>
+            students.add("Bob - 92");<br>
+            students.add("Charlie - 78");<br>
+            students.add("David - 95");<br><br>
+            System.out.println("Initial Student List: " + students);<br><br>
+            // Update a grade<br>
+            students.set(2, "Charlie - 88");<br>
+            System.out.println("After updating Charlie's grade: " + students);<br><br>
+            // Remove a student<br>
+            students.remove("Bob - 92");<br>
+            System.out.println("After removing Bob: " + students);<br><br>
+            // Iterate using enhanced for loop<br>
+            System.out.println("Student Grades:");<br>
+            for (String student : students) {<br>
+              System.out.println(student);<br>
+            }<br><br>
+            // Check size<br>
+            System.out.println("Total Students: " + students.size());<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Initial Student List: [Alice - 85, Bob - 92, Charlie - 78, David - 95]<br>
+        After updating Charlie's grade: [Alice - 85, Bob - 92, Charlie - 88, David - 95]<br>
+        After removing Bob: [Alice - 85, Charlie - 88, David - 95]<br>
+        Student Grades:<br>
+        Alice - 85<br>
+        Charlie - 88<br>
+        David - 95<br>
+        Total Students: 3
+      </div>
+
+      <h3>LinkedList Example: Inventory Management</h3>
+      <p>Manages an inventory with add, remove, and peek operations at both ends.</p>
+      <div class="abc">
+        import java.util.LinkedList;<br><br>
+        public class InventoryManagement {<br>
+          public static void main(String[] args) {<br>
+            LinkedList<String> inventory = new LinkedList<>();<br>
+            // Adding items<br>
+            inventory.add("Laptop");<br>
+            inventory.addFirst("Mouse");<br>
+            inventory.addLast("Keyboard");<br>
+            inventory.add("Monitor");<br><br>
+            System.out.println("Initial Inventory: " + inventory);<br><br>
+            // Remove from start and end<br>
+            String removedFirst = inventory.removeFirst();<br>
+            String removedLast = inventory.removeLast();<br>
+            System.out.println("Removed: " + removedFirst + ", " + removedLast);<br>
+            System.out.println("After Removal: " + inventory);<br><br>
+            // Peek at first item<br>
+            System.out.println("First Item: " + inventory.peekFirst());<br><br>
+            // Iterate<br>
+            System.out.println("Remaining Items:");<br>
+            for (String item : inventory) {<br>
+              System.out.println(item);<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Initial Inventory: [Mouse, Laptop, Keyboard, Monitor]<br>
+        Removed: Mouse, Monitor<br>
+        After Removal: [Laptop, Keyboard]<br>
+        First Item: Laptop<br>
+        Remaining Items:<br>
+        Laptop<br>
+        Keyboard
+      </div>
+
+      <h3>TreeSet Example: Sorted Student Names</h3>
+      <p>Maintains a sorted set of student names with automatic ordering.</p>
+      <div class="abc">
+        import java.util.TreeSet;<br><br>
+        public class SortedStudentNames {<br>
+          public static void main(String[] args) {<br>
+            TreeSet<String> students = new TreeSet<>();<br>
+            // Adding students<br>
+            students.add("Charlie");<br>
+            students.add("Alice");<br>
+            students.add("Bob");<br>
+            students.add("David");<br>
+            students.add("Alice"); // Duplicate, ignored<br><br>
+            System.out.println("Sorted Student Names: " + students);<br><br>
+            // Remove a student<br>
+            students.remove("Bob");<br>
+            System.out.println("After removing Bob: " + students);<br><br>
+            // First and last elements<br>
+            System.out.println("First Student: " + students.first());<br>
+            System.out.println("Last Student: " + students.last());<br><br>
+            // Iterate<br>
+            System.out.println("Students:");<br>
+            for (String student : students) {<br>
+              System.out.println(student);<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Sorted Student Names: [Alice, Bob, Charlie, David]<br>
+        After removing Bob: [Alice, Charlie, David]<br>
+        First Student: Alice<br>
+        Last Student: David<br>
+        Students:<br>
+        Alice<br>
+        Charlie<br>
+        David
+      </div>
+
+      <h3>Queue Example: Task Scheduler with PriorityQueue</h3>
+      <p>Manages tasks with priorities using a `PriorityQueue`.</p>
+      <div class="abc">
+        import java.util.PriorityQueue;<br><br>
+        public class TaskScheduler {<br>
+          public static void main(String[] args) {<br>
+            PriorityQueue<String> tasks = new PriorityQueue<>();<br>
+            // Adding tasks with priority (natural ordering)<br>
+            tasks.add("Task3 - Priority 3");<br>
+            tasks.add("Task1 - Priority 1");<br>
+            tasks.add("Task2 - Priority 2");<br><br>
+            System.out.println("Task Queue: " + tasks);<br><br>
+            // Process tasks<br>
+            while (!tasks.isEmpty()) {<br>
+              System.out.println("Processing: " + tasks.poll());<br>
+            }<br><br>
+            // Try to poll from empty queue<br>
+            System.out.println("Poll from empty: " + tasks.poll());<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Task Queue: [Task1 - Priority 1, Task3 - Priority 3, Task2 - Priority 2]<br>
+        Processing: Task1 - Priority 1<br>
+        Processing: Task2 - Priority 2<br>
+        Processing: Task3 - Priority 3<br>
+        Poll from empty: null
+      </div>
+
+      <h3>HashMap Example: Student Grade Map</h3>
+      <p>Stores student names and grades in a `HashMap` with various operations.</p>
+      <div class="abc">
+        import java.util.HashMap;<br><br>
+        public class StudentGradeMap {<br>
+          public static void main(String[] args) {<br>
+            HashMap<String, Integer> grades = new HashMap<>();<br>
+            // Adding grades<br>
+            grades.put("Alice", 85);<br>
+            grades.put("Bob", 92);<br>
+            grades.put("Charlie", 78);<br>
+            grades.put("David", 95);<br><br>
+            System.out.println("Initial Grades: " + grades);<br><br>
+            // Update a grade<br>
+            grades.put("Charlie", 88);<br>
+            System.out.println("After updating Charlie: " + grades);<br><br>
+            // Remove a student<br>
+            grades.remove("Bob");<br>
+            System.out.println("After removing Bob: " + grades);<br><br>
+            // Check if key exists<br>
+            System.out.println("Contains Alice: " + grades.containsKey("Alice"));<br><br>
+            // Iterate over entries<br>
+            System.out.println("Student Grades:");<br>
+            for (String name : grades.keySet()) {<br>
+              System.out.println(name + ": " + grades.get(name));<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Initial Grades: {Alice=85, Bob=92, Charlie=78, David=95}<br>
+        After updating Charlie: {Alice=85, Bob=92, Charlie=88, David=95}<br>
+        After removing Bob: {Alice=85, Charlie=88, David=95}<br>
+        Contains Alice: true<br>
+        Student Grades:<br>
+        Alice: 85<br>
+        Charlie: 88<br>
+        David: 95
+      </div>
+
+      <h3>HashSet Example: Unique Product IDs</h3>
+      <p>Maintains a set of unique product IDs with add, remove, and iteration.</p>
+      <div class="abc">
+        import java.util.HashSet;<br><br>
+        public class UniqueProductIDs {<br>
+          public static void main(String[] args) {<br>
+            HashSet<String> productIDs = new HashSet<>();<br>
+            // Adding product IDs<br>
+            productIDs.add("P001");<br>
+            productIDs.add("P002");<br>
+            productIDs.add("P003");<br>
+            productIDs.add("P001"); // Duplicate, ignored<br><br>
+            System.out.println("Initial Product IDs: " + productIDs);<br><br>
+            // Remove a product ID<br>
+            productIDs.remove("P002");<br>
+            System.out.println("After removing P002: " + productIDs);<br><br>
+            // Check size and containment<br>
+            System.out.println("Total Unique IDs: " + productIDs.size());<br>
+            System.out.println("Contains P001: " + productIDs.contains("P001"));<br><br>
+            // Iterate<br>
+            System.out.println("Product IDs:");<br>
+            for (String id : productIDs) {<br>
+              System.out.println(id);<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Initial Product IDs: [P001, P002, P003]<br>
+        After removing P002: [P001, P003]<br>
+        Total Unique IDs: 2<br>
+        Contains P001: true<br>
+        Product IDs:<br>
+        P001<br>
+        P003
+      </div>
+
+      <h2>Core Interfaces and Implementations</h2>
+      <ul>
+        <li><strong>Collection</strong>: Root interface.</li>
+        <li><strong>List</strong>: <code>ArrayList</code>, <code>LinkedList</code>.</li>
+        <li><strong>Set</strong>: <code>HashSet</code>, <code>TreeSet</code>.</li>
+        <li><strong>Queue</strong>: <code>PriorityQueue</code>.</li>
+        <li><strong>Map</strong>: <code>HashMap</code>.</li>
+      </ul>
+
+      <h2>Best Practices</h2>
+      <ul>
+        <li>Choose <code>ArrayList</code> for random access, <code>LinkedList</code> for frequent insertions.</li>
+        <li>Use <code>TreeSet</code> for sorted unique elements.</li>
+        <li>Employ <code>PriorityQueue</code> for prioritized tasks.</li>
+        <li>Utilize <code>HashMap</code> for key-value pairs, <code>HashSet</code> for uniqueness.</li>
+      </ul>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Part of <code>java.util</code> package.</li>
+        <li>Most collections are not thread-safe; use synchronized wrappers if needed.</li>
+        <li>Generics enhance type safety.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="multithreading.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

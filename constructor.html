@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Constructors in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP Concepts</a></li>
+      <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+       <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Constructors in Java</h1>
+
+      <h2>Introduction to Constructors</h2>
+      <p>A <strong>constructor</strong> in Java is a special method used to initialize objects of a class. It has the same name as the class, no return type, and is called automatically when an object is created using the <code>new</code> keyword.</p>
+
+      <h2>Key Characteristics of Constructors</h2>
+      <ul>
+        <li>Same name as the class.</li>
+        <li>No return type, not even <code>void</code>.</li>
+        <li>Automatically invoked when an object is created.</li>
+        <li>Used to initialize instance variables.</li>
+        <li>Can be overloaded to provide multiple ways to initialize objects.</li>
+      </ul>
+
+      <h2>Types of Constructors</h2>
+      <p>Java supports the following types of constructors:</p>
+      <ul>
+        <li><strong>Default Constructor</strong>: Provided by Java if no constructor is defined, initializes fields to default values (e.g., 0, null).</li>
+        <li><strong>Parameterized Constructor</strong>: Accepts parameters to initialize fields with specific values.</li>
+        <li><strong>Copy Constructor</strong>: Initializes an object using another object of the same class.</li>
+      </ul>
+
+      <h2>Default Constructor</h2>
+      <p>A default constructor is automatically provided by Java if no constructor is explicitly defined. It initializes instance variables to their default values.</p>
+      <div class="abc">
+        public class Student {<br>
+          String name;<br>
+          int rollNumber;<br><br>
+          // Default constructor provided by Java implicitly<br>
+          void display() {<br>
+            System.out.println("Name: " + name + ", Roll: " + rollNumber);<br>
+          }<br>
+        }<br><br>
+        public class DefaultConstructorExample {<br>
+          public static void main(String[] args) {<br>
+            Student student = new Student(); // Calls default constructor<br>
+            student.display();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Name: null, Roll: 0
+      </div>
+
+      <h2>Parameterized Constructor</h2>
+      <p>A parameterized constructor accepts parameters to initialize instance variables with specific values during object creation.</p>
+      <div class="abc">
+        public class Student {<br>
+          String name;<br>
+          int rollNumber;<br><br>
+          // Parameterized constructor<br>
+          Student(String name, int rollNumber) {<br>
+            this.name = name;<br>
+            this.rollNumber = rollNumber;<br>
+          }<br><br>
+          void display() {<br>
+            System.out.println("Name: " + name + ", Roll: " + rollNumber);<br>
+          }<br>
+        }<br><br>
+        public class ParameterizedConstructorExample {<br>
+          public static void main(String[] args) {<br>
+            Student student = new Student("Alice", 101);<br>
+            student.display();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Name: Alice, Roll: 101
+      </div>
+
+      <h2>Copy Constructor</h2>
+      <p>A copy constructor creates a new object by copying the values of another object of the same class.</p>
+      <div class="abc">
+        public class Student {<br>
+          String name;<br>
+          int rollNumber;<br><br>
+          // Parameterized constructor<br>
+          Student(String name, int rollNumber) {<br>
+            this.name = name;<br>
+            this.rollNumber = rollNumber;<br>
+          }<br><br>
+          // Copy constructor<br>
+          Student(Student other) {<br>
+            this.name = other.name;<br>
+            this.rollNumber = other.rollNumber;<br>
+          }<br><br>
+          void display() {<br>
+            System.out.println("Name: " + name + ", Roll: " + rollNumber);<br>
+          }<br>
+        }<br><br>
+        public class CopyConstructorExample {<br>
+          public static void main(String[] args) {<br>
+            Student student1 = new Student("Bob", 102);<br>
+            Student student2 = new Student(student1); // Copy constructor<br>
+            student2.display();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Name: Bob, Roll: 102
+      </div>
+
+      <h2>Constructor Overloading</h2>
+      <p>Constructor overloading allows multiple constructors in a class with different parameter lists, providing flexibility in object initialization.</p>
+      <div class="abc">
+        public class Student {<br>
+          String name;<br>
+          int rollNumber;<br>
+          double grade;<br><br>
+          // Constructor with name and roll number<br>
+          Student(String name, int rollNumber) {<br>
+            this.name = name;<br>
+            this.rollNumber = rollNumber;<br>
+          }<br><br>
+          // Constructor with name, roll number, and grade<br>
+          Student(String name, int rollNumber, double grade) {<br>
+            this.name = name;<br>
+            this.rollNumber = rollNumber;<br>
+            this.grade = grade;<br>
+          }<br><br>
+          void display() {<br>
+            System.out.println("Name: " + name + ", Roll: " + rollNumber + ", Grade: " + grade);<br>
+          }<br>
+        }<br><br>
+        public class ConstructorOverloadingExample {<br>
+          public static void main(String[] args) {<br>
+            Student student1 = new Student("Alice", 101);<br>
+            Student student2 = new Student("Bob", 102, 85.5);<br>
+            student1.display();<br>
+            student2.display();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Name: Alice, Roll: 101, Grade: 0.0<br>
+        Name: Bob, Roll: 102, Grade: 85.5
+      </div>
+
+      <h2>Constructor Chaining</h2>
+      <p>Constructor chaining allows one constructor to call another constructor in the same class using <code>this()</code> or in a superclass using <code>super()</code>.</p>
+      <div class="abc">
+        class Person {<br>
+          String name;<br><br>
+          Person(String name) {<br>
+            this.name = name;<br>
+          }<br>
+        }<br><br>
+        class Student extends Person {<br>
+          int rollNumber;<br><br>
+          // Constructor chaining within the same class<br>
+          Student(String name) {<br>
+            this(name, 0); // Calls the parameterized constructor<br>
+          }<br><br>
+          Student(String name, int rollNumber) {<br>
+            super(name); // Calls superclass constructor<br>
+            this.rollNumber = rollNumber;<br>
+          }<br><br>
+          void display() {<br>
+            System.out.println("Name: " + name + ", Roll: " + rollNumber);<br>
+          }<br>
+        }<br><br>
+        public class ConstructorChainingExample {<br>
+          public static void main(String[] args) {<br>
+            Student student1 = new Student("Alice");<br>
+            Student student2 = new Student("Bob", 102);<br>
+            student1.display();<br>
+            student2.display();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Name: Alice, Roll: 0<br>
+        Name: Bob, Roll: 102
+      </div>
+
+      <h2>Example Program with User Input</h2>
+      <p>This program demonstrates constructors by allowing user input to initialize a student object using a parameterized constructor.</p>
+      <div class="abc">
+        import java.util.Scanner;<br><br>
+        class Student {<br>
+          private String name;<br>
+          private int rollNumber;<br>
+          private double grade;<br><br>
+          // Parameterized constructor<br>
+          Student(String name, int rollNumber, double grade) {<br>
+            this.name = name;<br>
+            this.rollNumber = rollNumber;<br>
+            if (grade >= 0 && grade <= 100) this.grade = grade;<br>
+          }<br><br>
+          void displayDetails() {<br>
+            System.out.println("Student: " + name + ", Roll: " + rollNumber + ", Grade: " + grade);<br>
+          }<br>
+        }<br><br>
+        public class StudentConstructorExample {<br>
+          public static void main(String[] args) {<br>
+            Scanner input = new Scanner(System.in);<br><br>
+            System.out.print("Enter student name: ");<br>
+            String name = input.nextLine();<br><br>
+            System.out.print("Enter roll number: ");<br>
+            int rollNumber = input.nextInt();<br><br>
+            System.out.print("Enter grade (0-100): ");<br>
+            double grade = input.nextDouble();<br><br>
+            Student student = new Student(name, rollNumber, grade);<br>
+            student.displayDetails();<br><br>
+            input.close();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Enter student name: Alice<br>
+        Enter roll number: 101<br>
+        Enter grade (0-100): 85.5<br>
+        Student: Alice, Roll: 101, Grade: 85.5
+      </div>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Constructors cannot be inherited, but superclass constructors can be called using <code>super()</code>.</li>
+        <li>If no constructor is defined, Java provides a default constructor.</li>
+        <li><code>this()</code> and <code>super()</code> must be the first statement in a constructor.</li>
+        <li>Constructors can be overloaded like methods, allowing multiple initialization options.</li>
+        <li>Copy constructors create a new object with the same values as an existing object.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="classes.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

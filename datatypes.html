@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Data Types - Java Tutorial Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+.toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #04AA6D;
+    color: white;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+}
+.sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+}
+
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-header h3 {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.nav {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+}
+
+.nav-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #059862;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    max-width: 1000px;
+}
+
+.content-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-container h1 {
+    font-size: 2.5rem;
+    color: #04AA6D;
+    margin-bottom: 1rem;
+}
+
+.content-container h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 1.5rem 0 1rem;
+}
+
+.content-container h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+}
+
+.content-container h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+}
+
+.content-container p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.content-container ul,
+.content-container ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    color: #333; /* Dark gray for content ul and ol elements */
+}
+
+.content-container ul li,
+.content-container ol li {
+    margin-bottom: 0.5rem;
+}
+
+/* Table */
+.content-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.content-container th,
+.content-container td {
+    border: 1px solid #ccc;
+    padding: 0.8rem;
+    text-align: left;
+}
+
+.content-container th {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.content-container td {
+    background-color: #f9f9f9;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    background-color: #282A35;
+    padding: 1rem;
+    text-align: center;
+}
+
+.nav-title {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Example Box */
+.example-box {
+    background-color: #f9f9f9;
+    border-left: 5px solid #04AA6D;
+    padding: 1.5rem;
+    border-radius: 4px;
+    margin: 2rem 0;
+}
+
+.example-box h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.example-box pre {
+    background-color: #282A35;
+    color: white;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.example-box pre.output {
+    background-color: #e7e9eb;
+    color: #333;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #059862;
+}
+
+.btn-primary {
+    background-color: #282A35;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3a3c4a;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #282A35;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-left: 250px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .toggle-btn {
+    display: block;
+  }
+
+  .sidebar {
+    display: none;
+    position: fixed;
+    width: 250px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+  }
+
+  .sidebar.sidebar-open {
+    display: block;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .footer {
+    margin-left: 0;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+  .content-container h1 {
+    font-size: 2rem;
+  }
+}
+
+
+    </style>
+</head>
+<body>
+     <button id="toggleSidebar" class="toggle-btn">☰</button>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Java Topics</h3>
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+           
+            <li class="nav-item">
+                <a class="nav-link" href="introduction.html">Introduction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="setup.html">Installation & Setup</a>
+            </li>
+                 <li class="nav-item">
+                <a class="nav-link active" href="version.html">Versions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="pack.html">JDK,JRE,JVM</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="variables.html">Variables</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="datatypes.html">Datatypes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="typecasting.html">TypeCasting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="operators.html">Operators</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="string.html">String</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="math.html">Math</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="boolean.html">Boolean</a>
+            </li>
+            <li class="nav-item"><a class="nav-link active" href="io.html">User Input/Output</a></li>
+            <li class="nav-item"><a class="nav-link active" href="condition.html">Conditional Statements</a></li>
+            <li class="nav-item"><a class="nav-link active" href="iterations.html">Looping Statements</a></li>
+            <li class="nav-item"><a class="nav-link active" href="arrays.html">Arrays</a></li>
+            <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+            <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+             <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+             <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+             <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+              <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <span class="nav-title">Java Topics</span>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="content-container">
+            <h1>Java Data Types</h1>
+            <p>A data type in Java specifies the type and size of values that can be stored in a variable. Java is a strongly typed language, which means every variable must be declared with a data type before use.</p>
+
+            <h2>Why are Data Types Important?</h2>
+            <ul>
+                <li>To define the nature of the data (e.g., number, character, boolean).</li>
+                <li>To ensure memory-efficient programming.</li>
+                <li>To avoid type mismatch errors at compile time.</li>
+                <li>To enable the compiler to allocate appropriate memory size.</li>
+            </ul>
+
+            <h2>Categories of Data Types</h2>
+            <p>Java has two main categories of data types:</p>
+            <ul>
+                <li><strong>Primitive Data Types</strong> – Predefined, basic types</li>
+                <li><strong>Non-Primitive Data Types</strong> – User-defined or derived types</li>
+            </ul>
+
+            <h2>Primitive Data Types</h2>
+            <p>Java has 8 primitive types. These are the most basic data types and are not objects.</p>
+            <table>
+                <tr>
+                    <th>Data Type</th>
+                    <th>Description</th>
+                    <th>Size</th>
+                    <th>Default Value</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>byte</td>
+                    <td>Small integer</td>
+                    <td>1 byte</td>
+                    <td>0</td>
+                    <td>byte b = 100;</td>
+                </tr>
+                <tr>
+                    <td>short</td>
+                    <td>Medium integer</td>
+                    <td>2 bytes</td>
+                    <td>0</td>
+                    <td>short s = 32000;</td>
+                </tr>
+                <tr>
+                    <td>int</td>
+                    <td>Default integer type</td>
+                    <td>4 bytes</td>
+                    <td>0</td>
+                    <td>int i = 50000;</td>
+                </tr>
+                <tr>
+                    <td>long</td>
+                    <td>Large integer</td>
+                    <td>8 bytes</td>
+                    <td>0L</td>
+                    <td>long l = 10000000000L;</td>
+                </tr>
+                <tr>
+                    <td>float</td>
+                    <td>Single precision decimal</td>
+                    <td>4 bytes</td>
+                    <td>0.0f</td>
+                    <td>float f = 3.14f;</td>
+                </tr>
+                <tr>
+                    <td>double</td>
+                    <td>Double precision decimal</td>
+                    <td>8 bytes</td>
+                    <td>0.0d</td>
+                    <td>double d = 3.14159;</td>
+                </tr>
+                <tr>
+                    <td>char</td>
+                    <td>Single character</td>
+                    <td>2 bytes</td>
+                    <td>''</td>
+                    <td>char c = 'A';</td>
+                </tr>
+                <tr>
+                    <td>boolean</td>
+                    <td>True or false</td>
+                    <td>1 bit</td>
+                    <td>false</td>
+                    <td>boolean isTrue = true;</td>
+                </tr>
+            </table>
+
+            <h3>Example: Using All Primitive Data Types</h3>
+            <div class="example-box">
+                <pre>
+                    <code>
+public class PrimitiveExample {
+  public static void main(String[] args) {
+    byte age = 25;
+    short year = 2025;
+    int salary = 50000;
+    long population = 8000000000L;
+
+    float rating = 4.5f;
+    double pi = 3.1415926535;
+
+    char grade = 'A';
+    boolean isJavaFun = true;
+
+    System.out.println("Age: " + age);
+    System.out.println("Year: " + year);
+    System.out.println("Salary: " + salary);
+    System.out.println("Population: " + population);
+    System.out.println("Rating: " + rating);
+    System.out.println("Pi: " + pi);
+    System.out.println("Grade: " + grade);
+    System.out.println("Is Java Fun? " + isJavaFun);
+  }
+}
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">
+Age: 25
+Year: 2025
+Salary: 50000
+Population: 8000000000
+Rating: 4.5
+Pi: 3.1415926535
+Grade: A
+Is Java Fun? true
+                </pre>
+            </div>
+
+            <h2>Non-Primitive Data Types</h2>
+            <p>These data types are created by the user or provided by Java libraries. They store references (addresses) instead of actual values.</p>
+            <ul>
+                <li><strong>String</strong> – Sequence of characters</li>
+                <li><strong>Array</strong> – Collection of elements of same data type</li>
+                <li><strong>Class</strong> – Blueprint for creating objects</li>
+                <li><strong>Interface</strong> – Abstract type for defining contracts</li>
+                <li><strong>Objects</strong> – Instances of classes</li>
+            </ul>
+
+            <h3>Example: String and Array</h3>
+            <div class="example-box">
+                <pre>
+                    <code>
+public class NonPrimitiveExample {
+  public static void main(String[] args) {
+    // String
+    String name = "Asim";
+    System.out.println("Name: " + name);
+
+    // Array
+    int[] marks = {85, 90, 95};
+    for (int i = 0; i < marks.length; i++) {
+      System.out.println("Mark " + (i + 1) + ": " + marks[i]);
+    }
+  }
+}
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">
+Name: Asim
+Mark 1: 85
+Mark 2: 90
+Mark 3: 95
+                </pre>
+            </div>
+
+            <h2>Difference Between Primitive and Non-Primitive</h2>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Primitive</th>
+                    <th>Non-Primitive</th>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>Basic types</td>
+                    <td>Reference types</td>
+                </tr>
+                <tr>
+                    <td>Memory</td>
+                    <td>Stores actual value</td>
+                    <td>Stores address of object</td>
+                </tr>
+                <tr>
+                    <td>Default Value</td>
+                    <td>Depends on type (0, false, etc.)</td>
+                    <td>null</td>
+                </tr>
+                <tr>
+                    <td>Customizable?</td>
+                    <td>No</td>
+                    <td>Yes (created by programmer)</td>
+                </tr>
+            </table>
+
+            <h2>Important Notes</h2>
+            <ul>
+                <li>Use <code>int</code> for whole numbers, <code>double</code> for decimal numbers.</li>
+                <li>Always add <code>L</code> to long values and <code>f</code> to float literals.</li>
+                <li><code>char</code> can store Unicode characters (like 'A', '$', '9').</li>
+                <li><code>String</code> is not a primitive but widely used for text.</li>
+            </ul>
+
+            <div class="navigation-buttons">
+                <a href="variables.html" class="btn btn-primary">Previous</a>
+                <a href="typecasting.html" class="btn btn-primary">Continue to TypeCasting</a>
+            </div>
+        </div>
+
+       
+    </div>
+     <script>
+         const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+    </script>
+</body>
+</html>

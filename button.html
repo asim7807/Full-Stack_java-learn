@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java AWT Button</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+       .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+        .sidebar.active {
+            left: 0;
+            width: 175px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #ecf0f1;
+            display: block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .sidebar .active {
+            background-color: #219653;
+            color: #fff;
+        }
+
+        /* Toggle Button Styling */
+        .toggle-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 0;
+            padding: 60px 20px 20px 20px;
+            min-height: 100vh;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .main-content.shifted {
+            margin-left: 175px;
+        }
+
+        h1 {
+            color: #27ae60;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        h2, h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #555;
+            padding-left: 10px;
+        }
+
+        em {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #27ae60;
+            color: #fff;
+        }
+
+        pre {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 10px;
+            font-size: 14px;
+        }
+
+        code {
+            color: #c0392b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        ol {
+            margin: 10px 0 15px 30px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+                width: 50%;
+            }
+
+            .toggle-btn {
+                top: 5px;
+                left: 5px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+
+            .main-content {
+                padding-top: 50px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .sidebar a {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 40px 10px 10px 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            pre {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .toggle-btn {
+                padding: 8px 12px;
+                font-size: 16px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar">
+       <a href="awt.html">AWT</a>
+      <a class="nav-link active" href="awt-class.html">AWT-Classes</a>
+      <a href="components.html">AWT-Components</a>
+      <a href="container.html">AWT-Containers</a>
+      <a href="event-handling.html">Event Handling</a>
+      <a href="button.html">AWT-Buttons</a>
+      <a href="label.html">AWT-Labels</a>
+      <a href="textarea.html">AWT-Textfield</a></li>
+      <a href="textarea.html">AWT-Textarea</a>
+      <a href="checkbox.html">AWT-Checkboxes</a>
+      <a href="checkboxgroup.html">AWT-checkboxegroup</a>
+      <a href="awt-class.html">AWT-Scrollbar</a>
+      <a href="menu.html ">AWT-Menu</a>
+      <a href="actionlistener.html">ActionListener</a>
+      <a href="mouselistener.html">MouseListener</a>
+      <a class="nav-link active" href="awt-class.html">ItemListener</a>
+      <a href="keylistener.html">keylistener</a>
+      <a href="windowlistener.html">WindowListener</a>
+
+    </div>
+
+    <div class="main-content">
+        <h1 id="introduction">Java AWT Button</h1>
+        <p><em>17 Mar 2025 | 4 min read</em></p>
+        <p>A button is basically a control component with a label that generates an event when pushed. The Button class is used to create a labeled button that has platform independent implementation. The application result in some action when the button is pushed.</p>
+        <p>When we press a button and release it, AWT sends an instance of ActionEvent to that button by calling processEvent on the button. The processEvent method of the button receives the all the events, then it passes an action event by calling its own method processActionEvent. This method passes the action event on to action listeners that are interested in the action events generated by the button.</p>
+        <p>To perform an action on a button being pressed and released, the ActionListener interface needs to be implemented. The registered new listener can receive events from the button by calling addActionListener method of the button. The Java application can use the button's action command as a messaging protocol.</p>
+
+        <h2 id="declaration">AWT Button Class Declaration</h2>
+        <p>public class Button extends Component implements Accessible</p>
+
+        <h2 id="constructors">Button Class Constructors</h2>
+        <p>Following table shows the types of Button class constructors</p>
+        <table border="1">
+            <tr>
+                <th>Sr. no.</th>
+                <th>Constructor</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>Button()</td>
+                <td>It constructs a new button with an empty string i.e. it has no label.</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Button(String text)</td>
+                <td>It constructs a new button with given string as its label.</td>
+            </tr>
+        </table>
+
+        <h2 id="methods">Button Class Methods</h2>
+        <table border="1">
+            <tr>
+                <th>Sr. no.</th>
+                <th>Method</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>void setText(String text)</td>
+                <td>It sets the string message on the button</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>String getText()</td>
+                <td>It fetches the String message on the button.</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>void setLabel(String label)</td>
+                <td>It sets the label of button with the specified string.</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>String getLabel()</td>
+                <td>It fetches the label of the button.</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>void addNotify()</td>
+                <td>It creates the peer of the button.</td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>AccessibleContext getAccessibleContext()</td>
+                <td>It fetched the accessible context associated with the button.</td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>void addActionListener(ActionListener l)</td>
+                <td>It adds the specified action listener to get the action events from the button.</td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>String getActionCommand()</td>
+                <td>It returns the command name of the action event fired by the button.</td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>ActionListener[] getActionListeners()</td>
+                <td>It returns an array of all the action listeners registered on the button.</td>
+            </tr>
+        </table>
+
+        <h2 id="examples">Examples</h2>
+        <p>Compile the following code with the command:</p>
+        <p>C:\Users\Anurati\Desktop\abcDemo>javac ButtonExample.java</p>
+        <p>If there's no error, we can execute the code using:</p>
+        <p>C:\Users\Anurati\Desktop\abcDemo>java ButtonExample</p>
+        <p>Output:</p>
+        <img src="java-awt-button.jpg" alt="Button Example Output ">
+        
+
+        <h3>Example 2:</h3>
+        <pre><code>
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ButtonExample2 {
+    Frame fObj;
+    Button button1, button2, button3;
+    ButtonExample2() {
+        fObj = new Frame("Frame to display buttons");
+        button1 = new Button();
+        button2 = new Button("Click here");
+        button3 = new Button();
+        button3.setLabel("Button 3");
+        fObj.add(button1);
+        fObj.add(button2);
+        fObj.add(button3);
+        fObj.setLayout(new FlowLayout());
+        fObj.setSize(300,400);
+        fObj.setVisible(true);
+    }
+    public static void main(String args[]) {
+        new ButtonExample2();
+    }
+}
+        </code></pre>
+        <p>Output:</p>
+        <img src="java-awt-button2.png" alt="Button Example Output 3">
+
+        <h3>Java AWT Button Example with ActionListener</h3>
+        <p>Example:</p>
+        <p>In the following example, we are handling the button click events by implementing ActionListener Interface.</p>
+        <p>ButtonExample3.java</p>
+        <pre><code>
+import java.awt.*;
+import java.awt.event.*;
+public class ButtonExample3 {
+    public static void main(String[] args) {
+        Frame f = new Frame("Button Example");
+        final TextField tf=new TextField();
+        tf.setBounds(50,50, 150,20);
+        Button b=new Button("Click Here");
+        b.setBounds(50,100,60,30);
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tf.setText("Welcome to Javatpoint.");
+            }
+        });
+        f.add(b);
+        f.add(tf);
+        f.setSize(400,400);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+}
+        </code></pre>
+        <p>Output:</p>
+        <img src="java-awt-button3.jpg" alt="Button Example with ActionListener Output">
+    </div>
+
+    <script>
+        
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('shifted');
+    }
+
+    </script>
+</body>
+</html>

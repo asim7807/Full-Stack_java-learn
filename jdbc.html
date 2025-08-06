@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JDBC in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .content-container ol {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ol li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP Concepts</a></li>
+      <li class="nav-item"><a class="nav-link" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link" href="package.html">Packages</a></li>
+      <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link" href="collections.html"> Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+      
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>JDBC in Java</h1>
+      <p>Generated on: Monday, August 04, 2025, 03:05 PM IST</p>
+
+      <h2>Introduction to JDBC</h2>
+      <p>JDBC stands for Java Database Connectivity. JDBC is a Java API to connect and execute queries with the database, and process the results. It is a part of JavaSE (Java Standard Edition). JDBC API uses JDBC drivers to connect with the database. There are four types of JDBC drivers:</p>
+      <ul>
+        <li>JDBC-ODBC Bridge Driver</li>
+        <li>Native Driver</li>
+        <li>Network Protocol Driver</li>
+        <li>Thin Driver</li>
+      </ul>
+      <p>We will discuss the above four drivers in detail below. We can use JDBC API to access tabular data stored in any relational database. By the help of JDBC API, we can save, update, delete, and fetch data from the database. It is like Open Database Connectivity (ODBC) provided by Microsoft.</p>
+      <!-- Placeholder for image: JDBC (Java Database Connectivity) -->
+      <p>The current version of JDBC is 4.3. It is the stable release since September 21, 2017. It is based on the X/Open SQL Call Level Interface. The <code>java.sql</code> package contains classes and interfaces for JDBC API. A list of popular interfaces of JDBC API are given below:</p>
+      <ul>
+        <li>Driver interface</li>
+        <li>Connection interface</li>
+        <li>Statement interface</li>
+        <li>PreparedStatement interface</li>
+        <li>CallableStatement interface</li>
+        <li>ResultSet interface</li>
+        <li>ResultSetMetaData interface</li>
+        <li>DatabaseMetaData interface</li>
+        <li>RowSet interface</li>
+      </ul>
+      <p>A list of popular classes of JDBC API are given below:</p>
+      <ul>
+        <li>DriverManager class</li>
+        <li>Blob class</li>
+        <li>Clob class</li>
+        <li>Types class</li>
+      </ul>
+
+      <h2>Why Should We Use JDBC?</h2>
+      <p>Before JDBC, ODBC API was the database API to connect and execute queries with the database. But ODBC API uses an ODBC driver that is written in C language (i.e., platform-dependent and unsecured). That is why Java has defined its own API (JDBC API) that uses JDBC drivers (written in Java language).</p>
+      <p>We can use JDBC API to handle databases using Java programs and can perform the following activities:</p>
+      <ol>
+        <li>Connect to the database</li>
+        <li>Execute queries and update statements to the database</li>
+        <li>Retrieve the result received from the database</li>
+      </ol>
+      <p><strong>Do You Know?</strong></p>
+      <ul>
+        <li>How to connect Java application with Oracle and MySQL database using JDBC?</li>
+        <li>What is the difference between Statement and PreparedStatement interface?</li>
+        <li>How to print total numbers of tables and views of a database using JDBC?</li>
+        <li>How to store and retrieve images from Oracle database using JDBC?</li>
+        <li>How to store and retrieve files from Oracle database using JDBC?</li>
+      </ul>
+
+      <h2>What is API?</h2>
+      <p>JDBC also provides support for handling database metadata that allows us to retrieve information about the database, such as its tables, columns, and indexes. We can use the <code>DatabaseMetaData</code> interface to obtain this information that can be useful for dynamically generating SQL queries or for database schema introspection.</p>
+      <p>Another important feature of JDBC is its support for batch processing that allows us to group multiple SQL statements into a batch and execute them together. It can improve performance by reducing the number of round trips between the application and the database.</p>
+
+    
+
+      <h2>JDBC Drivers</h2>
+      <p>JDBC Driver is a software component that enables Java applications to interact with the database. There are 4 types of JDBC drivers:</p>
+      <ol>
+        <li><strong>JDBC-ODBC Bridge Driver</strong> - Uses ODBC driver to connect to the database. Converts JDBC method calls into ODBC function calls. Discouraged due to the thin driver.
+          <img src="type11.jpg" alt="bridge driver" style="max-width: 100%; height: auto;">
+          <p><strong>In Java 8, the JDBC-ODBC Bridge has been removed.</strong> Oracle recommends using vendor-provided JDBC drivers.</p>
+          <p><strong>Advantages:</strong></p>
+          <ul>
+            <li>Easy to use.</li>
+            <li>Can be easily connected to any database.</li>
+          </ul>
+          <p><strong>Disadvantages:</strong></p>
+          <ul>
+            <li>Performance degraded because JDBC method call is converted into the ODBC function calls.</li>
+            <li>The ODBC driver needs to be installed on the client machine.</li>
+          </ul>
+        </li>
+        <li><strong>Native-API Driver</strong> - Uses client-side libraries of the database. Converts JDBC calls into native calls of the database API. Not entirely written in Java.
+          <img src="type12.jpg" alt="Native-API driver" style="max-width: 100%; height: auto;">
+          <p><strong>Advantage:</strong></p>
+          <ul>
+            <li>Performance upgraded than JDBC-ODBC bridge driver.</li>
+          </ul>
+          <p><strong>Disadvantages:</strong></p>
+          <ul>
+            <li>The Native driver needs to be installed on the each client machine.</li>
+            <li>The Vendor client library needs to be installed on client machine.</li>
+          </ul>
+        </li>
+        <li><strong>Network Protocol Driver</strong> - Uses middleware (application server) to convert JDBC calls into vendor-specific database protocols. Fully written in Java.
+          <img src="type13.jpg" alt="Network Protocol driver" style="max-width: 100%; height: auto;">
+          <p><strong>Advantage:</strong></p>
+          <ul>
+            <li>No client side library is required because of application server that can perform many tasks like auditing, load balancing, logging etc.</li>
+          </ul>
+          <p><strong>Disadvantages:</strong></p>
+          <ul>
+            <li>Network support is required on client machine.</li>
+            <li>Requires database-specific coding to be done in the middle tier.</li>
+            <li>Maintenance of Network Protocol driver becomes costly because it requires database-specific coding to be done in the middle tier.</li>
+          </ul>
+        </li>
+        <li><strong>Thin Driver</strong> - Converts JDBC calls directly into vendor-specific database protocols. Fully written in Java, offering the best performance.
+          <img src="type14.jpg" alt="Thin driver" style="max-width: 100%; height: auto;">
+          <p><strong>Advantage:</strong></p>
+          <ul>
+            <li>Better performance than all other drivers.</li>
+            <li>No software is required at client side or server side.</li>
+          </ul>
+          <p><strong>Disadvantage:</strong></p>
+          <ul>
+            <li>Drivers depend on the database.</li>
+          </ul>
+        </li>
+      </ol>
+      <h2>5 Steps to Connect Database in Java</h2>
+      <p>There are 5 steps to connect any Java application with the database using JDBC:</p>
+      <ol>
+        <li><strong>Register the Driver Class</strong> - Use <code>Class.forName()</code> to load the driver dynamically. Since JDBC 4.0, this is optional if the vendor's JAR is in the classpath.</li>
+        <li><strong>Create the Connection Object</strong> - Use <code>DriverManager.getConnection()</code> to establish a connection.</li>
+        <li><strong>Create the Statement Object</strong> - Use <code>Connection.createStatement()</code> to create a statement.</li>
+        <li><strong>Execute the Query</strong> - Use <code>Statement.executeQuery()</code> or <code>executeUpdate()</code> to run queries.</li>
+        <li><strong>Close the Connection Object</strong> - Use <code>close()</code> to release resources. Since Java 7/8, try-with-resources can automate this.</li>
+      </ol>
+      <img src="java-database-connectivity-steps.jpg" alt="Steps" style="max-width: 100%; height: auto;">
+      <p><strong>Example to Register OracleDriver:</strong></p>
+      <div class="abc">
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+      </div>
+      <p><strong>Example to Establish Connection with Oracle:</strong></p>
+      <div class="abc">
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "password");
+      </div>
+
+      <h2>Installation and Setup</h2>
+      <p>To set up your environment for JDBC connectivity, you need to install XAMPP and download the appropriate JDBC driver JAR files. You can download XAMPP from the official website <a href="https://www.apachefriends.org/index.html">here</a>. For a step-by-step guide on creating a new database in XAMPP MySQL, watch this video: <a href="https://youtu.be/co-xyHRdHRg?si=6GvgxRodyV0MafqO">How to create a new database in XAMPP MySQL | 2021 Complete Guide</a>.</p>
+
+      <h2>Java Database Connectivity with Oracle</h2>
+      <p>To connect a Java application with the Oracle database, follow these steps using Oracle 10g:</p>
+      <ul>
+        <li>Driver class: <code>oracle.jdbc.driver.OracleDriver</code></li>
+        <li>Connection URL: <code>jdbc:oracle:thin:@localhost:1521:xe</code></li>
+        <li>Username: <code>system</code></li>
+        <li>Password: User-defined during installation</li>
+      </ul>
+      <p><strong>Create a Table:</strong></p>
+      <div class="abc">
+        create table emp(id number(10),name varchar2(40),age number(3));
+      </div>
+      <p><strong>Example to Connect Java Application with Oracle:</strong></p>
+      <div class="abc">
+        import java.sql.*;<br><br>
+        class OracleCon {<br>
+          public static void main(String args[]) {<br>
+            try {<br>
+              Class.forName("oracle.jdbc.driver.OracleDriver");<br>
+              Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "oracle");<br>
+              Statement stmt = con.createStatement();<br>
+              ResultSet rs = stmt.executeQuery("select * from emp");<br>
+              while (rs.next())<br>
+                System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3));<br>
+              con.close();<br>
+            } catch (Exception e) { System.out.println(e); }<br>
+          }<br>
+        }
+      </div>
+      <p><strong>Output:</strong> Fetches all records from the emp table.</p>
+      <p><strong>Download Oracle JDBC Driver:</strong> You can download the Oracle JDBC driver JAR file <a href="https://www.oracle.com/database/technologies/jdbc-downloads.html">here</a>.</p>
+      <p><strong>Two ways to load ojdbc14.jar:</strong></p>
+      <ul>
+        <li>Paste in <code>jre/lib/ext</code> folder.</li>
+        <li>Set classpath (temporary: <code>set classpath=c:\folder\ojdbc14.jar;.</code> or permanent via environment variables).</li>
+      </ul>
+
+      <h2>Java Database Connectivity with MySQL</h2>
+      <p>To connect a Java application with the MySQL database:</p>
+      <ul>
+        <li>Driver class: <code>com.mysql.jdbc.Driver</code></li>
+        <li>Connection URL: <code>jdbc:mysql://localhost:3306/sonoo</code> (replace "sonoo" with your database name)</li>
+        <li>Username: <code>root</code></li>
+        <li>Password: User-defined during installation</li>
+      </ul>
+      <p><strong>Create Database and Table:</strong></p>
+      <div class="abc">
+        create database sonoo;<br>
+        use sonoo;<br>
+        create table emp(id int(10),name varchar(40),age int(3));
+      </div>
+      <p><strong>Example to Connect Java Application with MySQL:</strong></p>
+      <div class="abc">
+        import java.sql.*;<br><br>
+        class MysqlCon {<br>
+          public static void main(String args[]) {<br>
+            try {<br>
+              Class.forName("com.mysql.jdbc.Driver");<br>
+              Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sonoo", "root", "root");<br>
+              Statement stmt = con.createStatement();<br>
+              ResultSet rs = stmt.executeQuery("select * from emp");<br>
+              while (rs.next())<br>
+                System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3));<br>
+              con.close();<br>
+            } catch (Exception e) { System.out.println(e); }<br>
+          }<br>
+        }
+      </div>
+      <p><strong>Output:</strong> Fetches all records from the emp table.</p>
+      <p><strong>Download MySQL JDBC Driver:</strong> You can download the MySQL JDBC driver JAR file <a href="https://dev.mysql.com/downloads/connector/j/">here</a>.</p>
+      <p><strong>Two ways to load mysql-connector.jar:</strong></p>
+      <ul>
+        <li>Paste in <code>jre/lib/ext</code> folder.</li>
+        <li>Set classpath (temporary: <code>set classpath=c:\folder\mysql-connector-java-5.0.8-bin.jar;.</code> or permanent via environment variables).</li>
+      </ul>
+
+      <h2>Connectivity with Access without DSN</h2>
+      <p>Accessing a Microsoft Access database without a Data Source Name (DSN) uses a DSN-less connection with the UCanAccess JDBC driver.</p>
+      <ul>
+        <li><strong>Driver Specification:</strong> UCanAccess JDBC driver.</li>
+        <li><strong>Database Path:</strong> Direct file path to .mdb or .accdb.</li>
+        <li><strong>Dependencies:</strong> ucanaccess.jar, commons-lang.jar, etc.</li>
+      </ul>
+      <p><strong>Example of DSN-less Connection:</strong></p>
+      <div class="abc">
+        import java.sql.*;<br><br>
+        public class AccessDatabaseConnection {<br>
+          public static void main(String[] args) {<br>
+            String dbFilePath = "C:/databases/example.accdb";<br>
+            String jdbcURL = "jdbc:ucanaccess://" + dbFilePath;<br>
+            try (Connection connection = DriverManager.getConnection(jdbcURL)) {<br>
+              System.out.println("Connection established successfully.");<br>
+              Statement statement = connection.createStatement();<br>
+              ResultSet resultSet = statement.executeQuery("SELECT ID, Name FROM Employees");<br>
+              System.out.println("Employee Details:");<br>
+              while (resultSet.next()) {<br>
+                System.out.println("ID: " + resultSet.getInt("ID"));<br>
+                System.out.println("Name: " + resultSet.getString("Name"));<br>
+              }<br>
+            } catch (Exception e) { e.printStackTrace(); }<br>
+          }<br>
+        }
+      </div>
+      <p><strong>Output:</strong></p>
+      <div class="cde">
+        Connection established successfully.<br>
+        Employee Details:<br>
+        ID: 1<br>
+        Name: Alice<br>
+        ID: 2<br>
+        Name: Bob<br>
+        ID: 3<br>
+        Name: Charlie
+      </div>
+      <p><strong>Steps to Set Up:</strong> Download UCanAccess, add dependencies, prepare the database, and run the program.</p>
+
+      <h2>DriverManager Class</h2>
+      <p>The <code>DriverManager</code> class, part of <code>java.sql</code>, acts as an interface between users and drivers. It manages available drivers and establishes connections.</p>
+      <p><strong>Methods:</strong></p>
+      <ul>
+        <li><code>registerDriver(Driver driver)</code>: Registers a driver.</li>
+        <li><code>deregisterDriver(Driver driver)</code>: Removes a driver.</li>
+        <li><code>getConnection(String url)</code>: Establishes a connection.</li>
+        <li><code>getConnection(String url, String userName, String password)</code>: Establishes a connection with credentials.</li>
+      </ul>
+
+      <h2>Connection Interface</h2>
+      <p>A <code>Connection</code> is a session between a Java application and a database. It provides methods for transaction management like <code>commit()</code> and <code>rollback()</code>.</p>
+      <p><strong>Commonly Used Methods:</strong></p>
+      <ul>
+        <li><code>createStatement()</code>: Creates a statement object.</li>
+        <li><code>setAutoCommit(boolean status)</code>: Sets commit status (default: true).</li>
+      </ul>
+
+      <h2>ResultSet Interface</h2>
+      <p>The <code>ResultSet</code> object maintains a cursor pointing to a table row. By default, it moves forward only and is not updatable.</p>
+      <p><strong>Commonly Used Methods:</strong></p>
+      <ul>
+        <li><code>next()</code>: Moves to the next row.</li>
+        <li><code>getInt(int columnIndex)</code>: Returns data as int.</li>
+      </ul>
+      <p><strong>Example of Scrollable ResultSet:</strong></p>
+      <div class="abc">
+        import java.sql.*;<br><br>
+        class FetchRecord {<br>
+          public static void main(String args[]) throws Exception {<br>
+            Class.forName("oracle.jdbc.driver.OracleDriver");<br>
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "oracle");<br>
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);<br>
+            ResultSet rs = stmt.executeQuery("select * from emp765");<br>
+            rs.absolute(3);<br>
+            System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));<br>
+            con.close();<br>
+          }<br>
+        }
+      </div>
+
+      <h2>PreparedStatement Interface</h2>
+      <p>The <code>PreparedStatement</code> interface is used for parameterized queries, improving performance by compiling once.</p>
+      <p><strong>Example to Insert Record:</strong></p>
+      <div class="abc">
+        import java.sql.*;<br><br>
+        class InsertPrepared {<br>
+          public static void main(String args[]) {<br>
+            try {<br>
+              Class.forName("oracle.jdbc.driver.OracleDriver");<br>
+              Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "oracle");<br>
+              PreparedStatement stmt = con.prepareStatement("insert into Emp values(?,?)");<br>
+              stmt.setInt(1, 101);<br>
+              stmt.setString(2, "Ratan");<br>
+              int i = stmt.executeUpdate();<br>
+              System.out.println(i + " records inserted");<br>
+              con.close();<br>
+            } catch (Exception e) { System.out.println(e); }<br>
+          }<br>
+        }
+      </div>
+      <p><strong>Output:</strong> 1 records inserted</p>
+
+      <h2>ResultSetMetaData Interface</h2>
+      <p>The <code>ResultSetMetaData</code> interface provides metadata about a table, such as column count and names.</p>
+      <p><strong>Example:</strong></p>
+      <div class="abc">
+        import java.sql.*;<br><br>
+        class Rsmd {<br>
+          public static void main(String args[]) {<br>
+            try {<br>
+              Class.forName("oracle.jdbc.driver.OracleDriver");<br>
+              Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "oracle");<br>
+              PreparedStatement ps = con.prepareStatement("select * from emp");<br>
+              ResultSet rs = ps.executeQuery();<br>
+              ResultSetMetaData rsmd = rs.getMetaData();<br>
+              System.out.println("Total columns: " + rsmd.getColumnCount());<br>
+              System.out.println("Column Name of 1st column: " + rsmd.getColumnName(1));<br>
+              System.out.println("Column Type Name of 1st column: " + rsmd.getColumnTypeName(1));<br>
+              con.close();<br>
+            } catch (Exception e) { System.out.println(e); }<br>
+          }<br>
+        }
+      </div>
+      <p><strong>Output:</strong></p>
+      <div class="cde">
+        Total columns: 2<br>
+        Column Name of 1st column: ID<br>
+        Column Type Name of 1st column: NUMBER
+      </div>
+
+      <h2>JDBC Architecture</h2>
+      <p>JDBC architecture consists of:</p>
+      <ul>
+        <li><strong>JDBC API</strong>: Interfaces and classes in <code>java.sql</code> and <code>javax.sql</code>.</li>
+        <li><strong>JDBC Driver Manager</strong>: Manages loading of database drivers.</li>
+        <li><strong>JDBC Driver</strong>: Vendor-specific implementation for database connectivity.</li>
+        <li><strong>Database</strong>: The target relational database.</li>
+      </ul>
+
+      <h2>Key Interfaces</h2>
+      <ul>
+        <li><code>DriverManager</code>: Manages a set of JDBC drivers.</li>
+        <li><code>Connection</code>: Represents a session with the database.</li>
+        <li><code>Statement</code>: Used to execute SQL queries.</li>
+        <li><code>ResultSet</code>: Holds data retrieved from a query.</li>
+      </ul>
+
+      <h2>Best Practices</h2>
+      <ul>
+        <li>Use prepared statements to prevent SQL injection.</li>
+        <li>Always close connections, statements, and result sets in a <code>finally</code> block or try-with-resources.</li>
+        <li>Handle exceptions appropriately.</li>
+        <li>Use connection pooling for better performance in production.</li>
+      </ul>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>JDBC is part of the JDK, but a database-specific driver is required.</li>
+        <li>Supports multiple databases via different drivers.</li>
+        <li>Transaction management is available via <code>Connection</code> methods like <code>setAutoCommit()</code> and <code>commit()</code>.</li>
+      </ul>
+
+      <h2>Example: JDBC with MySQL (Detailed)</h2>
+      <p>This example connects to a MySQL database, creates a table, inserts data, and retrieves it. (Note: Requires MySQL JDBC driver and a running MySQL server with a database named "school" and user "root" with password "password".)</p>
+      <div class="abc">
+        import java.sql.*;<br><br>
+        public class JdbcExample {<br>
+          public static void main(String[] args) {<br>
+            String url = "jdbc:mysql://localhost:3306/school";<br>
+            String user = "root";<br>
+            String password = "password";<br><br>
+            try {<br>
+              Class.forName("com.mysql.cj.jdbc.Driver");<br><br>
+              Connection conn = DriverManager.getConnection(url, user, password);<br><br>
+              Statement stmt = conn.createStatement();<br><br>
+              String createTable = "CREATE TABLE IF NOT EXISTS students (<br>
+                id INT AUTO_INCREMENT PRIMARY KEY,<br>
+                name VARCHAR(50),<br>
+                grade INT<br>
+              )";<br>
+              stmt.executeUpdate(createTable);<br><br>
+              String insertData = "INSERT INTO students (name, grade) VALUES<br>
+                ('Alice', 85), ('Bob', 92), ('Charlie', 78)";<br>
+              stmt.executeUpdate(insertData);<br><br>
+              String query = "SELECT * FROM students";<br>
+              ResultSet rs = stmt.executeQuery(query);<br><br>
+              System.out.println("Student Records:");<br>
+              while (rs.next()) {<br>
+                int id = rs.getInt("id");<br>
+                String name = rs.getString("name");<br>
+                int grade = rs.getInt("grade");<br>
+                System.out.println("ID: " + id + ", Name: " + name + ", Grade: " + grade);<br>
+              }<br><br>
+              rs.close();<br>
+              stmt.close();<br>
+              conn.close();<br>
+            } catch (ClassNotFoundException e) {<br>
+              System.out.println("Driver not found: " + e.getMessage());<br>
+            } catch (SQLException e) {<br>
+              System.out.println("SQL Error: " + e.getMessage());<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <p><strong>Output:</strong></p>
+      <div class="cde">
+        Student Records:<br>
+        ID: 1, Name: Alice, Grade: 85<br>
+        ID: 2, Name: Bob, Grade: 92<br>
+        ID: 3, Name: Charlie, Grade: 78
+      </div>
+
+      <div class="navigation-buttons">
+        <a href="collections.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

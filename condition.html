@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conditional Statements in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link active" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Iteration Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+       <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+       <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+       <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+       <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Conditional Statements in Java</h1>
+
+      <h2>Introduction to Conditional Statements</h2>
+      <p>Conditional statements in Java allow programs to make decisions based on specific conditions. They control the flow of execution by running certain code blocks when conditions evaluate to true.</p>
+
+      <h2>Types of Conditional Statements</h2>
+      <p>Java supports the following conditional statements:</p>
+      <ul>
+        <li><code>if</code>: Executes a block of code if a condition is true.</li>
+        <li><code>if-else</code>: Executes one block if the condition is true, another if false.</li>
+        <li><code>if-else ladder</code>: Tests multiple conditions in sequence.</li>
+        <li><code>nested if</code>: An <code>if</code> statement inside another <code>if</code> statement.</li>
+        <li><code>switch</code>: Selects one of many code blocks based on a variable's value.</li>
+      </ul>
+
+      <h2>if Statement</h2>
+      <p>The <code>if</code> statement executes a block of code if its condition evaluates to true.</p>
+      <div class="abc">
+        public class IfExample {<br>
+          public static void main(String[] args) {<br>
+            int age = 20;<br>
+            if (age >= 18) {<br>
+              System.out.println("You are eligible to vote.");<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        You are eligible to vote.
+      </div>
+
+      <h2>if-else Statement</h2>
+      <p>The <code>if-else</code> statement provides an alternative block to execute if the condition is false.</p>
+      <div class="abc">
+        public class IfElseExample {<br>
+          public static void main(String[] args) {<br>
+            int temperature = 15;<br>
+            if (temperature > 20) {<br>
+              System.out.println("It's warm outside.");<br>
+            } else {<br>
+              System.out.println("It's cold outside.");<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        It's cold outside.
+      </div>
+
+      <h2>if-else Ladder</h2>
+      <p>The <code>if-else</code> ladder (also called <code>if-else-if</code>) checks multiple conditions sequentially, executing the first true condition's block or an optional <code>else</code> block if none are true.</p>
+      <div class="abc">
+        public class IfElseLadderExample {<br>
+          public static void main(String[] args) {<br>
+            int score = 85;<br>
+            if (score >= 90) {<br>
+              System.out.println("Grade: A");<br>
+            } else if (score >= 80) {<br>
+              System.out.println("Grade: B");<br>
+            } else if (score >= 70) {<br>
+              System.out.println("Grade: C");<br>
+            } else {<br>
+              System.out.println("Grade: F");<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Grade: B
+      </div>
+
+      <h2>Nested if Statement</h2>
+      <p>A nested <code>if</code> statement is an <code>if</code> statement inside another <code>if</code> statement, used to check multiple conditions hierarchically.</p>
+      <div class="abc">
+        public class NestedIfExample {<br>
+          public static void main(String[] args) {<br>
+            int age = 25;<br>
+            boolean hasLicense = true;<br>
+            if (age >= 18) {<br>
+              if (hasLicense) {<br>
+                System.out.println("You can drive.");<br>
+              } else {<br>
+                System.out.println("You need a license to drive.");<br>
+              }<br>
+            } else {<br>
+              System.out.println("You are too young to drive.");<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        You can drive.
+      </div>
+
+      <h2>switch Statement</h2>
+      <p>The <code>switch</code> statement selects one of many code blocks based on a variable's value, useful for discrete values.</p>
+      <div class="abc">
+        public class SwitchExample {<br>
+          public static void main(String[] args) {<br>
+            int day = 4;<br>
+            switch (day) {<br>
+              case 1:<br>
+                System.out.println("Monday");<br>
+                break;<br>
+              case 2:<br>
+                System.out.println("Tuesday");<br>
+                break;<br>
+              case 3:<br>
+                System.out.println("Wednesday");<br>
+                break;<br>
+              case 4:<br>
+                System.out.println("Thursday");<br>
+                break;<br>
+              default:<br>
+                System.out.println("Invalid day");<br>
+            }<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Thursday
+      </div>
+
+      <h2>Example Program with User Input</h2>
+      <p>This program combines conditional statements, including nested <code>if</code> and an <code>if-else</code> ladder, with user input to determine eligibility and display a day of the week.</p>
+      <div class="abc">
+        import java.util.Scanner;<br><br>
+        public class ConditionExample {<br>
+          public static void main(String[] args) {<br>
+            Scanner input = new Scanner(System.in);<br><br>
+            System.out.print("Enter your age: ");<br>
+            int age = input.nextInt();<br>
+            System.out.print("Do you have a license? (true/false): ");<br>
+            boolean hasLicense = input.nextBoolean();<br><br>
+            if (age >= 18) {<br>
+              if (hasLicense) {<br>
+                System.out.println("You can drive.");<br>
+              } else {<br>
+                System.out.println("You need a license to drive.");<br>
+              }<br>
+            } else {<br>
+              System.out.println("You are too young to drive.");<br>
+            }<br><br>
+            System.out.print("Enter your score (0-100): ");<br>
+            int score = input.nextInt();<br>
+            if (score >= 90) {<br>
+              System.out.println("Grade: A");<br>
+            } else if (score >= 80) {<br>
+              System.out.println("Grade: B");<br>
+            } else if (score >= 70) {<br>
+              System.out.println("Grade: C");<br>
+            } else if (score >= 60) {<br>
+              System.out.println("Grade: D");<br>
+            } else {<br>
+              System.out.println("Grade: F");<br>
+            }<br><br>
+            System.out.print("Enter a day number (1-7): ");<br>
+            int day = input.nextInt();<br>
+            switch (day) {<br>
+              case 1:<br>
+                System.out.println("Monday");<br>
+                break;<br>
+              case 2:<br>
+                System.out.println("Tuesday");<br>
+                break;<br>
+              case 3:<br>
+                System.out.println("Wednesday");<br>
+                break;<br>
+              case 4:<br>
+                System.out.println("Thursday");<br>
+                break;<br>
+              case 5:<br>
+                System.out.println("Friday");<br>
+                break;<br>
+              case 6:<br>
+                System.out.println("Saturday");<br>
+                break;<br>
+              case 7:<br>
+                System.out.println("Sunday");<br>
+                break;<br>
+              default:<br>
+                System.out.println("Invalid day");<br>
+            }<br>
+            input.close();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Enter your age: 22<br>
+        Do you have a license? (true/false): true<br>
+        You can drive.<br>
+        Enter your score (0-100): 85<br>
+        Grade: B<br>
+        Enter a day number (1-7): 4<br>
+        Thursday
+      </div>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Conditions in <code>if</code> statements must evaluate to a boolean value (<code>true</code> or <code>false</code>).</li>
+        <li>Use <code>break</code> in <code>switch</code> statements to prevent fall-through to subsequent cases.</li>
+        <li>The <code>switch</code> statement supports <code>int</code>, <code>char</code>, <code>String</code>, and <code>enum</code> types (since Java 7 for <code>String</code>).</li>
+        <li>Nested <code>if</code> statements can make code complex; use them judiciously to maintain readability.</li>
+        <li>The <code>if-else</code> ladder stops at the first true condition, so order matters.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="io.html" class="btn btn-primary">Previous</a>
+        <a href="iterations.html" class="btn btn-primary">Continue to Looping Statements</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling in Java</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+       .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+        .sidebar.active {
+            left: 0;
+            width: 175px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #ecf0f1;
+            display: block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .sidebar .active {
+            background-color: #219653;
+            color: #fff;
+        }
+
+        /* Toggle Button Styling */
+        .toggle-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 0;
+            padding: 60px 20px 20px 20px;
+            min-height: 100vh;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .main-content.shifted {
+            margin-left: 175px;
+        }
+
+        h1 {
+            color: #27ae60;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        h2, h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #555;
+            padding-left: 10px;
+        }
+
+        em {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #27ae60;
+            color: #fff;
+        }
+
+        pre {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 10px;
+            font-size: 14px;
+        }
+
+        code {
+            color: #c0392b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        ol {
+            margin: 10px 0 15px 30px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+                width: 50%;
+            }
+
+            .toggle-btn {
+                top: 5px;
+                left: 5px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+
+            .main-content {
+                padding-top: 50px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .sidebar a {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 40px 10px 10px 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            pre {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .toggle-btn {
+                padding: 8px 12px;
+                font-size: 16px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar">
+       <a href="awt.html">AWT</a>
+      <a class="nav-link active" href="awt-class.html">AWT-Classes</a>
+      <a href="components.html">AWT-Components</a>
+      <a href="container.html">AWT-Containers</a>
+      <a href="event-handling.html">Event Handling</a>
+      <a href="button.html">AWT-Buttons</a>
+      <a href="label.html">AWT-Labels</a>
+      <a href="textarea.html">AWT-Textfield</a></li>
+      <a href="textarea.html">AWT-Textarea</a>
+      <a href="checkbox.html">AWT-Checkboxes</a>
+      <a href="checkboxgroup.html">AWT-checkboxegroup</a>
+      <a href="awt-class.html">AWT-Scrollbar</a>
+      <a href="menu.html ">AWT-Menu</a>
+      <a href="actionlistener.html">ActionListener</a>
+      <a href="mouselistener.html">MouseListener</a>
+      <a class="nav-link active" href="awt-class.html">ItemListener</a>
+      <a href="keylistener.html">keylistener</a>
+      <a href="windowlistener.html">WindowListener</a>
+    </div>
+
+    <div class="main-content">
+        <h1 id="introduction">Event Handling in Java</h1>
+        <p><em>28 Mar 2025 | 3 min read</em></p>
+        <p>Changing the state of an object is known as an event. For example, click on button, dragging mouse etc. The java.awt.event package provides many event classes and Listener interfaces for event handling.</p>
+
+        <h2 id="event-classes">Java Event classes and Listener interfaces</h2>
+        <table border="1">
+            <tr>
+                <th>Event Classes</th>
+                <th>Listener Interfaces</th>
+            </tr>
+            <tr>
+                <td>ActionEvent</td>
+                <td>ActionListener</td>
+            </tr>
+            <tr>
+                <td>MouseEvent</td>
+                <td>MouseListener and MouseMotionListener</td>
+            </tr>
+            <tr>
+                <td>MouseWheelEvent</td>
+                <td>MouseWheelListener</td>
+            </tr>
+            <tr>
+                <td>KeyEvent</td>
+                <td>KeyListener</td>
+            </tr>
+            <tr>
+                <td>ItemEvent</td>
+                <td>ItemListener</td>
+            </tr>
+            <tr>
+                <td>TextEvent</td>
+                <td>TextListener</td>
+            </tr>
+            <tr>
+                <td>AdjustmentEvent</td>
+                <td>AdjustmentListener</td>
+            </tr>
+            <tr>
+                <td>WindowEvent</td>
+                <td>WindowListener</td>
+            </tr>
+            <tr>
+                <td>ComponentEvent</td>
+                <td>ComponentListener</td>
+            </tr>
+            <tr>
+                <td>ContainerEvent</td>
+                <td>ContainerListener</td>
+            </tr>
+            <tr>
+                <td>FocusEvent</td>
+                <td>FocusListener</td>
+            </tr>
+        </table>
+
+        <h2 id="steps">Steps to perform Event Handling</h2>
+        <p>Following steps are required to perform event handling:</p>
+        <ol>
+            <li>Register the component with the Listener</li>
+        </ol>
+
+        <h2 id="registration">Registration Methods</h2>
+        <p>For registering the component with the Listener, many classes provide the registration methods. For example:</p>
+        <ul>
+            <li><strong>Button</strong><br>public void addActionListener(ActionListener a){}</li>
+            <li><strong>MenuItem</strong><br>public void addActionListener(ActionListener a){}</li>
+            <li><strong>TextField</strong><br>public void addActionListener(ActionListener a){}<br>public void addTextListener(TextListener a){}</li>
+            <li><strong>TextArea</strong><br>public void addTextListener(TextListener a){}</li>
+            <li><strong>Checkbox</strong><br>public void addItemListener(ItemListener a){}</li>
+            <li><strong>Choice</strong><br>public void addItemListener(ItemListener a){}</li>
+            <li><strong>List</strong><br>public void addActionListener(ActionListener a){}<br>public void addItemListener(ItemListener a){}</li>
+        </ul>
+
+        <h2 id="code">Java Event Handling Code</h2>
+        <p>We can put the event handling code into one of the following places:</p>
+        <ol>
+            <li>Within class</li>
+            <li>Other class</li>
+        </ol>
+
+        <h3>1) Java event handling by inner class</h3>
+        <pre><code>
+import java.awt.*;
+public class AEvent extends Frame implements ActionListener {
+    TextField tf;
+    AEvent(){
+        //create components
+        tf=new TextField();
+        tf.setBounds(60,50,170,20);
+        Button b=new Button("click me");
+        b.setBounds(100,120,80,30);
+        //register listener
+        b.addActionListener(this);//passing current instance
+        //add components and set size, layout and visibility
+        add(b);add(tf);
+        setSize(300,300);
+        setLayout(null);
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e){
+        tf.setText("Welcome");
+    }
+    public static void main(String args[]){
+        new AEvent();
+    }
+}
+        </code></pre>
+        <p>public void setBounds(int xaxis, int yaxis, int width, int height); have been used in the above example that sets the position of the component it may be button, textfield etc.</p>
+        <img src="eventclick.jpg" alt="Event Handling in Java Output">
+
+        <h3>2) Java event handling by outer class</h3>
+        <pre><code>
+import java.awt.*;
+import java.awt.event.*;
+class AEvent2 extends Frame {
+    TextField tf;
+    AEvent2(){
+        //create components
+        tf=new TextField();
+        tf.setBounds(60,50,170,20);
+        Button b=new Button("click me");
+        b.setBounds(100,120,80,30);
+        //register listener
+        Outer o=new Outer(this);
+        b.addActionListener(o);//passing outer class instance
+        //add components and set size, layout and visibility
+        add(b);add(tf);
+        setSize(300,300);
+        setLayout(null);
+        setVisible(true);
+    }
+    public static void main(String args[]){
+        new AEvent2();
+    }
+}
+import java.awt.event.*;
+class Outer implements ActionListener {
+    AEvent2 obj;
+    Outer(AEvent2 obj){
+        this.obj=obj;
+    }
+    public void actionPerformed(ActionEvent e){
+        obj.tf.setText("welcome");
+    }
+}
+        </code></pre>
+
+        <h3>3) Java event handling by anonymous class</h3>
+        <pre><code>
+import java.awt.*;
+import java.awt.event.*;
+class AEvent3 extends Frame {
+    TextField tf;
+    AEvent3(){
+        tf=new TextField();
+        tf.setBounds(60,50,170,20);
+        Button b=new Button("click me");
+        b.setBounds(50,120,80,30);
+        b.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                tf.setText("hello");
+            }
+        });
+        add(b);add(tf);
+        setSize(300,300);
+        setLayout(null);
+        setVisible(true);
+    }
+    public static void main(String args[]){
+        new AEvent3();
+    }
+}
+        </code></pre>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('shifted');
+        }
+    </script>
+</body>
+</html>

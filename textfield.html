@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java AWT TextField</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+      .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+        .sidebar.active {
+            left: 0;
+            width: 175px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #ecf0f1;
+            display: block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .sidebar .active {
+            background-color: #219653;
+            color: #fff;
+        }
+
+        /* Toggle Button Styling */
+        .toggle-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 0;
+            padding: 60px 20px 20px 20px;
+            min-height: 100vh;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .main-content.shifted {
+            margin-left: 175px;
+        }
+
+        h1 {
+            color: #27ae60;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        h2, h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #555;
+            padding-left: 10px;
+        }
+
+        em {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #27ae60;
+            color: #fff;
+        }
+
+        pre {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 10px;
+            font-size: 14px;
+        }
+
+        code {
+            color: #c0392b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        ol {
+            margin: 10px 0 15px 30px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+                width: 50%;
+            }
+
+            .toggle-btn {
+                top: 5px;
+                left: 5px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+
+            .main-content {
+                padding-top: 50px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .sidebar a {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 40px 10px 10px 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            pre {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .toggle-btn {
+                padding: 8px 12px;
+                font-size: 16px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar">
+       <a href="awt.html">AWT</a>
+      <a class="nav-link active" href="awt-class.html">AWT-Classes</a>
+      <a href="components.html">AWT-Components</a>
+      <a href="container.html">AWT-Containers</a>
+      <a href="event-handling.html">Event Handling</a>
+      <a href="button.html">AWT-Buttons</a>
+      <a href="label.html">AWT-Labels</a>
+      <a href="textarea.html">AWT-Textfield</a></li>
+      <a href="textarea.html">AWT-Textarea</a>
+      <a href="checkbox.html">AWT-Checkboxes</a>
+      <a href="checkboxgroup.html">AWT-checkboxegroup</a>
+      <a href="awt-class.html">AWT-Scrollbar</a>
+      <a href="menu.html ">AWT-Menu</a>
+      <a href="actionlistener.html">ActionListener</a>
+      <a href="mouselistener.html">MouseListener</a>
+      <a class="nav-link active" href="awt-class.html">ItemListener</a>
+      <a href="keylistener.html">keylistener</a>
+      <a href="windowlistener.html">WindowListener</a>
+    </div>
+
+    <div class="main-content">
+        <h1 id="introduction">Java AWT TextField</h1>
+        <p><em>17 Mar 2025 | 4 min read</em></p>
+        <p>The object of a TextField class is a text component that allows a user to enter a single line text and edit it. It inherits TextComponent class, which further inherits Component class.</p>
+        <p>When we enter a key in the text field (like key pressed, key released or key typed), the event is sent to TextField. Then the KeyEvent is passed to the registered KeyListener. It can also be done using ActionEvent; if the ActionEvent is enabled on the text field, then the ActionEvent may be fired by pressing return key. The event is handled by the ActionListener interface.</p>
+
+        <h2 id="declaration">AWT TextField Class Declaration</h2>
+        <p>public class TextField extends TextComponent</p>
+
+        <h2 id="constructors">TextField Class Constructors</h2>
+        <table border="1">
+            <tr>
+                <th>Sr. no.</th>
+                <th>Constructor</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>TextField()</td>
+                <td>It constructs a new text field component.</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>TextField(String text)</td>
+                <td>It constructs a new text field initialized with the given string text to be displayed.</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>TextField(int columns)</td>
+                <td>It constructs a new textfield (empty) with given number of columns.</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>TextField(String text, int columns)</td>
+                <td>It constructs a new text field with the given text and given number of columns (width).</td>
+            </tr>
+        </table>
+
+        <h2 id="methods">TextField Class Methods</h2>
+        <table border="1">
+            <tr>
+                <th>Sr. no.</th>
+                <th>Method name</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>void addNotify()</td>
+                <td>It creates the peer of text field.</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>boolean echoCharIsSet()</td>
+                <td>It tells whether text field has character set for echoing or not.</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>void addActionListener(ActionListener l)</td>
+                <td>It adds the specified action listener to receive action events from the text field.</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>ActionListener[] getActionListeners()</td>
+                <td>It returns array of all action listeners registered on text field.</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>AccessibleContext getAccessibleContext()</td>
+                <td>It fetches the accessible context related to the text field.</td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>int getColumns()</td>
+                <td>It fetches the number of columns in text field.</td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>char getEchoChar()</td>
+                <td>It fetches the character that is used for echoing.</td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>Dimension getPreferredSize()</td>
+                <td>It returns the preferred size of the text field.</td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>boolean isEditable()</td>
+                <td>It checks if the text field is editable or not.</td>
+            </tr>
+            <tr>
+                <td>10.</td>
+                <td>void setColumns(int columns)</td>
+                <td>It sets the number of columns in the text field.</td>
+            </tr>
+            <tr>
+                <td>11.</td>
+                <td>void setEditable(boolean b)</td>
+                <td>It enables or disables the editing of the text field.</td>
+            </tr>
+            <tr>
+                <td>12.</td>
+                <td>void setEchoChar(char c)</td>
+                <td>It sets an echo character used for password fields.</td>
+            </tr>
+            <tr>
+                <td>13.</td>
+                <td>void setText(String t)</td>
+                <td>It sets the text to be displayed in the text field.</td>
+            </tr>
+        </table>
+
+        <h2 id="examples">Examples</h2>
+        <h3>TextFieldExample.java</h3>
+        <pre><code>
+import java.awt.*;
+public class TextFieldExample {
+    public static void main(String args[]) {
+        Frame f = new Frame("TextField Example");
+        TextField t1 = new TextField("Welcome to Java.");
+        TextField t2 = new TextField("AWT Tutorial", 10);
+        t1.setBounds(50, 100, 200, 30);
+        t2.setBounds(50, 150, 200, 30);
+        f.add(t1);
+        f.add(t2);
+        f.setSize(400, 400);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+}
+        </code></pre>
+        <p>Output:</p>
+        <img src="java-awt-textfield.jpg" alt="TextField Example Output 1">
+
+        <h3>TextFieldExample2.java</h3>
+        <p>In this example, we are creating a calculator using TextField and Button components.</p>
+        <pre><code>
+import java.awt.*;
+import java.awt.event.*;
+public class TextFieldExample2 extends Frame implements ActionListener {
+    TextField tf1, tf2, tf3;
+    Button b1, b2;
+
+    TextFieldExample2() {
+        tf1 = new TextField();
+        tf1.setBounds(50, 50, 150, 20);
+        tf2 = new TextField();
+        tf2.setBounds(50, 100, 150, 20);
+        tf3 = new TextField();
+        tf3.setBounds(50, 150, 150, 20);
+        tf3.setEditable(false);
+        b1 = new Button("+");
+        b1.setBounds(50, 200, 50, 50);
+        b2 = new Button("-");
+        b2.setBounds(120, 200, 50, 50);
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        add(tf1);
+        add(tf2);
+        add(tf3);
+        add(b1);
+        add(b2);
+        setSize(300, 300);
+        setLayout(null);
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e) {
+        String s1 = tf1.getText();
+        String s2 = tf2.getText();
+        int a = Integer.parseInt(s1);
+        int b = Integer.parseInt(s2);
+        int c = 0;
+        if (e.getSource() == b1) {
+            c = a + b;
+        } else if (e.getSource() == b2) {
+            c = a - b;
+        }
+        String result = String.valueOf(c);
+        tf3.setText(result);
+    }
+    public static void main(String[] args) {
+        new TextFieldExample2();
+    }
+}
+        </code></pre>
+        <p>Output:</p>
+        <img src="java-awt-textfield2.jpg" alt="TextField Example Output 2">
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('shifted');
+        }
+    </script>
+</body>
+</html>

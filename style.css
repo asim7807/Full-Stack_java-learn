@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+
+/* Container */
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    left: 0;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+.sidebar a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+.sidebar a:hover {
+    background-color: #059862;
+}
+
+.toggle-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 18px;        
+    background-color: #0f101e;
+    color: white;
+    border: none;
+    padding: 6px 10px;      
+    cursor: pointer;
+    display: none;
+    z-index: 1001;
+    border-radius: 4px;     
+    transition: all 0.3s ease;
+}
+
+
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    max-width: 1000px;
+}
+
+.header {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: #252a28;
+    margin-bottom: 1rem;
+}
+
+.header p {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.btn:hover {
+    background-color: #059862;
+}
+
+/* Course Section */
+.course-section {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.course-section h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.course-section p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Try It Yourself Editor */
+.try-it {
+    background-color: #282A35;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.try-it h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.code-editor {
+    background-color: #fff;
+    color: #000;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 1rem;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .sidebar {
+        left: -260px;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .toggle-btn {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+
+    }
+}
+            /* <p>If your system does not have Java installed, download it from the official website: <a href="https://www.oracle.com/java/technologies/downloads/" rel="noopener noreferrer" target="_blank">official Website</a></p> */
+
+@media (max-width: 480px) {
+    .container{
+        width: 100%;
+    }
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .course-sec tion h2 {
+        font-size: 1.4rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1rem;
+    }
+    .header{
+        width: 100% ;
+    }
+    .course-section{
+        width: 100%;
+    }
+    .main-content{
+        padding: 15px;
+        width: 100%;
+    }
+    .code-editor{
+        overflow-wrap: break-word;
+    }
+}

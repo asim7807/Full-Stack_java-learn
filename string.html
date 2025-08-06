@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Strings - Java Tutorial Point</title>
+    <style>
+      * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+.toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #04AA6D;
+    color: white;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-header h3 {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.nav {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+}
+
+.nav-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #059862;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    max-width: 1000px;
+}
+
+.content-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-container h1 {
+    font-size: 2.5rem;
+    color: #04AA6D;
+    margin-bottom: 1rem;
+}
+
+.content-container h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 1.5rem 0 1rem;
+}
+
+.content-container h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+}
+
+.content-container h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+}
+
+.content-container p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.content-container ul,
+.content-container ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    color: #333; /* Dark gray for content ul and ol elements */
+}
+
+.content-container ul li,
+.content-container ol li {
+    margin-bottom: 0.5rem;
+}
+
+/* Table */
+.content-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.content-container th,
+.content-container td {
+    border: 1px solid #ccc;
+    padding: 0.8rem;
+    text-align: left;
+}
+
+.content-container th {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.content-container td {
+    background-color: #f9f9f9;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    background-color: #282A35;
+    padding: 1rem;
+    text-align: center;
+}
+
+.nav-title {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Example Box */
+.example-box {
+    background-color: #f9f9f9;
+    border-left: 5px solid #04AA6D;
+    padding: 1.5rem;
+    border-radius: 4px;
+    margin: 2rem 0;
+}
+
+.example-box h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.example-box pre {
+    background-color: #282A35;
+    color: white;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.example-box pre.output {
+    background-color: #e7e9eb;
+    color: #333;
+}
+
+/* Feature Image */
+.feature-image {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem auto;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #059862;
+}
+
+.btn-primary {
+    background-color: #282A35;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3a3c4a;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #282A35;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-left: 250px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .toggle-btn {
+    display: block;
+  }
+
+  .sidebar {
+    display: none;
+    position: fixed;
+    width: 250px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+  }
+
+  .sidebar.sidebar-open {
+    display: block;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .footer {
+    margin-left: 0;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+  .content-container h1 {
+    font-size: 2rem;
+  }
+}
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+            <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Java Topics</h3>
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+           
+            <li class="nav-item">
+                <a class="nav-link" href="introduction.html">Introduction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="setup.html">Installation & Setup</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="version.html">Versions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pack.html">JDK, JRE, JVM</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="variables.html">Variables</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datatypes.html">Datatypes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="typecasting.html">TypeCasting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="operators.html">Operators</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="string.html">String</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="math.html">Math</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="boolean.html">Boolean</a>
+            </li>
+            <li class="nav-item"><a class="nav-link active" href="io.html">User Input/Output</a></li>
+            <li class="nav-item"><a class="nav-link active" href="condition.html">Conditional Statements</a></li>
+            <li class="nav-item"><a class="nav-link active" href="iterations.html">Looping Statements</a></li>
+            <li class="nav-item"><a class="nav-link active" href="arrays.html">Arrays</a></li>
+            <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+            <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+             <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+             <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+             <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+              <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <span class="nav-title">Java Topics</span>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="content-container">
+            <h1>Java Strings</h1>
+            <p>A <strong>String</strong> in Java is a sequence of characters. Strings are widely used for storing and manipulating text. Java provides the <code>String</code> class to work with strings.</p>
+
+            <h2>Creating Strings</h2>
+            <div class="example-box">
+                <pre>
+                    <code>
+// Using string literal
+String name = "Asim";
+
+// Using new keyword
+String name2 = new String("Asim");
+
+System.out.println(name);
+System.out.println(name2);
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">
+Asim
+Asim
+                </pre>
+            </div>
+
+            <h2>Common String Methods</h2>
+            <table>
+                <tr><th>Method</th><th>Description</th><th>Example</th></tr>
+                <tr><td>length()</td><td>Returns the length</td><td>name.length()</td></tr>
+                <tr><td>charAt(i)</td><td>Returns char at index</td><td>name.charAt(1)</td></tr>
+                <tr><td>substring(x, y)</td><td>Returns part of string</td><td>name.substring(1, 3)</td></tr>
+                <tr><td>toLowerCase()</td><td>Lowercase</td><td>name.toLowerCase()</td></tr>
+                <tr><td>toUpperCase()</td><td>Uppercase</td><td>name.toUpperCase()</td></tr>
+                <tr><td>equals(str)</td><td>Compare values</td><td>name.equals("Asim")</td></tr>
+                <tr><td>equalsIgnoreCase()</td><td>Ignore case comparison</td><td>name.equalsIgnoreCase("asim")</td></tr>
+                <tr><td>compareTo()</td><td>Compare lexicographically</td><td>name.compareTo("Rahul")</td></tr>
+                <tr><td>trim()</td><td>Removes leading/trailing spaces</td><td>"  hello ".trim()</td></tr>
+                <tr><td>contains()</td><td>Checks if string contains sequence</td><td>str.contains("Java")</td></tr>
+                <tr><td>replace()</td><td>Replaces old char with new</td><td>str.replace("a", "@")</td></tr>
+                <tr><td>split()</td><td>Splits based on regex</td><td>str.split(",")</td></tr>
+                <tr><td>indexOf()</td><td>Returns index of first occurrence</td><td>str.indexOf("J")</td></tr>
+                <tr><td>lastIndexOf()</td><td>Returns index of last occurrence</td><td>str.lastIndexOf("a")</td></tr>
+                <tr><td>startsWith()</td><td>Checks beginning of string</td><td>str.startsWith("Java")</td></tr>
+                <tr><td>endsWith()</td><td>Checks ending of string</td><td>str.endsWith("ing")</td></tr>
+                <tr><td>isEmpty()</td><td>Checks if string is empty</td><td>str.isEmpty()</td></tr>
+                <tr><td>concat()</td><td>Concatenates strings</td><td>str.concat(" World")</td></tr>
+            </table>
+
+            <h2>Example: String Methods</h2>
+            <div class="example-box">
+                <pre>
+                    <code>
+public class StringMethodsExample {
+  public static void main(String[] args) {
+    String str = "  Java Programming  ";
+
+    System.out.println("Original String: \"" + str + "\"");
+
+    // length()
+    System.out.println("Length: " + str.length());
+
+    // charAt()
+    System.out.println("Character at index 2: " + str.charAt(2));
+
+    // substring()
+    System.out.println("Substring(2, 6): " + str.substring(2, 6));
+
+    // toLowerCase()
+    System.out.println("Lowercase: " + str.toLowerCase());
+
+    // toUpperCase()
+    System.out.println("Uppercase: " + str.toUpperCase());
+
+    // equals()
+    System.out.println("Equals 'Java Programming': " + str.trim().equals("Java Programming"));
+
+    // compareTo()
+    System.out.println("CompareTo 'Java': " + str.trim().compareTo("Java"));
+
+    // trim()
+    System.out.println("Trimmed: \"" + str.trim() + "\"");
+
+    // contains()
+    System.out.println("Contains 'gram': " + str.contains("gram"));
+
+    // replace()
+    System.out.println("Replace 'a' with '*': " + str.replace("a", "*"));
+
+    // split()
+    String[] words = str.trim().split(" ");
+    System.out.println("Split by space:");
+    for (String word : words) {
+      System.out.println(word);
+    }
+
+    // indexOf()
+    System.out.println("Index of 'a': " + str.indexOf("a"));
+
+    // lastIndexOf()
+    System.out.println("Last index of 'a': " + str.lastIndexOf("a"));
+
+    // startsWith()
+    System.out.println("Starts with '  Ja': " + str.startsWith("  Ja"));
+
+    // endsWith()
+    System.out.println("Ends with 'ing  ': " + str.endsWith("ing  "));
+
+    // isEmpty()
+    String empty = "";
+    System.out.println("Is empty: " + empty.isEmpty());
+
+    // equalsIgnoreCase()
+    System.out.println("EqualsIgnoreCase: " + str.trim().equalsIgnoreCase("java programming"));
+
+    // concat()
+    String added = str.trim().concat(" Language");
+    System.out.println("Concat: " + added);
+  }
+}
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">
+Original String: "  Java Programming  "
+Length: 21
+Character at index 2: v
+Substring(2, 6): Java
+Lowercase:   java programming  
+Uppercase:   JAVA PROGRAMMING  
+Equals 'Java Programming': true
+CompareTo 'Java': 7
+Trimmed: "Java Programming"
+Contains 'gram': true
+Replace 'a' with '*':   J*v* Progr*mming  
+Split by space:
+Java
+Programming
+Index of 'a': 3
+Last index of 'a': 15
+Starts with '  Ja': true
+Ends with 'ing  ': true
+Is empty: true
+EqualsIgnoreCase: true
+Concat: Java Programming Language
+                </pre>
+            </div>
+
+            <h2>Important Notes</h2>
+            <ul>
+                <li>String methods are very useful in text processing, validation, and data parsing.</li>
+                <li>Strings are immutable. Use <code>StringBuilder</code> when modifying content frequently.</li>
+                <li><code>equals()</code> vs <code>==</code>: Use equals() for content comparison.</li>
+            </ul>
+
+            <div class="navigation-buttons">
+                <a href="operators.html" class="btn btn-primary">Previous</a>
+                <a href="math.html" class="btn btn-primary">Continue to Math</a>
+            </div>
+        </div>
+
+       </div>
+            <script>
+         const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+    </script>
+
+</body>
+</html>

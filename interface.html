@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interfaces in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #9b5353; 
+      background-color: #c3b4d0; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link" href="oops.html">OOP Concepts</a></li>
+      <li class="nav-item"><a class="nav-link" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+      <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+      <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>Interfaces in Java</h1>
+
+      <h2>Introduction to Interfaces</h2>
+      <p>An <strong>interface</strong> in Java is a blueprint of a class that defines a set of abstract methods and constants. It is used to achieve abstraction and support multiple inheritance, as a class can implement multiple interfaces. Interfaces specify what a class must do, but not how to do it.</p>
+
+      <h2>Key Characteristics of Interfaces</h2>
+      <ul>
+        <li>Declared using the <code>interface</code> keyword.</li>
+        <li>All methods in an interface are implicitly <code>public</code> and <code>abstract</code> (prior to Java 8).</li>
+        <li>Fields in an interface are implicitly <code>public</code>, <code>static</code>, and <code>final</code> (constants).</li>
+        <li>Classes implement interfaces using the <code>implements</code> keyword.</li>
+        <li>Since Java 8, interfaces can include <code>default</code> and <code>static</code> methods with implementation.</li>
+      </ul>
+
+      <h2>Declaring and Implementing an Interface</h2>
+      <p>An interface is declared with abstract methods, and a class that implements it must provide implementations for all abstract methods.</p>
+      <div class="abc">
+        interface Vehicle {<br>
+          void start();<br>
+          void stop();<br>
+        }<br><br>
+        class Car implements Vehicle {<br>
+          public void start() {<br>
+            System.out.println("Car is starting");<br>
+          }<br><br>
+          public void stop() {<br>
+            System.out.println("Car is stopping");<br>
+          }<br>
+        }<br><br>
+        public class InterfaceExample {<br>
+          public static void main(String[] args) {<br>
+            Vehicle car = new Car();<br>
+            car.start();<br>
+            car.stop();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Car is starting<br>
+        Car is stopping
+      </div>
+
+      <h2>Default Methods in Interfaces</h2>
+      <p>Since Java 8, interfaces can include <code>default</code> methods with implementation, allowing backward compatibility and shared functionality.</p>
+      <div class="abc">
+        interface Vehicle {<br>
+          void start();<br><br>
+          default void honk() {<br>
+            System.out.println("Vehicle is honking");<br>
+          }<br>
+        }<br><br>
+        class Car implements Vehicle {<br>
+          public void start() {<br>
+            System.out.println("Car is starting");<br>
+          }<br>
+        }<br><br>
+        public class DefaultMethodExample {<br>
+          public static void main(String[] args) {<br>
+            Vehicle car = new Car();<br>
+            car.start();<br>
+            car.honk(); // Calls default method<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Car is starting<br>
+        Vehicle is honking
+      </div>
+
+      <h2>Why Use Multiple Inheritance in Interfaces?</h2>
+      <p>Multiple inheritance in interfaces allows a class to inherit behavior from multiple sources, which is not possible with classes in Java due to the diamond problem (ambiguity in method resolution). Interfaces provide a way to achieve this safely because they only define method signatures (or default implementations), avoiding conflicts in state or implementation. Key reasons include:</p>
+      <ul>
+        <li><strong>Flexibility</strong>: A class can implement multiple interfaces to combine different behaviors, enabling modular design.</li>
+        <li><strong>Contract Enforcement</strong>: Interfaces define contracts that a class must follow, ensuring consistent behavior across unrelated classes.</li>
+        <li><strong>Avoiding Class Hierarchy Restrictions</strong>: Unlike single inheritance with classes, interfaces allow a class to inherit multiple sets of functionality without being tied to a single superclass.</li>
+        <li><strong>Polymorphism</strong>: A class implementing multiple interfaces can be treated as any of those interface types, increasing code reusability.</li>
+      </ul>
+
+      <h2>Multiple Interfaces</h2>
+      <p>A class can implement multiple interfaces, enabling multiple inheritance of behavior in Java.</p>
+      <div class="abc">
+        interface Drivable {<br>
+          void drive();<br>
+        }<br><br>
+        interface Rechargeable {<br>
+          void charge();<br>
+        }<br><br>
+        class ElectricCar implements Drivable, Rechargeable {<br>
+          public void drive() {<br>
+            System.out.println("Electric car is driving");<br>
+          }<br><br>
+          public void charge() {<br>
+            System.out.println("Electric car is charging");<br>
+          }<br>
+        }<br><br>
+        public class MultipleInterfacesExample {<br>
+          public static void main(String[] args) {<br>
+            ElectricCar car = new ElectricCar();<br>
+            car.drive();<br>
+            car.charge();<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Electric car is driving<br>
+        Electric car is charging
+      </div>
+
+      <h2>Multiple Inheritance with Interfaces Example</h2>
+      <p>This example demonstrates multiple inheritance using interfaces to define methods for printing even and odd numbers, with a class implementing both interfaces to provide functionality for printing numbers from 1 to 100.</p>
+      <div class="abc">
+        interface EvenNumberPrinter {<br>
+          void printEvenNumbers(int start, int end);<br>
+        }<br><br>
+        interface OddNumberPrinter {<br>
+          void printOddNumbers(int start, int end);<br>
+        }<br><br>
+        class NumberPrinter implements EvenNumberPrinter, OddNumberPrinter {<br>
+          public void printEvenNumbers(int start, int end) {<br>
+            System.out.println("Even numbers from " + start + " to " + end + ":");<br>
+            for (int i = start; i <= end; i++) {<br>
+              if (i % 2 == 0) {<br>
+                System.out.print(i + " ");<br>
+              }<br>
+            }<br>
+            System.out.println();<br>
+          }<br><br>
+          public void printOddNumbers(int start, int end) {<br>
+            System.out.println("Odd numbers from " + start + " to " + end + ":");<br>
+            for (int i = start; i <= end; i++) {<br>
+              if (i % 2 != 0) {<br>
+                System.out.print(i + " ");<br>
+              }<br>
+            }<br>
+            System.out.println();<br>
+          }<br>
+        }<br><br>
+        public class MultipleInheritanceExample {<br>
+          public static void main(String[] args) {<br>
+            NumberPrinter printer = new NumberPrinter();<br>
+            printer.printEvenNumbers(1, 100);<br>
+            printer.printOddNumbers(1, 100);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Even numbers from 1 to 100:<br>
+        2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 76 78 80 82 84 86 88 90 92 94 96 98 100<br>
+        Odd numbers from 1 to 100:<br>
+        1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51 53 55 57 59 61 63 65 67 69 71 73 75 77 79 81 83 85 87 89 91 93 95 97 99
+      </div>
+
+      <h2>Example Program: Print Even and Odd Numbers (1 to 100)</h2>
+      <p>This program uses an interface to define methods for printing even and odd numbers from 1 to 100, demonstrating interface implementation with a practical example.</p>
+      <div class="abc">
+        interface NumberPrinter {<br>
+          void printEvenNumbers(int start, int end);<br>
+          void printOddNumbers(int start, int end);<br>
+        }<br><br>
+        class NumberUtility implements NumberPrinter {<br>
+          public void printEvenNumbers(int start, int end) {<br>
+            System.out.println("Even numbers from " + start + " to " + end + ":");<br>
+            for (int i = start; i <= end; i++) {<br>
+              if (i % 2 == 0) {<br>
+                System.out.print(i + " ");<br>
+              }<br>
+            }<br>
+            System.out.println();<br>
+          }<br><br>
+          public void printOddNumbers(int start, int end) {<br>
+            System.out.println("Odd numbers from " + start + " to " + end + ":");<br>
+            for (int i = start; i <= end; i++) {<br>
+              if (i % 2 != 0) {<br>
+                System.out.print(i + " ");<br>
+              }<br>
+            }<br>
+            System.out.println();<br>
+          }<br>
+        }<br><br>
+        public class EvenOddPrinter {<br>
+          public static void main(String[] args) {<br>
+            NumberPrinter printer = new NumberUtility();<br>
+            printer.printEvenNumbers(1, 100);<br>
+            printer.printOddNumbers(1, 100);<br>
+          }<br>
+        }
+      </div>
+      <h3>Output</h3>
+      <div class="cde">
+        Even numbers from 1 to 100:<br>
+        2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 76 78 80 82 84 86 88 90 92 94 96 98 100<br>
+        Odd numbers from 1 to 100:<br>
+        1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51 53 55 57 59 61 63 65 67 69 71 73 75 77 79 81 83 85 87 89 91 93 95 97 99
+      </div>
+
+      <h2>Important Notes</h2>
+      <ul>
+        <li>Interfaces cannot be instantiated; they are implemented by classes.</li>
+        <li>All interface methods are implicitly <code>public</code> and <code>abstract</code> unless specified as <code>default</code> or <code>static</code>.</li>
+        <li>Interfaces support multiple inheritance, unlike classes in Java, allowing a class to implement multiple behaviors.</li>
+        <li><code>default</code> methods provide a way to add new functionality to interfaces without breaking existing implementations.</li>
+        <li>Interfaces are useful for defining contracts that classes must follow, ensuring consistent behavior.</li>
+        <li>Multiple inheritance with interfaces avoids the diamond problem by not including state or conflicting implementations.</li>
+      </ul>
+
+      <div class="navigation-buttons">
+        <a href="constructor.html" class="btn btn-primary">Previous</a>
+        <a href="inheritance.html" class="btn btn-primary">Continue to Inheritance</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

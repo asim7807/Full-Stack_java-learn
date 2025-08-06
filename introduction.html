@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Introduction - Java Tutorial Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+.toggle-btn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background-color: #04AA6D;
+      color: white;
+      padding: 10px 15px;
+      cursor: pointer;
+      z-index: 1001;
+      border: none;
+      font-size: 20px;
+      display: none; /* Hidden by default */
+    }
+/* Sidebar */
+.sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+ .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+
+.nav {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+}
+
+.nav-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #059862;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    max-width: 1000px;
+}
+
+.content-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-container h1 {
+    font-size: 2.5rem;
+    color: #04AA6D;
+    margin-bottom: 1rem;
+}
+
+.content-container h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 1.5rem 0 1rem;
+}
+
+.content-container h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+}
+
+.content-container p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.content-container ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    color: #333; /* Changed to dark gray for content ul elements */
+}
+
+.content-container ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    background-color: #282A35;
+    padding: 1rem;
+    text-align: center;
+}
+
+.nav-title {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Example Box */
+    .example-box {
+        background-color: #f9f9f9;
+        border-left: 5px solid #04AA6D;
+        padding: 1.5rem;
+        border-radius: 4px;
+        margin: 2rem 0;
+    }
+
+    .example-box h3 {
+        font-size: 1.4rem;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .example-box pre {
+        background-color: #282A35;
+        color: white;
+        padding: 1rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+    }
+
+    .example-box pre.output {
+        background-color: #e7e9eb;
+        color: #333;
+    }
+
+/* Feature Image */
+.feature-image {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem auto;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #059862;
+}
+
+.btn-primary {
+    background-color: #282A35;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3a3c4a;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Footer */
+
+/* Responsive Design */
+/* Sidebar default hidden on small screens */
+    @media (max-width: 768px) {
+        .toggle-btn {
+            display: block;
+        }
+        .sidebar {
+            transform: translateX(-100%);
+            position: fixed;
+            z-index: 1000;
+            width: 250px;
+            top: 0;
+            left: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+
+    </style>
+</head>
+<body>
+     <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Java Topics</h3>
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="introduction.html">Introduction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="setup.html">Installation & Setup</a>
+            </li>
+                 <li class="nav-item">
+                <a class="nav-link active" href="version.html">Versions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="pack.html">JDK,JRE,JVM</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="variables.html">Variables</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="datatypes.html">Datatypes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="typecasting.html">TypeCasting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="operators.html">Operators</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="string.html">String</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="math.html">Math</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="boolean.html">Boolean</a>
+            </li>
+            <li class="nav-item"><a class="nav-link active" href="io.html">User Input/Output</a></li>
+         <li class="nav-item"><a class="nav-link active" href="condition.html">Conditional Statements</a></li>
+        <li class="nav-item"><a class="nav-link active" href="iterations.html">Looping Statements</a></li>
+        <li class="nav-item"><a class="nav-link active" href="arrays.html">Arrays</a></li>
+        <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+        <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+         <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+         <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+         <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+         <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <span class="nav-title">Java Topics</span>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="content-container">
+            <h1>What is Java?</h1>
+            <p>Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is widely used for building enterprise-scale applications.</p>
+
+            <h2>History of Java</h2>
+            <p>Java programming language was created by James Gosling in 1995. The original idea was to design a language for the television industry. Gosling worked along with his team, also called the Green Team, and the project they worked on was called Greentalk. This project was later named OAK. The name OAK has its roots in the oak tree that stood outside Gosling’s office. This name had to be dropped later as it was already a trademark by Oak Technologies.</p>
+            <h3>So how was the name Java suggested?</h3>
+            <p>Since the language could no longer be named OAK, Gosling and his team had to come up with a new name. The team considered various names like DNA, RUBY, JAVA, jolt, dynamic, revolutionary, SILK. But the name had to be unique and quite easy to say. The name JAVA occurred in Gosling’s mind while having a cup of coffee at his office.</p>
+
+            <h2>Features</h2>
+            <img src="features-of-java.png" alt="Features of Java" class="feature-image">
+            <ul>
+                <li><strong>Object Oriented:</strong> In object-oriented programming, everything is an object rather than functions and logic.</li>
+                <li><strong>Simple:</strong> Java is simple to understand, easy to learn, and implement.</li>
+                <li><strong>Secured:</strong> It is possible to design secured software systems using Java.</li>
+                <li><strong>Platform Independent:</strong> Java is a write-once, run-anywhere language, meaning once the code is written, it can be executed on any software and hardware systems.</li>
+                <li><strong>Portable:</strong> Java is not necessarily fixated on a single hardware machine. Once created, Java code can be used on any platform.</li>
+                <li><strong>Architecture Neutral:</strong> Java is architecture neutral, meaning the size of primitive types is fixed and does not vary depending upon the type of architecture.</li>
+                <li><strong>Robust:</strong> Java emphasizes a lot on error handling, type checking, memory management, etc. This makes it a robust language.</li>
+                <li><strong>Interpreted:</strong> Java converts high-level program statements into Assembly Level Language, thus making it interpreted.</li>
+                <li><strong>Dynamic:</strong> Java is designed to adapt to ever-evolving systems, thus making it dynamic.</li>
+                <li><strong>Multi-thread:</strong> Multi-threading is an important feature provided by Java for creating web applications.</li>
+                <li><strong>High-performance:</strong> Java uses a Just-In-Time compiler, thus giving us high performance.</li>
+            </ul>
+
+            <h2>What Can Java Do?</h2>
+            <ul>
+                <li>Web Applications</li>
+                <li>Mobile Applications (especially Android)</li>
+                <li>Desktop GUI Applications</li>
+                <li>Game Development</li>
+                <li>Big Data and Cloud Computing</li>
+            </ul>
+
+            <h2>Java Editions</h2>
+            <ul>
+                <li><strong>JSE:</strong> Java Standard Edition</li>
+                <li><strong>JEE:</strong> Java Enterprise Edition</li>
+                <li><strong>JME:</strong> Java Micro Edition</li>
+            </ul>
+
+            <div class="example-box">
+                <h3>Example: Hello World</h3>
+                <pre>
+                    <code>
+public class HelloJava {
+  public static void main(String[] args) {
+    System.out.println("Welcome to Java World!");
+  }
+}
+                    </code>
+                </pre>
+                <p><strong>Output:</strong></p>
+                <pre class="output">Welcome to Java World!</pre>
+                
+            </div>
+
+            <div class="navigation-buttons">
+                <a href="index.html" class="btn btn-primary">Previous</a>
+                <a href="setup.html" class="btn btn-primary">Continue to Setup</a>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+   document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.getElementById('toggleSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.getElementById('mainContent');
+
+      toggleBtn.addEventListener('click', () => {
+        // For small screens, use show/hide
+        if (window.innerWidth <= 768) {
+          sidebar.classList.toggle('show');
+        } else {
+          // For desktop, use collapsed class
+          sidebar.classList.toggle('collapsed');
+          mainContent.classList.toggle('collapsed');
+        }
+      });
+    });
+    </script>
+</body>
+</html>

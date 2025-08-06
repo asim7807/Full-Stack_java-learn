@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Input/Output in Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+    }
+    .toggle-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background-color: #04AA6D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    code {
+      color: #04AA6D;
+    }
+    .abc {
+      border: 2px solid #888;
+      background-color: rgb(53, 33, 53);
+      color: #059862;
+      border-radius: 0;
+      padding: 10px;
+      display: block;
+      margin: 10px 0;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+    .cde {
+      border: 2px solid #888; 
+      background-color: #a998b9; 
+      padding: 12px; 
+      border-radius: 4px; 
+      font-family: monospace; 
+      white-space: pre-wrap;
+    } 
+    .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .nav {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .nav-link {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: #059862;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      max-width: 1000px;
+    }
+    .content-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-container h1 {
+      font-size: 2.5rem;
+      color: #04AA6D;
+      margin-bottom: 1rem;
+    }
+    .content-container h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+    }
+    .content-container h3 {
+      font-size: 1.4rem;
+      color: #333;
+      margin: 1rem 0 0.5rem;
+    }
+    .content-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .content-container ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      color: #333;
+    }
+    .content-container ul li {
+      margin-bottom: 0.5rem;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #282A35;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a3c4a;
+    }
+    @media (max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+      .sidebar {
+        display: none;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+      }
+      .sidebar.sidebar-open {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .content-container h1 {
+        font-size: 2rem;
+      }
+    }   
+  </style>
+</head>
+<body>
+  <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Java Topics</h3>
+    </div>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="introduction.html">Introduction</a></li>
+      <li class="nav-item"><a class="nav-link" href="setup.html">Installation & Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="version.html">Versions</a></li>
+      <li class="nav-item"><a class="nav-link" href="pack.html">JDK, JRE, JVM</a></li>
+      <li class="nav-item"><a class="nav-link" href="variables.html">Variables</a></li>
+      <li class="nav-item"><a class="nav-link" href="datatypes.html">Datatypes</a></li>
+      <li class="nav-item"><a class="nav-link" href="typecasting.html">TypeCasting</a></li>
+      <li class="nav-item"><a class="nav-link" href="operators.html">Operators</a></li>
+      <li class="nav-item"><a class="nav-link" href="string.html">String</a></li>
+      <li class="nav-item"><a class="nav-link" href="math.html">Math</a></li>
+      <li class="nav-item"><a class="nav-link" href="boolean.html">Boolean</a></li>
+      <li class="nav-item"><a class="nav-link active" href="io.html">User Input/Output</a></li>
+      <li class="nav-item"><a class="nav-link active" href="condition.html">Conditional Statements</a></li>
+      <li class="nav-item"><a class="nav-link active" href="iterations.html">Looping Statements</a></li>
+      <li class="nav-item"><a class="nav-link active" href="arrays.html">Arrays</a></li>
+      <li class="nav-item"><a class="nav-link active" href="methods.html">Methods</a></li>
+      <li class="nav-item"><a class="nav-link active" href="oops.html">OOP Concepts</a></li>
+       <li class="nav-item"><a class="nav-link active" href="interface.html">Interfaces</a></li>
+       <li class="nav-item"><a class="nav-link active" href="constructor.html">Constructors</a></li>
+       <li class="nav-item"><a class="nav-link active" href="package.html">Packages</a></li>
+       <li class="nav-item"><a class="nav-link" href="error.html">Errors</a></li>
+      <li class="nav-item"><a class="nav-link active" href="exception.html">Exception Handling</a></li>
+      <li class="nav-item"><a class="nav-link active" href="multithreading.html">Multithreading</a></li>
+      <li class="nav-item"><a class="nav-link active" href="collections.html">Java Collections</a></li>
+      <li class="nav-item"><a class="nav-link active" href="jdbc.html">JDBC</a></li>
+      <li class="nav-item"><a class="nav-link active" href="awt.html">AWT</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="content-container">
+      <h1>User Input/Output</h1>
+
+      <h2>Taking Input:</h2>
+      <p>To take input from the user in Java, we use the <code>Scanner</code> class which is part of the <code>java.util</code> package.</p>
+
+      <div class="abc">
+        import java.util.Scanner;
+      </div>
+
+      <p>We need to create a Scanner object and use its methods to read data from the user.</p>
+
+      <h3>Example: Reading a String</h3>
+      <div class="abc">
+        Scanner input = new Scanner(System.in);<br>
+        System.out.print("Enter your name: ");<br>
+        String name = input.nextLine();<br>
+        System.out.println("Hello, " + name + "!");
+      </div>
+
+      <h3>Example: Reading an Integer</h3>
+      <div class="abc">
+        Scanner input = new Scanner(System.in);<br>
+        System.out.print("Enter your age: ");<br>
+        int age = input.nextInt();<br>
+        System.out.println("Your age is: " + age);
+      </div>
+
+      <h3>Example: Reading a Floating-point Number</h3>
+      <div class="abc">
+        Scanner input = new Scanner(System.in);<br>
+        System.out.print("Enter your GPA: ");<br>
+        float gpa = input.nextFloat();<br>
+        System.out.println("Your GPA is: " + gpa);
+      </div>
+
+      <h2>Displaying Output:</h2>
+      <p>To display output on the screen, we use:</p>
+      <ul>
+        <li><code>System.out.print()</code> – prints on the same line</li>
+        <li><code>System.out.println()</code> – prints on a new line</li>
+      </ul>
+
+      <h3>Example:</h3>
+      <div class="abc">
+        System.out.print("Welcome ");<br>
+        System.out.println("to Java!");
+      </div>
+
+      <h2>Important Notes:</h2>
+      <ul>
+        <li>Always close the Scanner object after use: <code>input.close();</code></li>
+        <li><code>nextLine()</code> reads a full line, including spaces.</li>
+        <li><code>next()</code> only reads one word (stops at space).</li>
+        <li>Mixing <code>nextInt()</code> and <code>nextLine()</code> can cause issues; consume the leftover newline using <code>input.nextLine()</code> after <code>nextInt()</code>.</li>
+      </ul>
+
+      <h2>Scanner Methods:</h2>
+      <p>The <code>Scanner</code> class provides several methods to read different types of inputs from the user. Here's a list of commonly used ones:</p>
+
+      <table style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+        <thead>
+          <tr style="background-color: #04AA6D; color: white;">
+            <th style="border: 1px solid #ccc; padding: 10px;">Method</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">Description</th>
+            <th style="border: 1px solid #ccc; padding: 10px;">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>next()</code></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">Reads a single word (no spaces).</td>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>String name = input.next();</code></td>
+          </tr>
+          <tr style="background-color: #f9f9f9;">
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>nextLine()</code></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">Reads a whole line (including spaces).</td>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>String line = input.nextLine();</code></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>nextInt()</code></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">Reads an integer.</td>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>int num = input.nextInt();</code></td>
+          </tr>
+          <tr style="background-color: #f9f9f9;">
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>nextFloat()</code></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">Reads a float value.</td>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>float f = input.nextFloat();</code></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>nextDouble()</code></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">Reads a double value.</td>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>double d = input.nextDouble();</code></td>
+          </tr>
+          <tr style="background-color: #f9f9f9;">
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>nextBoolean()</code></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">Reads a boolean value (<code>true</code>/<code>false</code>).</td>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>boolean flag = input.nextBoolean();</code></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>close()</code></td>
+            <td style="border: 1px solid #ccc; padding: 10px;">Closes the Scanner object.</td>
+            <td style="border: 1px solid #ccc; padding: 10px;"><code>input.close();</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Example Java Program</h2>
+      <div class="abc">
+        <code>
+import java.util.Scanner;<br><br>
+public class UserInputExample {<br>
+&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Scanner input = new Scanner(System.in);<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.print("Enter your name: ");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;String name = input.nextLine();<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.print("Enter your age: ");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int age = input.nextInt();<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.print("Enter your percentage: ");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float percent = input.nextFloat();<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("\n--- Output ---");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Name: " + name);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Age: " + age);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Percentage: " + percent + "%");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;input.close();<br>
+&nbsp;&nbsp;}<br>
+}
+        </code>
+      </div>
+
+      <h2>Output</h2>
+      <div class="cde">
+        Enter your name: Asim<br>
+        Enter your age: 20<br>
+        Enter your percentage: 87.5<br><br>
+        --- Output ---<br>
+        Name: Asim<br>
+        Age: 20<br>
+        Percentage: 87.5%
+      </div>
+
+      <div class="navigation-buttons">
+        <a href="boolean.html" class="btn btn-primary">Previous</a>
+        <a href="typecasting.html" class="btn btn-primary">Continue to TypeCasting</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWT Components in Java</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+        .sidebar.active {
+            left: 0;
+            width: 175px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #ecf0f1;
+            display: block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .sidebar .active {
+            background-color: #219653;
+            color: #fff;
+        }
+
+        /* Toggle Button Styling */
+        .toggle-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 0;
+            padding: 60px 20px 20px 20px;
+            min-height: 100vh;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .main-content.shifted {
+            margin-left: 175px;
+        }
+
+        h1 {
+            color: #27ae60;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        h2, h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #555;
+            padding-left: 10px;
+        }
+
+        em {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #27ae60;
+            color: #fff;
+        }
+
+        pre {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 10px;
+            font-size: 14px;
+        }
+
+        code {
+            color: #c0392b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        ol {
+            margin: 10px 0 15px 30px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+                width: 50%;
+            }
+
+            .toggle-btn {
+                top: 5px;
+                left: 5px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+
+            .main-content {
+                padding-top: 50px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .sidebar a {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 40px 10px 10px 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            pre {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .toggle-btn {
+                padding: 8px 12px;
+                font-size: 16px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar">
+        <a href="awt.html">AWT</a>
+      <a class="nav-link active" href="awt-class.html">AWT-Classes</a>
+      <a href="components.html">AWT-Components</a>
+      <a href="container.html">AWT-Containers</a>
+      <a href="event-handling.html">Event Handling</a>
+      <a href="button.html">AWT-Buttons</a>
+      <a href="label.html">AWT-Labels</a>
+      <a href="textarea.html">AWT-Textfield</a></li>
+      <a href="textarea.html">AWT-Textarea</a>
+      <a href="checkbox.html">AWT-Checkboxes</a>
+      <a href="checkboxgroup.html">AWT-checkboxegroup</a>
+      <a href="awt-class.html">AWT-Scrollbar</a>
+      <a href="menu.html ">AWT-Menu</a>
+      <a href="actionlistener.html">ActionListener</a>
+      <a href="mouselistener.html">MouseListener</a>
+      <a class="nav-link active" href="awt-class.html">ItemListener</a>
+      <a href="keylistener.html">keylistener</a>
+      <a href="windowlistener.html">WindowListener</a>
+
+    </div>
+
+    <div class="main-content">
+        <h1 id="introduction">AWT Components in Java</h1>
+        <p><em>28 Mar 2025 | 3 min read</em></p>
+        <p>AWT stands for Abstract Window Toolkit. It provides various GUI component classes like Label, Buttons, Text Boxes, Labels, and Menus, etc., to show window components on the screen. All these classes are part of the Java.awt package. It is heavy-weight.</p>
+        <p>AWT is platform-dependent because it relies on the underlying operating system (OS) and native GUI components. It implies that an AWT-based program can be seen differently on Linux, macOS or Windows.</p>
+
+        <h2 id="hierarchy">AWT Hierarchy</h2>
+        <p>The following image represents the hierarchy for Java AWT.</p>
+        <img src="awt-components-in-java.png" alt="AWT Hierarchy">
+
+        <h2 id="components">AWT Components</h2>
+        <table border="1">
+            <tr>
+                <th>S.N.</th>
+                <th>Component</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Button</td>
+                <td>It is a simple push button that triggers an action when clicked.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Canvas</td>
+                <td>It is a blank rectangular area where custom graphics can be drawn.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Checkbox</td>
+                <td>It is a component that allows the user to select or deselect an option.</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Choice</td>
+                <td>It is a drop-down list that allows the user to select a single item from a predefined set of options.</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Label</td>
+                <td>It is a component that displays static text.</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>List</td>
+                <td>It is a component that displays a scrollable list of items, allowing the user to select one or more items.</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Scrollbar</td>
+                <td>It is a component that allows the user to scroll through a large amount of content that exceeds the visible area.</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>TextArea</td>
+                <td>It is a multi-line text input area where the user can enter and edit text.</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>TextField</td>
+                <td>It is a single-line text input area where the user can enter and edit text.</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Frame</td>
+                <td>It is a top-level window with a title bar and border, used as the main container for other AWT components.</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Panel</td>
+                <td>It is a container that can hold other components, but does not have a title bar or border.</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Dialog</td>
+                <td>It is a pop-up window used to display information or get input from the user.</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Menu</td>
+                <td>It is a list of commands that can be accessed from a menu bar.</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>MenuBar</td>
+                <td>It is a bar at the top of a frame that contains menus.</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>MenuItem</td>
+                <td>It is an individual command within a menu.</td>
+            </tr>
+        </table>
+
+        <h2 id="program">AWT Java Program</h2>
+        <p>1. //Java Program to create AWT application in Java</p>
+        <pre><code>
+import java.awt.*;
+public class AwtApp extends Frame {
+    AwtApp(){
+        //Creating AWT Components
+        Label firstName = new Label("First Name");
+        firstName.setBounds(20, 50, 80, 20);
+        Label lastName = new Label("Last Name");
+        lastName.setBounds(20, 80, 80, 20);
+        Label dob = new Label("Date of Birth");
+        dob.setBounds(20, 110, 80, 20);
+        TextField firstNameTF = new TextField();
+        firstNameTF.setBounds(120, 50, 100, 20);
+        TextField lastNameTF = new TextField();
+        lastNameTF.setBounds(120, 80, 100, 20);
+        TextField dobTF = new TextField();
+        dobTF.setBounds(120, 110, 100, 20);
+        Button sbmt = new Button("Submit");
+        sbmt.setBounds(20, 160, 100, 30);
+        Button reset = new Button("Reset");
+        reset.setBounds(120, 160, 100, 30);
+        //Adding components on Frame
+        add(firstName);
+        add(lastName);
+        add(dob);
+        add(firstNameTF);
+        add(lastNameTF);
+        add(dobTF);
+        add(sbmt);
+        add(reset);
+        //Set size, layout and visibility of the frame
+        setSize(300, 300);
+        setLayout(null);
+        setVisible(true);
+    }
+    //Creating main method to create the object of the class
+    public static void main(String[] args) {
+        AwtApp awt = new AwtApp();
+    }
+}
+        </code></pre>
+        <p>Output:</p>
+        <img src="awt-components-in-java2.png" alt="AWT Program Output ">
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('shifted');
+        }
+    </script>
+</body>
+</html>

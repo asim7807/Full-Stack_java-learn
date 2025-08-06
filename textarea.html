@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java AWT TextArea</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+       .sidebar {
+      width: 250px;
+      background-color: #04AA6D;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+        .sidebar.active {
+            left: 0;
+            width: 175px;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #ecf0f1;
+            display: block;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .sidebar .active {
+            background-color: #219653;
+            color: #fff;
+        }
+
+        /* Toggle Button Styling */
+        .toggle-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 0;
+            padding: 60px 20px 20px 20px;
+            min-height: 100vh;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .main-content.shifted {
+            margin-left: 175px;
+        }
+
+        h1 {
+            color: #27ae60;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        h2, h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #555;
+            padding-left: 10px;
+        }
+
+        em {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #27ae60;
+            color: #fff;
+        }
+
+        pre {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 10px;
+            font-size: 14px;
+        }
+
+        code {
+            color: #c0392b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        ol {
+            margin: 10px 0 15px 30px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+                width: 50%;
+            }
+
+            .toggle-btn {
+                top: 5px;
+                left: 5px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+
+            .main-content {
+                padding-top: 50px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .sidebar a {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 40px 10px 10px 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            pre {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .toggle-btn {
+                padding: 8px 12px;
+                font-size: 16px;
+            }
+
+            .main-content.shifted {
+                margin-left: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar">
+       <a href="awt.html">AWT</a>
+      <a class="nav-link active" href="awt-class.html">AWT-Classes</a>
+      <a href="components.html">AWT-Components</a>
+      <a href="container.html">AWT-Containers</a>
+      <a href="event-handling.html">Event Handling</a>
+      <a href="button.html">AWT-Buttons</a>
+      <a href="label.html">AWT-Labels</a>
+      <a href="textarea.html">AWT-Textfield</a></li>
+      <a href="textarea.html">AWT-Textarea</a>
+      <a href="checkbox.html">AWT-Checkboxes</a>
+      <a href="checkboxgroup.html">AWT-checkboxegroup</a>
+      <a href="awt-class.html">AWT-Scrollbar</a>
+      <a href="menu.html ">AWT-Menu</a>
+      <a href="actionlistener.html">ActionListener</a>
+      <a href="mouselistener.html">MouseListener</a>
+      <a class="nav-link active" href="awt-class.html">ItemListener</a>
+      <a href="keylistener.html">keylistener</a>
+      <a href="windowlistener.html">WindowListener</a>
+
+    </div>
+
+    <div class="main-content">
+        <h1 id="introduction">Java AWT TextArea</h1>
+        <p><em>17 Mar 2025 | 4 min read</em></p>
+        <p>The object of a TextArea class is a multiline region that displays text. It allows the editing of multiple line text. It inherits TextComponent class.</p>
+        <p>The text area allows us to type as much text as we want. When the text in the text area becomes larger than the viewable area, the scroll bar appears automatically which helps us to scroll the text up and down, or right and left.</p>
+
+        <h2 id="declaration">AWT TextArea Class Declaration</h2>
+        <p>public class TextArea extends TextComponent</p>
+
+        <h2 id="fields">Fields of TextArea Class</h2>
+        <p>The fields of java.awt.TextArea class are as follows:</p>
+        <ul>
+            <li>static int SCROLLBARS_BOTH - It creates and displays both horizontal and vertical scrollbars.</li>
+            <li>static int SCROLLBARS_HORIZONTAL_ONLY - It creates and displays only the horizontal scrollbar.</li>
+            <li>static int SCROLLBARS_VERTICAL_ONLY - It creates and displays only the vertical scrollbar.</li>
+            <li>static int SCROLLBARS_NONE - It doesn't create or display any scrollbar in the text area.</li>
+        </ul>
+
+        <h2 id="constructors">Class Constructors</h2>
+        <table border="1">
+            <tr>
+                <th>Sr. no.</th>
+                <th>Constructor</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>TextArea()</td>
+                <td>It constructs a new and empty text area with no text in it.</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>TextArea(int row, int column)</td>
+                <td>It constructs a new text area with specified number of rows and columns and empty string as text.</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>TextArea(String text)</td>
+                <td>It constructs a new text area and displays the specified text in it.</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>TextArea(String text, int row, int column)</td>
+                <td>It constructs a new text area with the specified text in the text area and specified number of rows and columns.</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>TextArea(String text, int row, int column, int scrollbars)</td>
+                <td>It constructs a new text area with the specified text, number of rows and columns, and scrollbars.</td>
+            </tr>
+        </table>
+
+        <h2 id="methods">TextArea Class Methods</h2>
+        <table border="1">
+            <tr>
+                <th>Sr. no.</th>
+                <th>Method name</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>void addNotify()</td>
+                <td>It creates the peer of the text area.</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Dimension getPreferredSize()</td>
+                <td>It returns the preferred size of the text area.</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Dimension getMinimumSize()</td>
+                <td>It returns the minimum size of the text area.</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>Dimension getMinimumSize(int rows, int columns)</td>
+                <td>It returns the minimum size needed to display the specified number of rows and columns.</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>AccessibleContext getAccessibleContext()</td>
+                <td>It gets the AccessibleContext associated with this TextArea.</td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>int getColumns()</td>
+                <td>It returns the number of columns in the text area.</td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>Dimension getPreferredSize(int rows, int columns)</td>
+                <td>It returns the preferred size for a text area with the specified number of rows and columns.</td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>int getRows()</td>
+                <td>It returns the number of rows in the text area.</td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>boolean handleEvent(Event evt)</td>
+                <td>It handles the specified event.</td>
+            </tr>
+            <tr>
+                <td>10.</td>
+                <td>protected String paramString()</td>
+                <td>It returns a string representing the state of this TextArea.</td>
+            </tr>
+            <tr>
+                <td>11.</td>
+                <td>boolean isFocusTraversable()</td>
+                <td>It determines if the text area is focus traversable.</td>
+            </tr>
+            <tr>
+                <td>12.</td>
+                <td>void setColumns(int columns)</td>
+                <td>It sets the number of columns for the text area.</td>
+            </tr>
+            <tr>
+                <td>13.</td>
+                <td>void setRows(int rows)</td>
+                <td>It sets the number of rows for the text area.</td>
+            </tr>
+            <tr>
+                <td>14.</td>
+                <td>protected void processEvent(AWTEvent e)</td>
+                <td>It processes events on this text area.</td>
+            </tr>
+            <tr>
+                <td>15.</td>
+                <td>protected void processTextEvent(TextEvent e)</td>
+                <td>It processes text events occurring on this text area.</td>
+            </tr>
+        </table>
+
+        <h2 id="examples">Examples</h2>
+        <h3>Java AWT TextArea Example</h3>
+        <p>TextAreaExample.java</p>
+        <pre><code>
+import java.awt.*;
+public class TextAreaExample {
+    public static void main(String args[]) {
+        Frame f = new Frame("TextArea Example");
+        TextArea area = new TextArea("Welcome to Java AWT\nThis is a multiline text area.");
+        area.setBounds(10, 30, 300, 300);
+        f.add(area);
+        f.setSize(400, 400);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+}
+        </code></pre>
+        <p>Output:</p>
+        <img src="textarea1.jpg" alt="Java AWT TextArea Example 1">
+
+        <h3>Java AWT TextArea Example with ActionListener</h3>
+        <p>The following example displays a text area in the frame where it extends the Frame class and implements ActionListener interface. Using ActionListener the event is generated on the button press, where we are counting the number of character and words entered in the text area.</p>
+        <p>TextAreaExample2.java</p>
+        <pre><code>
+import java.awt.*;
+import java.awt.event.*;
+public class TextAreaExample2 extends Frame implements ActionListener {
+    Label l1, l2;
+    TextArea area;
+    Button b;
+
+    TextAreaExample2() {
+        l1 = new Label();
+        l1.setBounds(50, 50, 100, 30);
+        l2 = new Label();
+        l2.setBounds(160, 50, 100, 30);
+        area = new TextArea();
+        area.setBounds(20, 100, 300, 300);
+        b = new Button("Count Words");
+        b.setBounds(100, 400, 100, 30);
+        b.addActionListener(this);
+        add(l1);
+        add(l2);
+        add(area);
+        add(b);
+        setSize(400, 450);
+        setLayout(null);
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e) {
+        String text = area.getText();
+        String words[] = text.split("\\s");
+        l1.setText("Words: " + words.length);
+        l2.setText("Characters: " + text.length());
+    }
+    public static void main(String[] args) {
+        new TextAreaExample2();
+    }
+}
+        </code></pre>
+        <p>Output:</p>
+        <img src="textarea2.jpg" alt="Java AWT TextArea Example 2">
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('shifted');
+        }
+    </script>
+</body>
+</html>
